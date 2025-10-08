@@ -1,0 +1,684 @@
+2025-10-08 14:34:34.112 | ERROR   | services.logger:handle_exception:79 - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\USER\BotUnik\run.py", line 60, in <module>
+    asyncio.run(main())
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 641, in run_until_complete
+    return future.result()
+  File "C:\Users\USER\BotUnik\run.py", line 41, in main
+    admin_router.message.middleware(AdminGateMiddleware(admin_id=ADMIN_ID))
+TypeError: Can't instantiate abstract class AdminGateMiddleware with abstract method __call__
+2025-10-08 14:36:19.703 | ERROR   | services.logger:handle_exception:79 - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\USER\BotUnik\run.py", line 60, in <module>
+    asyncio.run(main())
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 641, in run_until_complete
+    return future.result()
+  File "C:\Users\USER\BotUnik\run.py", line 56, in main
+    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 527, in start_polling
+    loggers.dispatcher.info("Start polling")
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\logging\__init__.py", line 1468, in info
+    self._log(INFO, msg, args, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\logging\__init__.py", line 1615, in _log
+    self.handle(record)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\logging\__init__.py", line 1625, in handle
+    self.callHandlers(record)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\logging\__init__.py", line 1687, in callHandlers
+    hdlr.handle(record)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\logging\__init__.py", line 967, in handle
+    self.emit(record)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\logging\__init__.py", line 951, in emit
+    raise NotImplementedError('emit must be implemented '
+NotImplementedError: emit must be implemented by Handler subclasses
+2025-10-08 14:39:32.366 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 14:39:32.418 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 14:39:41.539 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 14:39:41.820 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366766 is handled. Duration 281 ms by bot id=7920918630
+2025-10-08 14:44:48.176 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 14:44:48.176 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 14:59:37.701 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 14:59:37.755 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:00:03.196 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:00:03.196 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366767 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:00:03.196 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366767 by bot id=7920918630
+AttributeError: type object 'AsyncDB' has no attribute 'user_exists'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 12, in cmd_start
+    user_exists = await AsyncDB.user_exists(message.from_user.id)
+AttributeError: type object 'AsyncDB' has no attribute 'user_exists'
+2025-10-08 15:09:57.973 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:09:57.974 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:11:17.083 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:11:17.135 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:11:24.682 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:11:24.682 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366768 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:11:24.682 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366768 by bot id=7920918630
+TypeError: AsyncDB.user_exists() missing 1 required positional argument: 'user_id'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 12, in cmd_start
+    user_exists = await AsyncDB.user_exists(message.from_user.id)
+TypeError: AsyncDB.user_exists() missing 1 required positional argument: 'user_id'
+2025-10-08 15:14:02.934 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:14:02.935 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:14:10.556 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:14:10.607 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:14:13.450 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:14:13.450 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366769 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:14:13.450 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366769 by bot id=7920918630
+TypeError: cmd_start() missing 1 required positional argument: 'db'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+TypeError: cmd_start() missing 1 required positional argument: 'db'
+2025-10-08 15:14:25.340 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:14:25.341 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:14:30.766 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:14:30.816 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:14:32.460 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:14:32.460 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366770 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:14:32.460 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366770 by bot id=7920918630
+TypeError: cmd_start() missing 1 required positional argument: 'db'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+TypeError: cmd_start() missing 1 required positional argument: 'db'
+2025-10-08 15:14:59.027 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:14:59.027 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:15:04.296 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:15:04.358 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:15:05.606 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:15:05.606 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366771 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:15:05.606 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366771 by bot id=7920918630
+TypeError: cmdd_start() missing 1 required positional argument: 'db'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+TypeError: cmdd_start() missing 1 required positional argument: 'db'
+2025-10-08 15:15:21.489 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:15:21.489 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:15:24.204 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:15:24.253 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:15:24.857 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:15:24.857 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366772 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:15:24.858 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366772 by bot id=7920918630
+TypeError: AsyncDB.user_exists() missing 1 required positional argument: 'user_id'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 12, in cmd_start
+    user_exists = await AsyncDB.user_exists(message.from_user.id)
+TypeError: AsyncDB.user_exists() missing 1 required positional argument: 'user_id'
+2025-10-08 15:15:48.990 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:15:48.990 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:24:07.363 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:24:07.411 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:24:08.014 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:24:08.014 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366773 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:24:08.015 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366773 by bot id=7920918630
+AttributeError: 'NoneType' object has no attribute 'acquire'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 12, in cmd_start
+    user_exists = await db.user_exists(message.from_user.id)
+  File "C:\Users\USER\BotUnik\database\user.py", line 28, in user_exists
+    async with self.pool.acquire() as conn:
+AttributeError: 'NoneType' object has no attribute 'acquire'
+2025-10-08 15:24:48.152 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:24:48.153 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:24:55.079 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:24:55.129 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:24:55.858 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:24:55.858 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366774 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:24:55.858 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366774 by bot id=7920918630
+AttributeError: 'NoneType' object has no attribute 'acquire'
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 12, in cmd_start
+    user_exists = await db.user_exists(message.from_user.id)
+  File "C:\Users\USER\BotUnik\database\user.py", line 32, in user_exists
+    async with self.pool.acquire() as conn:
+AttributeError: 'NoneType' object has no attribute 'acquire'
+2025-10-08 15:32:57.663 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:32:57.664 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:33:00.669 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:33:00.718 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:33:02.106 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:33:02.387 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366775 is handled. Duration 281 ms by bot id=7920918630
+2025-10-08 15:35:09.207 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:35:09.208 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:35:12.225 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:35:12.278 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:35:14.659 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:35:14.662 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366776 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-08 15:35:14.662 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366776 by bot id=7920918630
+UndefinedColumnError: столбец "addres" в таблице "users" не существует
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 15, in cmd_start
+    await db.add_user(message.from_user.id, message.from_user.username)
+  File "C:\Users\USER\BotUnik\database\user.py", line 40, in add_user
+    await conn.execute(query, user_id, username, 0.0, addres, captha, code)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 353, in execute
+    _, status, _ = await self._execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1794, in _execute
+    result, _ = await self.__execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1892, in __execute
+    result, stmt = await self._do_execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1925, in _do_execute
+    stmt = await self._get_statement(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 433, in _get_statement
+    statement = await self._protocol.prepare(
+  File "asyncpg\protocol\protocol.pyx", line 166, in prepare
+    return await waiter
+asyncpg.exceptions.UndefinedColumnError: столбец "addres" в таблице "users" не существует
+2025-10-08 15:36:06.373 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:36:06.375 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:36:12.628 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:36:12.678 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:36:13.386 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:36:13.389 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366777 is not handled. Duration 15 ms by bot id=7920918630
+2025-10-08 15:36:13.390 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366777 by bot id=7920918630
+PostgresSyntaxError: ошибка синтаксиса (примерное положение: ")")
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 15, in cmd_start
+    await db.add_user(message.from_user.id, message.from_user.username)
+  File "C:\Users\USER\BotUnik\database\user.py", line 39, in add_user
+    await conn.execute(query, user_id, username, 0.0)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 353, in execute
+    _, status, _ = await self._execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1794, in _execute
+    result, _ = await self.__execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1892, in __execute
+    result, stmt = await self._do_execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1925, in _do_execute
+    stmt = await self._get_statement(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 433, in _get_statement
+    statement = await self._protocol.prepare(
+  File "asyncpg\protocol\protocol.pyx", line 166, in prepare
+    return await waiter
+asyncpg.exceptions.PostgresSyntaxError: ошибка синтаксиса (примерное положение: ")")
+2025-10-08 15:37:59.503 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:37:59.505 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:38:02.490 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:38:02.538 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:38:04.010 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:38:04.159 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366778 is not handled. Duration 156 ms by bot id=7920918630
+2025-10-08 15:38:04.159 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366778 by bot id=7920918630
+TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Unexpected end tag at byte offset 23
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\BotUnik\middlewares\logging.py", line 23, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\BotUnik\middlewares\throttling.py", line 43, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\start.py", line 17, in cmd_start
+    await message.answer(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\bot.py", line 492, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\aiohttp.py", line 178, in make_request
+    response = self.check_response(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: can't parse entities: Unexpected end tag at byte offset 23
+2025-10-08 15:39:57.666 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:39:57.666 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:40:00.771 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:40:00.820 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:40:01.468 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:40:01.741 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366779 is handled. Duration 265 ms by bot id=7920918630
+2025-10-08 15:43:26.730 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:43:26.730 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 15:43:32.592 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 15:43:32.639 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 15:43:37.150 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 15:43:37.153 | INFO    | handlers.start:cmd_start:20 - User 6956440009 - makker_o already exists in database
+2025-10-08 15:43:37.425 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366780 is handled. Duration 280 ms by bot id=7920918630
+2025-10-08 16:45:14.412 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:45:14.412 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:45:17.706 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:45:17.754 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:45:18.332 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:45:18.334 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:45:18.615 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366781 is handled. Duration 282 ms by bot id=7920918630
+2025-10-08 16:45:21.382 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:45:21.382 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:45:21.570 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366782 is handled. Duration 187 ms by bot id=7920918630
+2025-10-08 16:45:48.381 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:45:48.381 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:45:51.577 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:45:51.625 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:45:53.504 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:45:53.505 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:45:53.787 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366783 is handled. Duration 281 ms by bot id=7920918630
+2025-10-08 16:45:55.820 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:45:55.821 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:45:56.022 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366784 is handled. Duration 203 ms by bot id=7920918630
+2025-10-08 16:46:15.731 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:46:15.731 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:46:23.510 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:46:23.561 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:46:23.791 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:46:23.793 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:46:24.064 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366785 is handled. Duration 280 ms by bot id=7920918630
+2025-10-08 16:46:53.069 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:46:53.070 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:46:55.864 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:46:55.914 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:46:56.558 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:46:56.559 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:46:56.882 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366786 is handled. Duration 328 ms by bot id=7920918630
+2025-10-08 16:47:13.239 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:47:13.239 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:47:16.810 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:47:16.859 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:47:17.423 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:47:17.424 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:47:17.776 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366787 is handled. Duration 344 ms by bot id=7920918630
+2025-10-08 16:47:30.692 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:47:30.692 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:47:40.660 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:47:40.712 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:47:40.773 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:47:40.775 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:47:40.979 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:47:40.980 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:47:41.097 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366788 is handled. Duration 328 ms by bot id=7920918630
+2025-10-08 16:47:41.322 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366789 is handled. Duration 343 ms by bot id=7920918630
+2025-10-08 16:49:23.974 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:49:23.974 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-08 16:49:27.585 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-08 16:49:27.632 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 16:49:28.050 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-08 16:49:28.051 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-08 16:49:28.327 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366790 is handled. Duration 280 ms by bot id=7920918630
+2025-10-08 16:49:30.747 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366791 is handled. Duration 359 ms by bot id=7920918630
+2025-10-08 17:40:04.765 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-08 17:40:04.766 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped

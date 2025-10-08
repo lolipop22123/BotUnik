@@ -1,3 +1,4 @@
+import os
 import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -5,6 +6,8 @@ from aiogram.enums.parse_mode import ParseMode
 
 from config import BOT_TOKEN, RATE_LIMIT_PER_MIN, ADMIN_ID
 from handlers import start, help, echo
+from handlers.User import profile
+
 from services.commands import setup_bot_commands
 from middlewares.logging import LoggingMiddleware
 from middlewares.throttling import ThrottlingMiddleware
@@ -16,6 +19,11 @@ from middlewares.admin_gate import AdminGateMiddleware
 from aiogram.filters import Command
 from aiogram import types
 from services.logger import setup_logging
+from database.user import db
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 admin_router = Router(name="admin")
@@ -24,9 +32,23 @@ admin_router = Router(name="admin")
 async def admin_ping(message: types.Message):
     await message.answer("✅ Admin OK")
 
+BOT_TOKEN = os.getenv("BOT_TOKEN", "your_token_here")
+
+async def on_startup(bot: Bot):
+    await db.connect()
+
+async def on_shutdown(bot: Bot):
+    await db.close()
+
+
+
 
 async def main():
     setup_logging()
+    
+    
+    # 1) Подключаемся к БД заранее
+    await db.connect()
     
     bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
@@ -46,14 +68,18 @@ async def main():
     dp.include_router(help.router)
     dp.include_router(admin_router)
     dp.include_router(echo.router)
-
+    dp.include_router(profile.router)
 
     # Устанавливаем меню-команды в Telegram (видны в боковом меню)
     await setup_bot_commands(bot)
 
 
     print("🤖 Бот запущен…")
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    try:
+        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    finally:
+        # 2) Корректно закрываем пул
+        await db.close()
 
 
 if __name__ == "__main__":
