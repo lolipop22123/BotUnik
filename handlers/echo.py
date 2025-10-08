@@ -5,7 +5,7 @@ from aiogram import Router, types
 router = Router()
 
 
-# Команда /echo
-@router.message()
-async def echo_message(message: types.Message):
-    await message.answer(f"Ты сказал: {message.text}")
+# # Команда /echo
+# @router.message()
+# async def echo_message(message: types.Message):
+#     await message.answer(f"Ты сказал: {message.text}")

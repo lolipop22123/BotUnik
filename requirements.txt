@@ -3,3 +3,4 @@ python-dotenv
 loguru
 SQLAlchemy[asyncio]==2.*
 asyncpg
+aiohttp

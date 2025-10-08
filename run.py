@@ -3,10 +3,11 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums.parse_mode import ParseMode
+from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import BOT_TOKEN, RATE_LIMIT_PER_MIN, ADMIN_ID
 from handlers import start, help, echo
-from handlers.User import profile
+from handlers.User import profile, videoprcesing
 
 from services.commands import setup_bot_commands
 from middlewares.logging import LoggingMiddleware
@@ -32,26 +33,27 @@ admin_router = Router(name="admin")
 async def admin_ping(message: types.Message):
     await message.answer("✅ Admin OK")
 
+
 BOT_TOKEN = os.getenv("BOT_TOKEN", "your_token_here")
 
 async def on_startup(bot: Bot):
     await db.connect()
 
+
 async def on_shutdown(bot: Bot):
     await db.close()
-
-
 
 
 async def main():
     setup_logging()
     
-    
     # 1) Подключаемся к БД заранее
     await db.connect()
     
     bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-    dp = Dispatcher()
+    # Добавляем хранилище состояний для FSM
+    storage = MemoryStorage()
+    dp = Dispatcher(storage=storage)
 
 
     # Подключаем глобальные middleware
@@ -69,10 +71,10 @@ async def main():
     dp.include_router(admin_router)
     dp.include_router(echo.router)
     dp.include_router(profile.router)
-
+    dp.include_router(videoprcesing.router)
+    
     # Устанавливаем меню-команды в Telegram (видны в боковом меню)
     await setup_bot_commands(bot)
-
 
     print("🤖 Бот запущен…")
     try:

@@ -38,7 +38,40 @@ class DB:
                 CREATE INDEX IF NOT EXISTS idx_users_user_id
                 ON public.users(user_id);
             """)
-        print("✅ Таблица users создана/проверена")
+            
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS public.processed_invoices (
+                    id SERIAL PRIMARY KEY,
+                    invoice_id BIGINT UNIQUE NOT NULL,
+                    user_id BIGINT NOT NULL,
+                    amount DOUBLE PRECISION NOT NULL,
+                    asset VARCHAR(10) NOT NULL,
+                    processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            """)
+            cur.execute("""
+                CREATE INDEX IF NOT EXISTS idx_invoices_invoice_id
+                ON public.processed_invoices(invoice_id);
+            """)
+            
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS public.subscriptions (
+                    id SERIAL PRIMARY KEY,
+                    user_id BIGINT UNIQUE NOT NULL,
+                    subscription_end_date TIMESTAMP NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            """)
+            cur.execute("""
+                CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id
+                ON public.subscriptions(user_id);
+            """)
+            cur.execute("""
+                CREATE INDEX IF NOT EXISTS idx_subscriptions_end_date
+                ON public.subscriptions(subscription_end_date);
+            """)
+        print("✅ Таблицы users, processed_invoices и subscriptions созданы/проверены")
 
     def close(self) -> None:
         try:
