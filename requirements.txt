@@ -1,0 +1,5 @@
+aiogram==3.*
+python-dotenv
+loguru
+SQLAlchemy[asyncio]==2.*
+asyncpg
