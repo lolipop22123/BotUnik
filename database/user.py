@@ -286,7 +286,109 @@ class AsyncDB:
             result = await conn.fetchrow(query, user_id)
             return bool(result)
     
-      
+    # --- Методы для работы со шрифтами ---
+    
+    async def add_font(self, file_id: str, file_name: str, file_path: str, added_by: int) -> int:
+        """Добавляет шрифт в базу данных"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            INSERT INTO public.fonts (file_id, file_name, file_path, added_by)
+            VALUES ($1, $2, $3, $4)
+            ON CONFLICT (file_id) DO UPDATE SET
+                file_name = $2, file_path = $3
+            RETURNING id
+        """
+        async with self.pool.acquire() as conn:
+            font_id = await conn.fetchval(query, file_id, file_name, file_path, added_by)
+            return font_id
+    
+    async def get_all_fonts(self) -> list:
+        """Получает список всех шрифтов"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT id, file_id, file_name, file_path, created_at FROM public.fonts ORDER BY created_at DESC"
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
+    
+    async def get_font_by_id(self, font_id: int):
+        """Получает шрифт по ID"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT * FROM public.fonts WHERE id = $1"
+        async with self.pool.acquire() as conn:
+            row = await conn.fetchrow(query, font_id)
+            return dict(row) if row else None
+    
+    async def delete_font(self, font_id: int) -> None:
+        """Удаляет шрифт"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "DELETE FROM public.fonts WHERE id = $1"
+        async with self.pool.acquire() as conn:
+            await conn.execute(query, font_id)
+    
+    # --- Методы для работы с музыкой ---
+    
+    async def add_music(self, file_id: str, file_name: str, file_path: str, duration: int, added_by: int) -> int:
+        """Добавляет музыку в базу данных"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            INSERT INTO public.music (file_id, file_name, file_path, duration, added_by)
+            VALUES ($1, $2, $3, $4, $5)
+            ON CONFLICT (file_id) DO UPDATE SET
+                file_name = $2, file_path = $3, duration = $4
+            RETURNING id
+        """
+        async with self.pool.acquire() as conn:
+            music_id = await conn.fetchval(query, file_id, file_name, file_path, duration, added_by)
+            return music_id
+    
+    async def get_all_music(self) -> list:
+        """Получает список всей музыки"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT id, file_id, file_name, file_path, duration, created_at FROM public.music ORDER BY created_at DESC"
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
+    
+    async def get_music_by_id(self, music_id: int):
+        """Получает музыку по ID"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT * FROM public.music WHERE id = $1"
+        async with self.pool.acquire() as conn:
+            row = await conn.fetchrow(query, music_id)
+            return dict(row) if row else None
+    
+    async def delete_music(self, music_id: int) -> None:
+        """Удаляет музыку"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "DELETE FROM public.music WHERE id = $1"
+        async with self.pool.acquire() as conn:
+            await conn.execute(query, music_id)
+    
+    async def get_random_music(self):
+        """Получает случайную музыку"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT * FROM public.music ORDER BY RANDOM() LIMIT 1"
+        async with self.pool.acquire() as conn:
+            row = await conn.fetchrow(query)
+            return dict(row) if row else None
 
 # ↓↓↓ создаём один общий экземпляр и берём параметры из ENV
 DBNAME = os.getenv("POSTGRES_DB", "botUnik")

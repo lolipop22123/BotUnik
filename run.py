@@ -7,7 +7,8 @@ from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import BOT_TOKEN, RATE_LIMIT_PER_MIN, ADMIN_ID
 from handlers import start, help, echo
-from handlers.User import profile, videoprcesing
+from handlers.User import profile, videoprocessing
+from handlers.Admin import media_manager
 
 from services.commands import setup_bot_commands
 from middlewares.logging import LoggingMiddleware
@@ -69,9 +70,10 @@ async def main():
     dp.include_router(start.router)
     dp.include_router(help.router)
     dp.include_router(admin_router)
+    dp.include_router(media_manager.router)  # Админская панель медиа
     dp.include_router(echo.router)
     dp.include_router(profile.router)
-    dp.include_router(videoprcesing.router)
+    dp.include_router(videoprocessing.router)
     
     # Устанавливаем меню-команды в Telegram (видны в боковом меню)
     await setup_bot_commands(bot)

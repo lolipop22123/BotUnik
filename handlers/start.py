@@ -5,6 +5,7 @@ from loguru import logger
 
 from database.user import db
 from keyboards.kb_user import main_reply_kb
+from config import ADMIN_ID
 
 router = Router()
 
@@ -19,11 +20,13 @@ async def cmd_start(message: types.Message):
         logger.info(f"User {message.from_user.id} - {message.from_user.username} добавлен в базу данных")
     else:
         logger.info(f"{message.from_user.id} - {message.from_user.username} уже есть в базе данных")
-        
+    
+    # Проверяем, является ли пользователь админом
+    is_admin = message.from_user.id == ADMIN_ID
         
     await message.answer(
         f"<b>Привет! Я бот</b> 🚀\n"
         "Используй кнопки ниже или /help для списка команд.",
-        reply_markup=main_reply_kb()
+        reply_markup=main_reply_kb(is_admin=is_admin)
     )
     

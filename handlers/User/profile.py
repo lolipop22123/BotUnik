@@ -208,56 +208,73 @@ async def auto_check_invoice(bot: Bot, user_id: int, invoice_id: int, amount: fl
 
 @router.callback_query(F.data == "profile")
 async def profile_cb(callback: types.CallbackQuery):
-    user_id = callback.from_user.id
-    username = callback.from_user.username
-    balance = await db.get_balance(user_id)
+    try:
+        await callback.message.delete()
     
-    await callback.message.answer(
-        f"🚹 <b>Профиль</b>\n\n"
-        f"👤 <b>ID:</b> {user_id}\n"
-        f"👤 <b>Имя:</b> {username}\n"
-        f"💰 <b>Баланс:</b> {balance} $",
-        reply_markup=profile_reply_kb()
-    )
+        user_id = callback.from_user.id
+        username = callback.from_user.username
+        balance = await db.get_balance(user_id)
+        
+        await callback.message.answer(
+            f"🚹 <b>Профиль</b>\n\n"
+            f"👤 <b>ID:</b> {user_id}\n"
+            f"👤 <b>Имя:</b> {username}\n"
+            f"💰 <b>Баланс:</b> {balance} $",
+            reply_markup=profile_reply_kb()
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
 
 
 @router.callback_query(F.data == "balanceadd")
 async def balanceadd_cb(callback: types.CallbackQuery):
-    kb = InlineKeyboardMarkup(inline_keyboard=[
-        [
-            InlineKeyboardButton(text="CryptoBot", callback_data="cryptobotadd")
-        ],
-        [
-            InlineKeyboardButton(text="Cryptomus", callback_data="tetheradd")
-        ],
-        [
-            InlineKeyboardButton(text=" ⬅️", callback_data="backprofile")
-        ]
-    ])
-
-    await callback.message.answer(
-        f"🚹 <b>Выберите способ пополнения баланса:</b>\n\n",
-        reply_markup=kb
-    )
+    try:
+        await callback.message.delete()
     
+        kb = InlineKeyboardMarkup(inline_keyboard=[
+            [
+                InlineKeyboardButton(text="CryptoBot", callback_data="cryptobotadd")
+            ],
+            [
+                InlineKeyboardButton(text="Cryptomus", callback_data="tetheradd")
+            ],
+            [
+                InlineKeyboardButton(text=" ⬅️", callback_data="backprofile")
+            ]
+        ])
+
+        await callback.message.answer(
+            f"🚹 <b>Выберите способ пополнения баланса:</b>\n\n",
+            reply_markup=kb
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
     
 @router.callback_query(F.data == "cryptobotadd")
 async def cryptobotadd_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Начало процесса пополнения через CryptoBot"""
-    kb = InlineKeyboardMarkup(inline_keyboard=[
-        [
-            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_payment")
-        ]
-    ])
-    
-    await callback.message.answer(
-        "💰 <b>Пополнение баланса через CryptoBot</b>\n\n"
-        "Введите сумму пополнения в USD (например: 10):\n"
-        "Минимальная сумма: 1 USD",
-        reply_markup=kb
-    )
-    await state.set_state(PaymentStates.waiting_for_amount)
-    await callback.answer()
+    try:
+        await callback.message.delete()
+        
+        """Начало процесса пополнения через CryptoBot"""
+        kb = InlineKeyboardMarkup(inline_keyboard=[
+            [
+                InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_payment")
+            ]
+        ])
+        
+        await callback.message.answer(
+            "💰 <b>Пополнение баланса через CryptoBot</b>\n\n"
+            "Введите сумму пополнения в USD (например: 10):\n"
+            "Минимальная сумма: 1 USD",
+            reply_markup=kb
+        )
+        await state.set_state(PaymentStates.waiting_for_amount)
+        await callback.answer()
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
 
 
 @router.message(PaymentStates.waiting_for_amount)
@@ -344,36 +361,52 @@ async def process_payment_amount(message: types.Message, state: FSMContext):
 
 @router.callback_query(F.data == "cancel_payment")
 async def cancel_payment(callback: types.CallbackQuery, state: FSMContext):
-    """Отмена процесса пополнения"""
-    await state.clear()
-    await callback.message.answer(
-        "❌ Пополнение отменено",
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=" ⬅️ К способам пополнения", callback_data="balanceadd")]
-        ])
-    )
-    await callback.answer()
+    try:
+        await callback.message.delete()
+        
+        """Отмена процесса пополнения"""
+        await state.clear()
+        await callback.message.answer(
+            "❌ Пополнение отменено",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text=" ⬅️ К способам пополнения", callback_data="balanceadd")]
+            ])
+        )
+        await callback.answer()
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
 
 
 @router.callback_query(F.data == "backprofile")
 async def backprofile_cb(callback: types.CallbackQuery):
-    user_id = callback.from_user.id
-    username = callback.from_user.username
-    balance = await db.get_balance(user_id)
-    
-    await callback.message.answer(
-        f"🚹 <b>Профиль</b>\n\n"
-        f"👤 <b>ID:</b> {user_id}\n"
-        f"👤 <b>Имя:</b> {username}\n"
-        f"💰 <b>Баланс:</b> {balance} $",
-        reply_markup=profile_reply_kb()
-    )
+    try:
+        await callback.message.delete()
+        user_id = callback.from_user.id
+        username = callback.from_user.username
+        balance = await db.get_balance(user_id)
+        
+        await callback.message.answer(
+            f"🚹 <b>Профиль</b>\n\n"
+            f"👤 <b>ID:</b> {user_id}\n"
+            f"👤 <b>Имя:</b> {username}\n"
+            f"💰 <b>Баланс:</b> {balance} $",
+            reply_markup=profile_reply_kb()
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
 
 
 @router.callback_query(F.data == "backstart")
 async def backstart_cb(callback: types.CallbackQuery):
-    await callback.message.answer(
-        f"<b>Привет! Я бот</b> 🚀\n"
-        "Используй кнопки ниже или /help для списка команд.",
-        reply_markup=main_reply_kb()
-    )
+    try:
+        await callback.message.delete()
+        await callback.message.answer(
+            f"<b>Привет! Я бот</b> 🚀\n"
+            "Используй кнопки ниже или /help для списка команд.",
+            reply_markup=main_reply_kb()
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass

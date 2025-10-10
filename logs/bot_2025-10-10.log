@@ -1,0 +1,95 @@
+2025-10-10 12:29:50.444 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-10 12:29:50.493 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 12:30:04.760 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-10 12:30:04.787 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-10 12:30:05.095 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366829 is handled. Duration 344 ms by bot id=7920918630
+2025-10-10 12:30:07.315 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366830 is handled. Duration 188 ms by bot id=7920918630
+2025-10-10 12:33:21.991 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-10 12:33:21.992 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 12:33:24.883 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-10 12:33:24.931 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 12:33:34.635 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-10 12:33:34.637 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-10 12:33:34.932 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366831 is handled. Duration 297 ms by bot id=7920918630
+2025-10-10 12:33:36.191 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366832 is handled. Duration 344 ms by bot id=7920918630
+2025-10-10 12:33:47.544 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 12:33:47.545 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-10 12:33:51.488 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-10 12:33:51.535 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 12:33:52.378 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-10 12:33:52.380 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-10 12:33:52.653 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366833 is handled. Duration 282 ms by bot id=7920918630
+2025-10-10 12:33:54.422 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366834 is handled. Duration 172 ms by bot id=7920918630
+2025-10-10 12:33:56.681 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366835 is handled. Duration 172 ms by bot id=7920918630
+2025-10-10 12:33:58.794 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366836 is handled. Duration 186 ms by bot id=7920918630
+2025-10-10 12:34:00.008 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366837 is handled. Duration 172 ms by bot id=7920918630
+2025-10-10 12:37:35.939 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-10 12:37:35.940 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 13:04:00.897 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-10 13:04:00.946 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 13:04:07.632 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-10 13:04:07.634 | INFO    | handlers.start:cmd_start:21 - 6956440009 - makker_o уже есть в базе данных
+2025-10-10 13:04:07.910 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366838 is handled. Duration 282 ms by bot id=7920918630
+2025-10-10 13:04:08.978 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366839 is handled. Duration 375 ms by bot id=7920918630
+2025-10-10 13:04:16.325 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366840 is handled. Duration 359 ms by bot id=7920918630
+2025-10-10 13:04:20.351 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366841 is handled. Duration 344 ms by bot id=7920918630
+2025-10-10 13:04:31.354 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366842 is handled. Duration 360 ms by bot id=7920918630
+2025-10-10 13:04:32.906 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366843 is handled. Duration 344 ms by bot id=7920918630
+2025-10-10 15:18:05.764 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
+2025-10-10 15:18:05.765 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-10 15:18:06.131 | ERROR   | asyncio.base_events:default_exception_handler:1729 - Error on reading from the event loop self pipe
+loop: <ProactorEventLoop running=True closed=False debug=False>
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\proactor_events.py", line 770, in _loop_self_reading
+    f.result()  # may raise
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 812, in _poll
+    value = callback(transferred, key, ov)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 457, in finish_recv
+    return ov.getresult()
+ConnectionAbortedError: [WinError 1236] Подключение к сети было разорвано локальной системой
+2025-10-10 15:18:27.577 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-10 15:19:04.516 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [WinError 1236] Подключение к сети было разорвано локальной системой
+2025-10-10 15:19:04.516 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-10 15:20:16.417 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-10 15:20:16.417 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.245995 seconds and try again... (tryings = 1, bot id = 7920918630)
+2025-10-10 15:20:27.818 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 2, bot id = 7920918630)
+2025-10-10 23:06:00.922 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 23:06:00.922 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-10 23:06:00.922 | ERROR   | asyncio.base_events:default_exception_handler:1729 - Error on reading from the event loop self pipe
+loop: <ProactorEventLoop running=True closed=False debug=False>
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 628, in run_until_complete
+    self.run_forever()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 316, in run_forever
+    super().run_forever()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 595, in run_forever
+    self._run_once()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1845, in _run_once
+    event_list = self._selector.select(timeout)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 434, in select
+    self._poll(timeout)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 783, in _poll
+    status = _overlapped.GetQueuedCompletionStatus(self._iocp, ms)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\proactor_events.py", line 779, in _loop_self_reading
+    f = self._proactor.recv(self._ssock, 4096)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 449, in recv
+    ov.WSARecv(conn.fileno(), nbytes, flags)
+ConnectionResetError: [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
+2025-10-10 23:06:19.943 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-10 23:06:19.998 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-10 23:06:29.641 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-10 23:06:29.643 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-10 23:06:29.921 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366844 is handled. Duration 281 ms by bot id=7920918630
+2025-10-10 23:06:32.783 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366845 is handled. Duration 360 ms by bot id=7920918630
+2025-10-10 23:06:34.903 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366846 is handled. Duration 343 ms by bot id=7920918630
+2025-10-10 23:06:36.212 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366847 is handled. Duration 359 ms by bot id=7920918630
+2025-10-10 23:06:37.500 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366848 is handled. Duration 375 ms by bot id=7920918630
+2025-10-10 23:06:44.205 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-10 23:06:44.206 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'

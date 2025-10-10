@@ -71,7 +71,36 @@ class DB:
                 CREATE INDEX IF NOT EXISTS idx_subscriptions_end_date
                 ON public.subscriptions(subscription_end_date);
             """)
-        print("✅ Таблицы users, processed_invoices и subscriptions созданы/проверены")
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS public.fonts (
+                    id SERIAL PRIMARY KEY,
+                    file_id VARCHAR(255) UNIQUE NOT NULL,
+                    file_name VARCHAR(255) NOT NULL,
+                    file_path VARCHAR(500),
+                    added_by BIGINT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            """)
+            cur.execute("""
+                CREATE INDEX IF NOT EXISTS idx_fonts_file_id
+                ON public.fonts(file_id);
+            """)
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS public.music (
+                    id SERIAL PRIMARY KEY,
+                    file_id VARCHAR(255) UNIQUE NOT NULL,
+                    file_name VARCHAR(255) NOT NULL,
+                    file_path VARCHAR(500),
+                    duration INTEGER,
+                    added_by BIGINT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            """)
+            cur.execute("""
+                CREATE INDEX IF NOT EXISTS idx_music_file_id
+                ON public.music(file_id);
+            """)
+        print("✅ Все таблицы созданы/проверены")
 
     def close(self) -> None:
         try:
