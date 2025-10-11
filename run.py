@@ -8,7 +8,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from config import BOT_TOKEN, RATE_LIMIT_PER_MIN, ADMIN_ID
 from handlers import start, help, echo
 from handlers.User import profile, videoprocessing
-from handlers.Admin import media_manager
+from handlers.Admin import media_manager, broadcast, statistics, subscriptions
 
 from services.commands import setup_bot_commands
 from middlewares.logging import LoggingMiddleware
@@ -71,6 +71,9 @@ async def main():
     dp.include_router(help.router)
     dp.include_router(admin_router)
     dp.include_router(media_manager.router)  # Админская панель медиа
+    dp.include_router(broadcast.router)  # Админская панель рассылки
+    dp.include_router(statistics.router)  # Админская панель статистики
+    dp.include_router(subscriptions.router)  # Админская панель подписок
     dp.include_router(echo.router)
     dp.include_router(profile.router)
     dp.include_router(videoprocessing.router)

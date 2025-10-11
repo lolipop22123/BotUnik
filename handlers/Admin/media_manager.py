@@ -15,6 +15,15 @@ def admin_main_kb():
     """Главная клавиатура админки"""
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [
+            InlineKeyboardButton(text="📊 Статистика", callback_data="admin_statistics")
+        ],
+        [
+            InlineKeyboardButton(text="📢 Рассылка", callback_data="admin_broadcast")
+        ],
+        [
+            InlineKeyboardButton(text="📝 Управление подписками", callback_data="admin_subscriptions")
+        ],
+        [
             InlineKeyboardButton(text="🔤 Управление шрифтами", callback_data="admin_fonts")
         ],
         [

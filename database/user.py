@@ -47,6 +47,16 @@ class AsyncDB:
         async with self.pool.acquire() as conn:
             await conn.execute("DELETE FROM public.users WHERE user_id = $1", user_id)
     
+    async def get_all_users(self) -> list:
+        """Получает список всех пользователей"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT user_id, username FROM public.users ORDER BY id"
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
+    
     async def get_balance(self, user_id: int) -> float:
         # Подстраховка: если забыли вызвать connect()
         if self.pool is None:
@@ -389,6 +399,172 @@ class AsyncDB:
         async with self.pool.acquire() as conn:
             row = await conn.fetchrow(query)
             return dict(row) if row else None
+    
+    # --- Методы для статистики ---
+    
+    async def count_users(self) -> int:
+        """Подсчет всех пользователей"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT COUNT(*) FROM public.users"
+        async with self.pool.acquire() as conn:
+            count = await conn.fetchval(query)
+            return count or 0
+    
+    async def count_users_by_period(self, days: int, offset: int = 0) -> int:
+        """Подсчет пользователей за период"""
+        if self.pool is None:
+            await self.connect()
+        
+        if days == 0:
+            # За сегодня
+            query = """
+                SELECT COUNT(*) FROM public.users 
+                WHERE DATE(created_at) = CURRENT_DATE - INTERVAL '%s days'
+            """ % offset
+        else:
+            # За указанный период
+            query = """
+                SELECT COUNT(*) FROM public.users 
+                WHERE created_at >= CURRENT_TIMESTAMP - INTERVAL '%s days' - INTERVAL '%s days'
+                AND created_at < CURRENT_TIMESTAMP - INTERVAL '%s days'
+            """ % (days + offset, offset, offset)
+        
+        async with self.pool.acquire() as conn:
+            count = await conn.fetchval(query)
+            return count or 0
+    
+    async def get_invoice_statistics(self) -> dict:
+        """Статистика по инвойсам"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            SELECT 
+                COUNT(*) as total,
+                SUM(CASE WHEN 1=1 THEN 1 ELSE 0 END) as paid,
+                COALESCE(SUM(amount), 0) as total_amount
+            FROM public.processed_invoices
+        """
+        
+        async with self.pool.acquire() as conn:
+            row = await conn.fetchrow(query)
+            return {
+                'total': row['total'] or 0,
+                'paid': row['paid'] or 0,
+                'total_amount': float(row['total_amount']) if row['total_amount'] else 0.0
+            }
+    
+    async def get_subscription_statistics(self) -> dict:
+        """Статистика по подпискам"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            SELECT 
+                COUNT(*) as total,
+                SUM(CASE WHEN subscription_end_date > CURRENT_TIMESTAMP THEN 1 ELSE 0 END) as active,
+                SUM(CASE WHEN subscription_end_date <= CURRENT_TIMESTAMP THEN 1 ELSE 0 END) as expired
+            FROM public.subscriptions
+        """
+        
+        async with self.pool.acquire() as conn:
+            row = await conn.fetchrow(query)
+            return {
+                'total': row['total'] or 0,
+                'active': row['active'] or 0,
+                'expired': row['expired'] or 0
+            }
+    
+    async def get_amount_by_period(self, days: int, offset: int = 0) -> float:
+        """Сумма платежей за период"""
+        if self.pool is None:
+            await self.connect()
+        
+        if days == 0:
+            # За сегодня
+            query = """
+                SELECT COALESCE(SUM(amount), 0) FROM public.processed_invoices 
+                WHERE DATE(processed_at) = CURRENT_DATE - INTERVAL '%s days'
+            """ % offset
+        else:
+            # За указанный период
+            query = """
+                SELECT COALESCE(SUM(amount), 0) FROM public.processed_invoices 
+                WHERE processed_at >= CURRENT_TIMESTAMP - INTERVAL '%s days' - INTERVAL '%s days'
+                AND processed_at < CURRENT_TIMESTAMP - INTERVAL '%s days'
+            """ % (days + offset, offset, offset)
+        
+        async with self.pool.acquire() as conn:
+            amount = await conn.fetchval(query)
+            return float(amount) if amount else 0.0
+    
+    async def count_invoices_by_period(self, days: int, offset: int = 0) -> int:
+        """Количество платежей за период"""
+        if self.pool is None:
+            await self.connect()
+        
+        if days == 0:
+            query = """
+                SELECT COUNT(*) FROM public.processed_invoices 
+                WHERE DATE(processed_at) = CURRENT_DATE - INTERVAL '%s days'
+            """ % offset
+        else:
+            query = """
+                SELECT COUNT(*) FROM public.processed_invoices 
+                WHERE processed_at >= CURRENT_TIMESTAMP - INTERVAL '%s days' - INTERVAL '%s days'
+                AND processed_at < CURRENT_TIMESTAMP - INTERVAL '%s days'
+            """ % (days + offset, offset, offset)
+        
+        async with self.pool.acquire() as conn:
+            count = await conn.fetchval(query)
+            return count or 0
+    
+    async def count_users_with_subscription(self) -> int:
+        """Количество пользователей с подпиской"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT COUNT(*) FROM public.subscriptions"
+        async with self.pool.acquire() as conn:
+            count = await conn.fetchval(query)
+            return count or 0
+    
+    async def count_expiring_subscriptions(self, days: int) -> int:
+        """Количество подписок истекающих в ближайшие дни"""
+        if self.pool is None:
+            await self.connect()
+        
+        if days == 0:
+            query = """
+                SELECT COUNT(*) FROM public.subscriptions 
+                WHERE DATE(subscription_end_date) = CURRENT_DATE
+            """
+        else:
+            query = """
+                SELECT COUNT(*) FROM public.subscriptions 
+                WHERE subscription_end_date BETWEEN CURRENT_TIMESTAMP 
+                AND CURRENT_TIMESTAMP + INTERVAL '%s days'
+            """ % days
+        
+        async with self.pool.acquire() as conn:
+            count = await conn.fetchval(query)
+            return count or 0
+    
+    async def get_avg_subscription_duration(self) -> int:
+        """Средняя длительность подписки в днях"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            SELECT AVG(EXTRACT(DAY FROM (subscription_end_date - created_at))) 
+            FROM public.subscriptions
+        """
+        
+        async with self.pool.acquire() as conn:
+            avg = await conn.fetchval(query)
+            return int(avg) if avg else 0
 
 # ↓↓↓ создаём один общий экземпляр и берём параметры из ENV
 DBNAME = os.getenv("POSTGRES_DB", "botUnik")

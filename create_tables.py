@@ -31,7 +31,8 @@ class DB:
                     id SERIAL PRIMARY KEY,
                     user_id BIGINT UNIQUE,
                     username VARCHAR,
-                    balance DOUBLE PRECISION DEFAULT 0
+                    balance DOUBLE PRECISION DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
             """)
             cur.execute("""
