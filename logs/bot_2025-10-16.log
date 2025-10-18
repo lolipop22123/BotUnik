@@ -1,0 +1,112 @@
+2025-10-16 00:46:36.158 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 00:46:36.206 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 00:46:43.144 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-16 00:46:43.169 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-16 00:46:43.477 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366975 is handled. Duration 327 ms by bot id=7920918630
+2025-10-16 00:46:45.209 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366976 is handled. Duration 467 ms by bot id=7920918630
+2025-10-16 00:46:47.519 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366977 is handled. Duration 594 ms by bot id=7920918630
+2025-10-16 00:46:48.331 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366978 is handled. Duration 217 ms by bot id=7920918630
+2025-10-16 00:46:51.609 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366979 is handled. Duration 422 ms by bot id=7920918630
+2025-10-16 00:46:59.813 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-16 00:47:17.603 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366980 is handled. Duration 17780 ms by bot id=7920918630
+2025-10-16 00:48:41.659 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 00:48:41.659 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 00:48:45.648 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 00:48:45.704 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 00:48:47.778 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366981 is handled. Duration 609 ms by bot id=7920918630
+2025-10-16 00:48:49.221 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366982 is handled. Duration 421 ms by bot id=7920918630
+2025-10-16 00:48:50.424 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366983 is handled. Duration 203 ms by bot id=7920918630
+2025-10-16 00:48:53.309 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366984 is handled. Duration 421 ms by bot id=7920918630
+2025-10-16 00:48:59.433 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-16 00:49:12.995 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366985 is handled. Duration 13563 ms by bot id=7920918630
+2025-10-16 01:00:40.759 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:00:40.759 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 01:00:46.877 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 01:00:46.930 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:00:50.856 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366986 is handled. Duration 515 ms by bot id=7920918630
+2025-10-16 01:00:53.344 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366987 is handled. Duration 577 ms by bot id=7920918630
+2025-10-16 01:00:54.614 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366988 is handled. Duration 202 ms by bot id=7920918630
+2025-10-16 01:00:57.016 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366989 is handled. Duration 469 ms by bot id=7920918630
+2025-10-16 01:01:02.812 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-16 01:01:15.573 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366990 is handled. Duration 12764 ms by bot id=7920918630
+2025-10-16 01:04:46.867 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:04:46.868 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 01:04:52.231 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 01:04:52.281 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:04:53.409 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366991 is handled. Duration 500 ms by bot id=7920918630
+2025-10-16 01:05:00.269 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366992 is handled. Duration 390 ms by bot id=7920918630
+2025-10-16 01:05:01.546 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366993 is handled. Duration 218 ms by bot id=7920918630
+2025-10-16 01:05:04.301 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366994 is handled. Duration 405 ms by bot id=7920918630
+2025-10-16 01:05:10.474 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-16 01:05:22.696 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366995 is handled. Duration 12219 ms by bot id=7920918630
+2025-10-16 01:51:38.074 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:51:38.074 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 01:51:43.238 | ERROR   | services.logger:handle_exception:84 - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\USER\BotUnik\run.py", line 93, in <module>
+    asyncio.run(main())
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 641, in run_until_complete
+    return future.result()
+  File "C:\Users\USER\BotUnik\run.py", line 79, in main
+    dp.include_router(videoprocessing.router)
+AttributeError: module 'handlers.User.videoprocessing' has no attribute 'router'
+2025-10-16 01:51:46.807 | ERROR   | services.logger:handle_exception:84 - Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\USER\BotUnik\run.py", line 93, in <module>
+    asyncio.run(main())
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 641, in run_until_complete
+    return future.result()
+  File "C:\Users\USER\BotUnik\run.py", line 79, in main
+    dp.include_router(videoprocessing.router)
+AttributeError: module 'handlers.User.videoprocessing' has no attribute 'router'
+2025-10-16 01:57:48.198 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 01:57:48.246 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:57:49.702 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366997 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-16 01:57:55.375 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-16 01:57:55.377 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-16 01:57:55.652 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366998 is handled. Duration 265 ms by bot id=7920918630
+2025-10-16 01:57:56.623 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366999 is not handled. Duration 15 ms by bot id=7920918630
+2025-10-16 01:57:59.113 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:57:59.113 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 01:58:02.661 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 01:58:02.710 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:58:03.389 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-16 01:58:03.391 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-16 01:58:03.685 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367000 is handled. Duration 297 ms by bot id=7920918630
+2025-10-16 01:58:04.413 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367001 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-16 01:58:19.310 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 01:58:19.310 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 02:00:15.783 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 02:00:15.832 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 02:00:16.364 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-16 02:00:16.366 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-16 02:00:16.642 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367002 is handled. Duration 281 ms by bot id=7920918630
+2025-10-16 02:00:17.674 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367003 is handled. Duration 358 ms by bot id=7920918630
+2025-10-16 02:00:20.868 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367004 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-16 02:02:42.485 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 02:02:42.485 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 02:02:45.663 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 02:02:45.713 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 02:02:45.771 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-16 02:02:45.773 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-16 02:02:46.064 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367005 is handled. Duration 297 ms by bot id=7920918630
+2025-10-16 02:02:47.324 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367006 is handled. Duration 359 ms by bot id=7920918630
+2025-10-16 02:02:49.018 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367007 is handled. Duration 327 ms by bot id=7920918630
+2025-10-16 02:02:50.475 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367008 is handled. Duration 359 ms by bot id=7920918630
+2025-10-16 02:02:59.546 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-16 02:03:12.067 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367009 is handled. Duration 12516 ms by bot id=7920918630
+2025-10-16 02:06:18.824 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 02:06:18.824 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-16 02:06:24.122 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-16 02:06:24.169 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 02:06:25.688 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367010 is handled. Duration 641 ms by bot id=7920918630
+2025-10-16 02:06:27.447 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367011 is handled. Duration 469 ms by bot id=7920918630
+2025-10-16 02:06:29.100 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367012 is handled. Duration 343 ms by bot id=7920918630
+2025-10-16 02:06:35.695 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-16 02:06:46.718 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367013 is handled. Duration 11030 ms by bot id=7920918630
+2025-10-16 02:14:15.444 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-16 02:14:15.445 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped

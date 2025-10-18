@@ -56,8 +56,12 @@ async def admin_statistics(callback: types.CallbackQuery):
         ]
     ])
     
-    await callback.message.edit_text(text, reply_markup=kb)
-    await callback.answer()
+    try:
+        await callback.message.edit_text(text, reply_markup=kb)
+    except Exception:
+        # Игнорируем ошибку если сообщение не изменилось
+        pass
+    await callback.answer("✅ Обновлено")
 
 
 @router.callback_query(F.data == "admin_statistics_detailed")
@@ -108,8 +112,12 @@ async def admin_statistics_detailed(callback: types.CallbackQuery):
         ]
     ])
     
-    await callback.message.edit_text(text, reply_markup=kb)
-    await callback.answer()
+    try:
+        await callback.message.edit_text(text, reply_markup=kb)
+    except Exception:
+        # Игнорируем ошибку если сообщение не изменилось
+        pass
+    await callback.answer("✅ Обновлено")
 
 
 async def get_bot_statistics() -> dict:

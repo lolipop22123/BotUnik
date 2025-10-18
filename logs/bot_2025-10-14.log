@@ -1,0 +1,186 @@
+2025-10-14 22:33:25.092 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-14 22:33:25.144 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 22:33:25.868 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-14 22:33:25.908 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-14 22:33:26.245 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366849 is handled. Duration 375 ms by bot id=7920918630
+2025-10-14 22:33:28.018 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366850 is handled. Duration 437 ms by bot id=7920918630
+2025-10-14 22:33:35.176 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366851 is handled. Duration 750 ms by bot id=7920918630
+2025-10-14 22:33:36.548 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366852 is handled. Duration 484 ms by bot id=7920918630
+2025-10-14 22:34:05.274 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/admin'
+2025-10-14 22:34:05.489 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366853 is handled. Duration 219 ms by bot id=7920918630
+2025-10-14 22:34:09.882 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366854 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-14 22:34:09.882 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366854 by bot id=7920918630
+UndefinedColumnError: столбец "created_at" не существует
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\Admin\statistics.py", line 19, in admin_statistics
+    stats = await get_bot_statistics()
+  File "C:\Users\USER\BotUnik\handlers\Admin\statistics.py", line 121, in get_bot_statistics
+    stats['users_today'] = await db.count_users_by_period(days=0)
+  File "C:\Users\USER\BotUnik\database\user.py", line 435, in count_users_by_period
+    count = await conn.fetchval(query)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 715, in fetchval
+    data = await self._execute(query, args, 1, timeout)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1794, in _execute
+    result, _ = await self.__execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1892, in __execute
+    result, stmt = await self._do_execute(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 1925, in _do_execute
+    stmt = await self._get_statement(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\asyncpg\connection.py", line 433, in _get_statement
+    statement = await self._protocol.prepare(
+  File "asyncpg\protocol\protocol.pyx", line 166, in prepare
+    return await waiter
+asyncpg.exceptions.UndefinedColumnError: столбец "created_at" не существует
+2025-10-14 22:34:15.373 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 22:34:15.374 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-14 22:35:48.238 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-14 22:35:48.314 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 22:35:49.384 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/admin'
+2025-10-14 22:35:49.689 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366855 is handled. Duration 312 ms by bot id=7920918630
+2025-10-14 22:35:51.000 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366856 is handled. Duration 389 ms by bot id=7920918630
+2025-10-14 22:35:58.832 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366857 is handled. Duration 358 ms by bot id=7920918630
+2025-10-14 22:35:59.976 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366858 is not handled. Duration 171 ms by bot id=7920918630
+2025-10-14 22:35:59.976 | ERROR   | logging:exception:1503 - Cause exception while process update id=863366858 by bot id=7920918630
+TelegramBadRequest: Telegram server says - Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 27, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\fsm\middleware.py", line 41, in __call__
+    return await handler(event, data)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 156, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 128, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 123, in _wrapped
+    return await self._propagate_event(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\router.py", line 148, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+  File "C:\Users\USER\BotUnik\handlers\Admin\statistics.py", line 111, in admin_statistics_detailed
+    await callback.message.edit_text(text, reply_markup=kb)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\bot.py", line 492, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\aiohttp.py", line 178, in make_request
+    response = self.check_response(
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message
+2025-10-14 22:37:27.144 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 22:37:27.144 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-14 22:37:30.737 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-14 22:37:30.784 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 22:37:32.503 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366859 is handled. Duration 625 ms by bot id=7920918630
+2025-10-14 22:37:33.447 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366860 is handled. Duration 312 ms by bot id=7920918630
+2025-10-14 22:37:34.465 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366861 is handled. Duration 344 ms by bot id=7920918630
+2025-10-14 22:37:38.669 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366862 is handled. Duration 344 ms by bot id=7920918630
+2025-10-14 22:37:41.310 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366863 is handled. Duration 405 ms by bot id=7920918630
+2025-10-14 22:37:42.620 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366864 is handled. Duration 344 ms by bot id=7920918630
+2025-10-14 22:37:44.114 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='test'
+2025-10-14 22:37:44.296 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366865 is handled. Duration 187 ms by bot id=7920918630
+2025-10-14 22:37:46.228 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366866 is handled. Duration 719 ms by bot id=7920918630
+2025-10-14 22:37:49.321 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366867 is handled. Duration 327 ms by bot id=7920918630
+2025-10-14 22:37:50.763 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366868 is handled. Duration 328 ms by bot id=7920918630
+2025-10-14 22:38:07.969 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-14 22:38:08.148 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366869 is handled. Duration 171 ms by bot id=7920918630
+2025-10-14 22:38:10.278 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366870 is handled. Duration 782 ms by bot id=7920918630
+2025-10-14 22:38:12.582 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366871 is handled. Duration 328 ms by bot id=7920918630
+2025-10-14 22:38:13.575 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366872 is handled. Duration 342 ms by bot id=7920918630
+2025-10-14 22:38:17.888 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-14 22:38:18.062 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366873 is handled. Duration 171 ms by bot id=7920918630
+2025-10-14 22:38:19.826 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='test'
+2025-10-14 22:38:20.000 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366874 is handled. Duration 171 ms by bot id=7920918630
+2025-10-14 22:38:22.089 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366875 is handled. Duration 733 ms by bot id=7920918630
+2025-10-14 22:38:24.363 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366876 is handled. Duration 391 ms by bot id=7920918630
+2025-10-14 22:38:26.256 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366877 is handled. Duration 327 ms by bot id=7920918630
+2025-10-14 22:38:27.624 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366878 is handled. Duration 327 ms by bot id=7920918630
+2025-10-14 22:38:29.871 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366879 is handled. Duration 327 ms by bot id=7920918630
+2025-10-14 22:38:31.205 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366880 is handled. Duration 328 ms by bot id=7920918630
+2025-10-14 22:38:37.356 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-14 22:38:38.157 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366881 is handled. Duration 796 ms by bot id=7920918630
+2025-10-14 22:38:44.070 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366882 is handled. Duration 359 ms by bot id=7920918630
+2025-10-14 22:38:46.644 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-14 22:38:47.419 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366883 is handled. Duration 781 ms by bot id=7920918630
+2025-10-14 22:38:49.150 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366884 is handled. Duration 328 ms by bot id=7920918630
+2025-10-14 22:38:50.325 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366885 is handled. Duration 342 ms by bot id=7920918630
+2025-10-14 22:38:51.989 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366886 is handled. Duration 344 ms by bot id=7920918630
+2025-10-14 22:39:00.986 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366887 is handled. Duration 344 ms by bot id=7920918630
+2025-10-14 22:39:03.138 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366888 is handled. Duration 327 ms by bot id=7920918630
+2025-10-14 22:39:13.036 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366889 is handled. Duration 437 ms by bot id=7920918630
+2025-10-14 23:44:53.842 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 23:44:53.842 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-14 23:45:02.483 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-14 23:45:02.533 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 23:45:04.391 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/admin'
+2025-10-14 23:45:04.674 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366890 is handled. Duration 281 ms by bot id=7920918630
+2025-10-14 23:45:06.277 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366891 is handled. Duration 343 ms by bot id=7920918630
+2025-10-14 23:45:08.226 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366892 is handled. Duration 358 ms by bot id=7920918630
+2025-10-14 23:45:10.449 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366893 is handled. Duration 358 ms by bot id=7920918630
+2025-10-14 23:45:11.909 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366894 is handled. Duration 203 ms by bot id=7920918630
+2025-10-14 23:45:28.561 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-14 23:45:28.609 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-14 23:45:33.034 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-14 23:45:33.036 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-14 23:45:33.322 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366895 is handled. Duration 280 ms by bot id=7920918630
+2025-10-14 23:45:35.426 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366896 is handled. Duration 375 ms by bot id=7920918630
+2025-10-14 23:45:39.596 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366897 is handled. Duration 358 ms by bot id=7920918630
+2025-10-14 23:45:41.282 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366898 is handled. Duration 187 ms by bot id=7920918630
+2025-10-14 23:45:42.691 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366899 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-14 23:46:11.021 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366900 is not handled. Duration 0 ms by bot id=7920918630
+2025-10-14 23:46:25.340 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863366901 is not handled. Duration 16 ms by bot id=7920918630
+2025-10-15 00:46:20.498 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-15 00:46:20.498 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped

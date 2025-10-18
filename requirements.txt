@@ -4,3 +4,4 @@ loguru
 SQLAlchemy[asyncio]==2.*
 asyncpg
 aiohttp
+openai-whisper

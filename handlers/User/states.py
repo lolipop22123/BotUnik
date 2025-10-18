@@ -8,6 +8,5 @@ class PaymentStates(StatesGroup):
 class VideoProcessingStates(StatesGroup):
     choosing_font = State()  # Выбор шрифта
     choosing_music = State()  # Выбор музыки
-    waiting_for_subtitle_text = State()  # Ввод текста субтитров
     waiting_for_video = State()  # Ожидание загрузки видео
 
