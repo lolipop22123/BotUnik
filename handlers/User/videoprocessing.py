@@ -19,6 +19,8 @@ router = Router()
 
 # Добавляем путь к утилитам
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'utils'))
+# Добавляем путь к скриптам (караоке-субтитры)
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'scripts'))
 
 class VideoProcessor:
     """Класс для обработки видео на основе мак-кода"""
@@ -64,6 +66,64 @@ class VideoProcessor:
             return False
     
     @staticmethod
+    async def apply_ultra_unique_new(input_path: str, output_path: str) -> bool:
+        """Применение эффекта Ultra Unique на основе рабочего скрипта"""
+        try:
+            # Настройки из вашего скрипта
+            brightness_percent = 4.0
+            speed_percent = 2.0
+            
+            # Ищем изображение 2.png в папке images
+            project_root = Path(__file__).resolve().parent.parent.parent
+            overlay_image_path = project_root / "images" / "2.png"
+            
+            if not overlay_image_path.exists():
+                print(f"❌ Изображение для Ultra Unique не найдено: {overlay_image_path}")
+                print("💡 Убедитесь, что файл 2.png находится в папке images/")
+                return False
+            
+            # Конвертируем проценты в значения для FFmpeg
+            brightness_value = brightness_percent / 100.0
+            speed_value = 1.0 + (speed_percent / 100.0)
+            
+            print(f"🚀 Применяем Ultra Unique эффект (новый алгоритм)")
+            print(f"📁 Входное видео: {input_path}")
+            print(f"📁 Выходное видео: {output_path}")
+            print(f"🖼️ Изображение для наложения: {overlay_image_path}")
+            print(f"💡 Яркость: +{brightness_percent}%")
+            print(f"⚡ Скорость: +{speed_percent}%")
+            
+            # Создаем команду FFmpeg для Ultra Unique эффекта
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', input_path,  # Входное видео
+                '-i', str(overlay_image_path),  # Изображение для наложения
+                '-filter_complex', 
+                f"[0:v]eq=brightness={brightness_value},setpts=PTS/{speed_value}[video_with_effects];"  # Яркость и скорость
+                f"[1:v]scale=1080:1920,format=rgba[overlay_img];"  # Масштабируем изображение под размер видео
+                f"[video_with_effects][overlay_img]overlay=(W-w)/2:(H-h)/2:format=auto[v];"  # Центрируем наложение
+                f"[0:a]atempo={speed_value}[a]",  # Ускоряем аудио
+                '-map', '[v]', '-map', '[a]',
+                '-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p',
+                '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart',
+                output_path
+            ]
+            
+            print(f"💻 Команда: {' '.join(cmd)}")
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            
+            if result.returncode == 0:
+                print(f"✅ Ultra Unique применен успешно")
+                return True
+            else:
+                print(f"❌ Ошибка Ultra Unique: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Ошибка Ultra Unique: {e}")
+            return False
+    
+    @staticmethod
     async def apply_trending_frame(input_path: str, output_path: str) -> bool:
         """Применение эффекта Trending Frame"""
         try:
@@ -84,6 +144,85 @@ class VideoProcessor:
             return False
     
     @staticmethod
+    async def apply_trending_frame_new(input_path: str, output_path: str) -> bool:
+        """Применение эффекта Trending Frame на основе рабочего скрипта"""
+        try:
+            import shlex
+            from PIL import Image, ImageDraw
+            
+            # Настройки из вашего скрипта
+            ZOOM = 0.66
+            Y_SHIFT = 0.24
+            RADIUS_PX = 120
+            BRIGHT = 0.04
+            CONTRAST = 1.06
+            SPEED = 1.08
+            CRF = 18
+            PRESET = "medium"
+            AUDIO_BR = "160k"
+            
+            # Создаем маску
+            mask_path = os.path.join(os.path.dirname(output_path), "frame_mask.png")
+            
+            def ensure_frame_mask(png_path, w=1000, h=1500, radius=RADIUS_PX):
+                """Генерит временную PNG-маску с прозрачным окном и чёрным фоном"""
+                if os.path.exists(png_path):
+                    return
+                img = Image.new("RGBA", (w, h), (0, 0, 0, 255))
+                drw = ImageDraw.Draw(img)
+                drw.rounded_rectangle((0, 0, w, h), radius=radius, fill=(0, 0, 0, 0))
+                os.makedirs(os.path.dirname(png_path), exist_ok=True)
+                img.save(png_path)
+            
+            ensure_frame_mask(mask_path, w=1000, h=1500, radius=RADIUS_PX)
+            
+            # Формируем команду FFmpeg на основе вашего скрипта
+            fc = (
+                f"[0:v]scale=iw*{ZOOM}:ih*{ZOOM},format=rgba[sv];"
+                f"[1:v][sv]scale2ref=w=iw:h=ih[mask][sv2];"
+                f"[sv2][mask]overlay=0:0:format=auto[rounded];"
+                f"[rounded]pad=trunc(iw/{ZOOM}/2)*2:trunc(ih/{ZOOM}/2)*2:(ow-iw)/2:(oh-ih)*{Y_SHIFT}:black,"
+                f"eq=brightness={BRIGHT}:contrast={CONTRAST},"
+                f"setpts=PTS/{SPEED},format=yuv420p[v];"
+                f"[0:a]aresample=48000,atempo={SPEED}[a]"
+            )
+            
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', input_path,
+                '-i', mask_path,
+                '-filter_complex', fc,
+                '-map', '[v]', '-map', '[a]',
+                '-c:v', 'libx264', '-crf', str(CRF), '-preset', PRESET, '-pix_fmt', 'yuv420p',
+                '-c:a', 'aac', '-b:a', AUDIO_BR, '-movflags', '+faststart',
+                output_path
+            ]
+            
+            print(f"🔄 Применяем Trending Frame (новый алгоритм)")
+            print(f"💻 Команда: {' '.join(cmd)}")
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            
+            # Удаляем временную маску
+            try:
+                if os.path.exists(mask_path):
+                    os.unlink(mask_path)
+                    print("🗑️ Временная маска удалена")
+            except Exception as e:
+                print(f"⚠️ Не удалось удалить маску: {e}")
+            
+            if result.returncode == 0:
+                print(f"✅ Trending Frame применен успешно")
+                return True
+            else:
+                print(f"❌ Ошибка Trending Frame: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Ошибка Trending Frame: {e}")
+            return False
+    
+    @staticmethod
     async def apply_subscribe_bait(input_path: str, output_path: str) -> bool:
         """Применение эффекта Subscribe Bait"""
         try:
@@ -97,6 +236,73 @@ class VideoProcessor:
                 return True
             else:
                 print(f"❌ Ошибка Subscribe Bait: {result}")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Ошибка Subscribe Bait: {e}")
+            return False
+    
+    @staticmethod
+    async def apply_subscribe_bait_new(input_path: str, output_path: str) -> bool:
+        """Применение эффекта Subscribe Bait на основе нового скрипта"""
+        try:
+            # Ищем картинку в папке images (корень проекта)
+            project_root = Path(__file__).resolve().parent.parent.parent
+            images_dir = project_root / "images"
+            
+            # Возможные имена файлов
+            possible_names = [
+                "subscribe_bait.png",
+                "subscribe_bait.jpg", 
+                "subscribe.png",
+                "subscribe.jpg",
+                "bait.png",
+                "bait.jpg",
+                "1.jpg",  # как в коде
+                "1.png"
+            ]
+            
+            subscribe_image = None
+            for name in possible_names:
+                image_path = images_dir / name
+                if image_path.exists():
+                    subscribe_image = str(image_path)
+                    print(f"✅ Найдена картинка Subscribe Bait: {subscribe_image}")
+                    break
+            
+            if not subscribe_image:
+                print(f"❌ Картинка для Subscribe Bait не найдена в {images_dir}")
+                return False
+            
+            print(f"🎣 Применяем Subscribe Bait (новый алгоритм)")
+            print(f"📁 Входное видео: {input_path}")
+            print(f"🖼 Картинка: {subscribe_image}")
+            print(f"📁 Выходное видео: {output_path}")
+            
+            # Команда FFmpeg для наложения картинки по центру под рамкой
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', input_path,
+                '-i', subscribe_image,
+                '-filter_complex', 
+                '[0:v]scale=1080:1920[video];'
+                '[1:v]scale=200:50[subscribe_img];'
+                '[video][subscribe_img]overlay=(W-w)/2:H-h-250:format=auto[final]',
+                '-map', '[final]',
+                '-map', '0:a',
+                '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p',
+                '-c:a', 'copy',
+                output_path
+            ]
+            
+            print(f"💻 Команда: {' '.join(cmd)}")
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            
+            if result.returncode == 0:
+                print(f"✅ Subscribe Bait применен успешно")
+                return True
+            else:
+                print(f"❌ Ошибка Subscribe Bait: {result.stderr}")
                 return False
                 
         except Exception as e:
@@ -196,6 +402,257 @@ class VideoProcessor:
             return False
     
     @staticmethod
+    async def process_unique_video(input_path: str, output_path: str, config: dict) -> bool:
+        """Обрабатывает видео с уникальной конфигурацией"""
+        try:
+            print(f"🎲 Обрабатываем уникальное видео с конфигурацией: {config}")
+            
+            current_file = input_path
+            temp_dir = os.path.dirname(output_path)
+            
+            # Применяем базовые эффекты (яркость, контраст, скорость, зум)
+            if config.get('brightness') != 0 or config.get('contrast') != 1.0:
+                temp_basic = os.path.join(temp_dir, f"temp_basic_{hash(str(config))}.mp4")
+                if await VideoProcessor.apply_basic_effects(current_file, temp_basic, config):
+                    current_file = temp_basic
+            
+            # Применяем эффекты
+            for effect in config.get('effects', []):
+                if effect == "ultra_unique":
+                    temp_effect = os.path.join(temp_dir, f"temp_ultra_{hash(str(config))}.mp4")
+                    if await VideoProcessor.apply_ultra_unique_new(current_file, temp_effect):
+                        current_file = temp_effect
+                elif effect == "trending_frame":
+                    temp_effect = os.path.join(temp_dir, f"temp_trending_{hash(str(config))}.mp4")
+                    if await VideoProcessor.apply_trending_frame_new(current_file, temp_effect):
+                        current_file = temp_effect
+                elif effect == "subscribe_bait":
+                    temp_effect = os.path.join(temp_dir, f"temp_subscribe_{hash(str(config))}.mp4")
+                    if await VideoProcessor.apply_subscribe_bait_new(current_file, temp_effect):
+                        current_file = temp_effect
+                elif effect == "subtitles":
+                    temp_effect = os.path.join(temp_dir, f"temp_subtitles_{hash(str(config))}.mp4")
+                    if await VideoProcessor.apply_subtitles_new(current_file, temp_effect):
+                        current_file = temp_effect
+            
+            # Применяем музыку
+            if config.get('music_id') is not None:
+                temp_music = os.path.join(temp_dir, f"temp_music_{hash(str(config))}.mp4")
+                if await VideoProcessor.apply_music_new(current_file, temp_music, config['music_id']):
+                    current_file = temp_music
+            
+            # Нормализация если нужно
+            if config.get('normalize', False):
+                if await VideoProcessor.normalize_video(current_file, output_path):
+                    print(f"✅ Уникальное видео создано с нормализацией")
+                    return True
+                else:
+                    print(f"❌ Ошибка нормализации уникального видео")
+                    return False
+            else:
+                # Просто копируем файл
+                import shutil
+                shutil.copy2(current_file, output_path)
+                print(f"✅ Уникальное видео создано без нормализации")
+                return True
+                
+        except Exception as e:
+            print(f"❌ Ошибка обработки уникального видео: {e}")
+            return False
+    
+    @staticmethod
+    async def apply_basic_effects(input_path: str, output_path: str, config: dict) -> bool:
+        """Применяет базовые эффекты (яркость, контраст, скорость, зум)"""
+        try:
+            brightness = config.get('brightness', 0)
+            contrast = config.get('contrast', 1.0)
+            speed = config.get('speed', 1.0)
+            zoom = config.get('zoom', 1.0)
+            
+            print(f"🎨 Применяем базовые эффекты: brightness={brightness}, contrast={contrast}, speed={speed}, zoom={zoom}")
+            
+            # Строим фильтр для базовых эффектов
+            filters = []
+            
+            if brightness != 0:
+                filters.append(f"eq=brightness={brightness}")
+            
+            if contrast != 1.0:
+                filters.append(f"eq=contrast={contrast}")
+            
+            if zoom != 1.0:
+                filters.append(f"scale=iw*{zoom}:ih*{zoom}")
+            
+            if speed != 1.0:
+                filters.append(f"setpts=PTS/{speed}")
+            
+            filter_chain = ",".join(filters) if filters else "null"
+            
+            # Команда FFmpeg
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', input_path,
+                '-filter:v', filter_chain,
+                '-filter:a', f"atempo={speed}" if speed != 1.0 else "null",
+                '-c:v', 'libx264', '-crf', '23', '-preset', 'medium', '-pix_fmt', 'yuv420p',
+                '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart',
+                output_path
+            ]
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            
+            if result.returncode == 0:
+                print(f"✅ Базовые эффекты применены")
+                return True
+            else:
+                print(f"❌ Ошибка базовых эффектов: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Ошибка базовых эффектов: {e}")
+            return False
+    
+    @staticmethod
+    async def apply_music_new(input_path: str, output_path: str, music_id: int = None) -> bool:
+        """Применение фоновой музыки на основе рабочего скрипта"""
+        try:
+            # Настройки из вашего скрипта
+            volume_db = -17  # Громкость музыки как вы просили
+            fade_in = 2.0
+            fade_out = 2.0
+            loop = True
+            
+            # Получаем длительность видео
+            def get_video_duration(video_path: str) -> float:
+                try:
+                    cmd = [
+                        'ffprobe', '-v', 'quiet', '-print_format', 'json',
+                        '-show_format', video_path
+                    ]
+                    result = subprocess.run(cmd, capture_output=True, text=True)
+                    
+                    if result.returncode != 0:
+                        print(f"❌ Ошибка получения информации о видео: {result.stderr}")
+                        return 0
+                    
+                    import json
+                    data = json.loads(result.stdout)
+                    duration = float(data.get('format', {}).get('duration', 0))
+                    return duration
+                except Exception as e:
+                    print(f"❌ Ошибка анализа видео: {e}")
+                    return 0
+            
+            video_duration = get_video_duration(input_path)
+            if video_duration == 0:
+                print(f"❌ Не удалось получить длительность видео")
+                return False
+            
+            # Ищем музыку из базы данных
+            music_path = None
+            music_name = "Случайная музыка"
+            
+            try:
+                if music_id:
+                    # Получаем конкретную музыку по ID
+                    music_record = await db.get_music_by_id(music_id)
+                    if music_record and music_record.get('is_active', True) and os.path.exists(music_record['file_path']):
+                        music_path = music_record['file_path']
+                        music_name = music_record['file_name']
+                        print(f"🎵 Используем выбранную музыку: {music_name}")
+                    else:
+                        print(f"⚠️ Выбранная музыка не найдена или неактивна, используем случайную")
+                        music_record = await db.get_random_music()
+                        if music_record and os.path.exists(music_record['file_path']):
+                            music_path = music_record['file_path']
+                            music_name = music_record['file_name']
+                            print(f"🎵 Используем случайную музыку: {music_name}")
+                else:
+                    # Получаем случайную музыку из базы данных
+                    music_record = await db.get_random_music()
+                    if music_record and os.path.exists(music_record['file_path']):
+                        music_path = music_record['file_path']
+                        music_name = music_record['file_name']
+                        print(f"🎵 Используем случайную музыку: {music_name}")
+            except Exception as e:
+                print(f"⚠️ Ошибка получения музыки из БД: {e}")
+            
+            # Fallback: используем музыку по умолчанию
+            if not music_path:
+                project_root = Path(__file__).resolve().parent.parent.parent
+                default_music_path = project_root / "music" / "природа.wav"
+                if default_music_path.exists():
+                    music_path = str(default_music_path)
+                    music_name = "природа.wav"
+                    print(f"🎵 Используем музыку по умолчанию: {music_name}")
+                else:
+                    print(f"❌ Музыкальный файл не найден")
+                    return False
+            
+            print(f"🎵 Применяем фоновую музыку:")
+            print(f"   📁 Файл: {music_path}")
+            print(f"   🔊 Громкость: {volume_db}dB")
+            print(f"   ⏱️ Длительность видео: {video_duration:.1f}s")
+            print(f"   🔄 Зацикливание: {'Да' if loop else 'Нет'}")
+            print(f"   🎚️ Fade In: {fade_in}s")
+            print(f"   🎚️ Fade Out: {fade_out}s")
+            
+            # Строим фильтр для музыки
+            music_filters = []
+            
+            if loop:
+                # Зацикливаем музыку если она короче видео
+                music_filters.append(f"[1:a]aloop=loop=-1:size=2e+09,atrim=duration={video_duration}")
+            else:
+                # Обрезаем музыку по длительности видео
+                music_filters.append(f"[1:a]atrim=duration={video_duration}")
+            
+            # Применяем громкость
+            music_filters.append(f"volume={volume_db}dB")
+            
+            # Применяем fade эффекты
+            if fade_in > 0:
+                music_filters.append(f"afade=t=in:ss=0:d={fade_in}")
+            
+            if fade_out > 0:
+                fade_start = max(0, video_duration - fade_out)
+                music_filters.append(f"afade=t=out:st={fade_start}:d={fade_out}")
+            
+            # Объединяем фильтры
+            music_filter_chain = ",".join(music_filters) + "[music]"
+            
+            # Микшируем оригинальное аудио с музыкой
+            final_filter = f"{music_filter_chain};[0:a][music]amix=inputs=2:duration=first:dropout_transition=3[audio]"
+            
+            # Формируем команду FFmpeg
+            cmd = [
+                'ffmpeg', '-y',
+                '-i', input_path,      # Видео с оригинальным аудио
+                '-i', music_path,       # Фоновая музыка
+                '-filter_complex', final_filter,
+                '-map', '0:v',          # Видео из первого входа
+                '-map', '[audio]',      # Микшированное аудио
+                '-c:v', 'copy',         # Копируем видео без перекодирования
+                '-c:a', 'aac',          # Кодируем аудио в AAC
+                '-b:a', '160k',         # Битрейт аудио
+                output_path
+            ]
+            
+            print(f"🎬 Запускаем наложение музыки...")
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            
+            if result.returncode == 0:
+                print(f"✅ Фоновая музыка успешно наложена")
+                return True
+            else:
+                print(f"❌ Ошибка наложения музыки: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Ошибка применения музыки: {e}")
+            return False
+    
+    @staticmethod
     def extract_speech_with_timing(video_path: str, language: str = 'ru') -> list:
         """Извлечение речи с временными метками через Whisper"""
         try:
@@ -240,151 +697,161 @@ async def videoprocess_cb(callback: types.CallbackQuery, state: FSMContext):
     """Обработка кнопки обработки видео"""
     await callback.answer()
     
+    # Инициализируем пустой список выбранных эффектов
+    await state.update_data(selected_effects=[])
+    
     await callback.message.edit_text(
         "🎬 <b>Обработка видео</b>\n\n"
-        "Выберите эффект для применения:",
+        "Выберите эффекты для применения:\n"
+        "📐 Нормализация - меняет размер к 1080×1920\n"
+        "Остальные эффекты - применяются к оригинальному размеру\n"
+        "🎣 Subscribe Bait - работает только с Trending Frame\n"
+        "🎵 Музыка - накладывает фоновую музыку (-17dB)",
         reply_markup=video_effects_kb()
     )
 
-@router.callback_query(F.data == "normalize")
-async def select_normalize_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Обработка выбора эффекта нормализации"""
+def update_effects_keyboard(selected_effects):
+    """Обновляет клавиатуру с отмеченными эффектами"""
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text=f"{'✅' if 'normalize' in selected_effects else '📐'} Нормализация (1080×1920)", 
+                callback_data="toggle_normalize"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{'✅' if 'ultra_unique' in selected_effects else '⚡'} Ultra Unique", 
+                callback_data="toggle_ultra_unique"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{'✅' if 'trending_frame' in selected_effects else '🎬'} Trending Frame", 
+                callback_data="toggle_trending_frame"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{'✅' if 'subscribe_bait' in selected_effects else '🎣'} Subscribe Bait", 
+                callback_data="toggle_subscribe_bait"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{'✅' if 'subtitles' in selected_effects else '💬'} Субтитры", 
+                callback_data="toggle_subtitles"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{'✅' if 'music' in selected_effects else '🎵'} Музыка", 
+                callback_data="toggle_music"
+            )
+        ],
+        [
+            InlineKeyboardButton(text="✅ Применить выбранные", callback_data="apply_selected_effects")
+        ],
+        [
+            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")
+        ]
+    ])
+    return kb
+
+@router.callback_query(F.data.startswith("toggle_"))
+async def toggle_effect_cb(callback: types.CallbackQuery, state: FSMContext):
+    """Переключение эффекта в списке выбранных"""
     await callback.answer()
     
-    await state.update_data(effect="normalize")
-    await state.set_state(VideoProcessingStates.waiting_for_video)
+    data = await state.get_data()
+    selected_effects = data.get('selected_effects', [])
     
+    effect = callback.data.replace("toggle_", "")
+    
+    # Проверка для Subscribe Bait
+    if effect == "subscribe_bait":
+        if effect in selected_effects:
+            # Убираем Subscribe Bait
+            selected_effects.remove(effect)
+        else:
+            # Добавляем Subscribe Bait только если выбран Trending Frame
+            if "trending_frame" in selected_effects:
+                selected_effects.append(effect)
+            else:
+                await callback.answer("❌ Subscribe Bait требует выбора Trending Frame!", show_alert=True)
+                return
+    elif effect == "music":
+        if effect in selected_effects:
+            # Убираем музыку
+            selected_effects.remove(effect)
+        else:
+            # Добавляем музыку и переходим к выбору
+            selected_effects.append(effect)
+            await state.update_data(selected_effects=selected_effects)
+            await show_music_selection(callback, state)
+            return
+    else:
+        # Обычная логика для других эффектов
+        if effect in selected_effects:
+            selected_effects.remove(effect)
+            # Если убираем Trending Frame, убираем и Subscribe Bait
+            if effect == "trending_frame" and "subscribe_bait" in selected_effects:
+                selected_effects.remove("subscribe_bait")
+        else:
+            selected_effects.append(effect)
+    
+    await state.update_data(selected_effects=selected_effects)
+    
+    # Обновляем сообщение с новой клавиатурой
     await callback.message.edit_text(
-        "📐 <b>Нормализация видео</b>\n\n"
-        "Видео будет приведено к формату 9:16 (1080x1920)\n\n"
-        "Отправьте видео файл:",
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
-        ])
+        "🎬 <b>Обработка видео</b>\n\n"
+        "Выберите эффекты для применения:\n"
+        "📐 Нормализация - меняет размер к 1080×1920\n"
+        "Остальные эффекты - применяются к оригинальному размеру\n"
+        "🎣 Subscribe Bait - работает только с Trending Frame\n"
+        "🎵 Музыка - накладывает фоновую музыку (-17dB)\n\n"
+        f"Выбрано: {len(selected_effects)} эффект(ов)",
+        reply_markup=update_effects_keyboard(selected_effects)
     )
 
-@router.callback_query(F.data == "ultra_unique")
-async def select_ultra_unique_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Обработка выбора эффекта Ultra Unique"""
+@router.callback_query(F.data == "apply_selected_effects")
+async def apply_selected_effects_cb(callback: types.CallbackQuery, state: FSMContext):
+    """Применение выбранных эффектов"""
     await callback.answer()
     
-    await state.update_data(effect="ultra_unique")
-    await state.set_state(VideoProcessingStates.waiting_for_video)
+    data = await state.get_data()
+    selected_effects = data.get('selected_effects', [])
     
-    await callback.message.edit_text(
-        "🚀 <b>Ultra Unique эффект</b>\n\n"
-        "Применяется яркость + скорость + уникализация\n\n"
-        "Отправьте видео файл:",
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
-        ])
-    )
-
-@router.callback_query(F.data == "trending_frame")
-async def select_trending_frame_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Обработка выбора эффекта Trending Frame"""
-    await callback.answer()
-    
-    await state.update_data(effect="trending_frame")
-    await state.set_state(VideoProcessingStates.waiting_for_video)
-    
-    await callback.message.edit_text(
-        "🔄 <b>Trending Frame</b>\n\n"
-        "Применяются скругленные углы и уникализация\n\n"
-        "Отправьте видео файл:",
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
-        ])
-    )
-
-@router.callback_query(F.data == "subscribe_bait")
-async def select_subscribe_bait_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Обработка выбора эффекта Subscribe Bait"""
-    await callback.answer()
-    
-    await state.update_data(effect="subscribe_bait")
-    await state.set_state(VideoProcessingStates.waiting_for_video)
-    
-    await callback.message.edit_text(
-        "🎣 <b>Subscribe Bait</b>\n\n"
-        "Добавляется призыв к подписке и уникализация\n\n"
-        "Отправьте видео файл:",
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
-        ])
-    )
-
-@router.callback_query(F.data == "subtitles")
-async def select_subtitles_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Обработка выбора эффекта субтитров"""
-    await callback.answer()
-    
-    # Получаем список шрифтов
-    fonts = await db.get_all_fonts()
-    if not fonts:
-        await callback.message.edit_text(
-            "❌ <b>Шрифты не найдены</b>\n\n"
-            "Администратор не добавил шрифты для субтитров.",
-            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-                [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
-            ])
-        )
+    if not selected_effects:
+        await callback.answer("❌ Выберите хотя бы один эффект!", show_alert=True)
         return
     
-    # Создаем клавиатуру с шрифтами
-    keyboard = []
-    for font in fonts[:10]:  # Показываем первые 10 шрифтов
-        keyboard.append([InlineKeyboardButton(
-            text=f"🔤 {font['file_name']}", 
-            callback_data=f"select_font_{font['id']}"
-        )])
+    await state.set_state(VideoProcessingStates.waiting_for_video)
     
-    keyboard.append([InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")])
-    
-    await state.update_data(effect="subtitles")
-    await state.set_state(VideoProcessingStates.choosing_font)
-    
-    await callback.message.edit_text(
-        "🎬 <b>Субтитры</b>\n\n"
-        "Выберите шрифт для субтитров:",
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard)
-    )
-
-@router.callback_query(F.data.startswith("select_font_"))
-async def select_font_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Обработка выбора шрифта"""
-    await callback.answer()
-    
-    font_id = int(callback.data.split("_")[-1])
-    font = await db.get_font_by_id(font_id)
-    
-    if not font:
-        await callback.answer("❌ Шрифт не найден", show_alert=True)
-        return
-    
-    # Преобразуем относительный путь в абсолютный
-    font_path = font['file_path']
-    if not os.path.isabs(font_path):
-        font_path = os.path.abspath(font_path)
-    
-    # Проверяем существование файла шрифта
-    if not os.path.exists(font_path):
-        await callback.answer(f"❌ Файл шрифта не найден: {font_path}", show_alert=True)
-        return
-    
-    # Сохраняем выбранный шрифт
-    await state.update_data(font_id=font_id, font_path=font_path, font_name=font['file_name'])
+    effects_text = []
+    for effect in selected_effects:
+        if effect == "normalize":
+            effects_text.append("📐 Нормализация (1080×1920)")
+        elif effect == "ultra_unique":
+            effects_text.append("⚡ Ultra Unique")
+        elif effect == "trending_frame":
+            effects_text.append("🎬 Trending Frame")
+        elif effect == "subscribe_bait":
+            effects_text.append("🎣 Subscribe Bait")
+        elif effect == "subtitles":
+            effects_text.append("💬 Субтитры")
+        elif effect == "music":
+            effects_text.append("🎵 Музыка")
     
     await callback.message.edit_text(
-        "🎬 <b>Готово к обработке</b>\n\n"
-        f"✅ Шрифт: {font['file_name']}\n\n"
-        "Отправьте видео файл для обработки:",
+        f"🎬 <b>Применение эффектов</b>\n\n"
+        f"Выбранные эффекты:\n" + "\n".join(f"• {text}" for text in effects_text) + "\n\n"
+        f"Отправьте видео файл:",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
         ])
     )
-    
-    await state.set_state(VideoProcessingStates.waiting_for_video)
+
 
 @router.callback_query(F.data == "cancel_video")
 async def cancel_video_cb(callback: types.CallbackQuery, state: FSMContext):
@@ -398,12 +865,28 @@ async def cancel_video_cb(callback: types.CallbackQuery, state: FSMContext):
         reply_markup=main_reply_kb()
     )
 
+@router.callback_query(F.data == "backstart")
+async def back_to_start_cb(callback: types.CallbackQuery, state: FSMContext):
+    """Возврат в главное меню"""
+    await callback.answer()
+    await state.clear()
+    
+    await callback.message.edit_text(
+        f"<b>Привет! Я бот</b> 🚀\n"
+        "Используй кнопки ниже или /help для списка команд.",
+        reply_markup=main_reply_kb()
+    )
+
 @router.message(VideoProcessingStates.waiting_for_video, F.video)
 async def process_video_handler(message: types.Message, state: FSMContext, bot: Bot):
-    """Обработка загруженного видео"""
+    """Обработка загруженного видео с множественными эффектами"""
     try:
         data = await state.get_data()
-        effect = data.get('effect', 'normalize')
+        selected_effects = data.get('selected_effects', [])
+        
+        if not selected_effects:
+            await message.answer("❌ Не выбрано ни одного эффекта!")
+            return
         
         # Создаем временную папку
         temp_dir = tempfile.mkdtemp()
@@ -411,64 +894,161 @@ async def process_video_handler(message: types.Message, state: FSMContext, bot: 
         try:
             # Скачиваем видео
             input_path = os.path.join(temp_dir, "input.mp4")
-            await bot.download(message.video, destination=input_path)
+            try:
+                await bot.download(message.video, destination=input_path)
+            except Exception as e:
+                if "file is too big" in str(e).lower():
+                    await message.answer(
+                        "❌ <b>Файл слишком большой</b>\n\n"
+                        "Telegram ограничивает размер файлов до 50MB.\n"
+                        "Пожалуйста, отправьте видео меньшего размера.",
+                        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                            [InlineKeyboardButton(text="🔄 Попробовать снова", callback_data="videoprocess")]
+                        ])
+                    )
+                    return
+                else:
+                    raise e
+            
+            # Статус: начало обработки
+            status_msg = await message.answer(
+                "⏳ <b>Обработка началась…</b>\n\nОжидайте, это может занять время.")
             
             # Определяем выходной файл
             output_path = os.path.join(temp_dir, "output.mp4")
             
-            # Обрабатываем в зависимости от эффекта
-            success = False
+            # Применяем эффекты последовательно
+            current_file = input_path
+            success = True
             
-            if effect == "normalize":
-                success = await VideoProcessor.normalize_video(input_path, output_path)
-            elif effect == "ultra_unique":
-                success = await VideoProcessor.apply_ultra_unique(input_path, output_path)
-            elif effect == "trending_frame":
-                success = await VideoProcessor.apply_trending_frame(input_path, output_path)
-            elif effect == "subscribe_bait":
-                success = await VideoProcessor.apply_subscribe_bait(input_path, output_path)
-            elif effect == "subtitles":
-                # Извлекаем речь из видео
-                print(f"🎤 Извлекаем речь из видео (язык: ru)...")
-                timed_segments = VideoProcessor.extract_speech_with_timing(input_path, 'ru')
+            # 1. Сначала применяем эффекты к оригинальному размеру
+            for effect in selected_effects:
+                if effect == "subtitles":
+                    # Интеграция нового генератора караоке-субтитров
+                    try:
+                        from apply_subtitles import (
+                            check_ffmpeg,
+                            extract_audio_from_video,
+                            transcribe_with_words,
+                            chunk_segments_into_word_groups,
+                            write_srt,
+                            burn_srt_into_video,
+                        )
+                        
+                        temp_wav = os.path.join(temp_dir, "audio.wav")
+                        temp_srt = os.path.join(temp_dir, "subtitles.srt")
+                        temp_with_subtitles = os.path.join(temp_dir, f"temp_with_subtitles_{effect}.mp4")
+                        
+                        check_ffmpeg()
+                        if extract_audio_from_video(current_file, temp_wav):
+                            result = transcribe_with_words(temp_wav, language='ru')
+                            segments = result.get("segments", [])
+                            chunks = chunk_segments_into_word_groups(segments, max_words=3)
+                            
+                            write_srt(chunks, temp_srt, width=30, lines=2)
+                            burn_srt_into_video(current_file, temp_srt, temp_with_subtitles, fontsize=16, margin_v=50)
+                            
+                            if os.path.exists(temp_with_subtitles):
+                                current_file = temp_with_subtitles
+                                print(f"✅ Субтитры применены")
+                            else:
+                                print(f"❌ Ошибка применения субтитров")
+                                success = False
+                        else:
+                            print(f"❌ Ошибка извлечения аудио")
+                            success = False
+                    except Exception as e:
+                        print(f"❌ Ошибка генерации субтитров: {e}")
+                        success = False
                 
-                if timed_segments:
-                    # Объединяем текст
-                    subtitle_text = ' '.join([seg['text'] for seg in timed_segments])
-                    print(f"📝 Текст: {subtitle_text[:100]}...")
-                    print(f"🎯 Сегментов: {len(timed_segments)}")
+                elif effect == "ultra_unique":
+                    temp_ultra = os.path.join(temp_dir, f"temp_ultra_{effect}.mp4")
+                    if await VideoProcessor.apply_ultra_unique_new(current_file, temp_ultra):
+                        current_file = temp_ultra
+                        print(f"✅ Ultra Unique применен")
+                    else:
+                        print(f"❌ Ошибка Ultra Unique")
+                        success = False
+                
+                elif effect == "trending_frame":
+                    temp_trending = os.path.join(temp_dir, f"temp_trending_{effect}.mp4")
+                    if await VideoProcessor.apply_trending_frame_new(current_file, temp_trending):
+                        current_file = temp_trending
+                        print(f"✅ Trending Frame применен")
+                    else:
+                        print(f"❌ Ошибка Trending Frame")
+                        success = False
+                
+                elif effect == "subscribe_bait":
+                    # Subscribe Bait работает только с Trending Frame
+                    if "trending_frame" not in selected_effects:
+                        print(f"❌ Subscribe Bait требует выбора Trending Frame")
+                        success = False
+                    else:
+                        temp_subscribe = os.path.join(temp_dir, f"temp_subscribe_{effect}.mp4")
+                        if await VideoProcessor.apply_subscribe_bait_new(current_file, temp_subscribe):
+                            current_file = temp_subscribe
+                            print(f"✅ Subscribe Bait применен")
+                        else:
+                            print(f"❌ Ошибка Subscribe Bait")
+                            success = False
+                
+                elif effect == "music":
+                    # Получаем выбранную музыку из состояния
+                    music_data = await state.get_data()
+                    selected_music_id = music_data.get('selected_music_id')
                     
-                    # Применяем субтитры с временными метками
-                    success = await VideoProcessor.apply_subtitles_with_timing(
-                        input_path, output_path, subtitle_text, timed_segments, data.get('font_path')
-                    )
+                    temp_music = os.path.join(temp_dir, f"temp_music_{effect}.mp4")
+                    if await VideoProcessor.apply_music_new(current_file, temp_music, selected_music_id):
+                        current_file = temp_music
+                        print(f"✅ Музыка применена")
+                    else:
+                        print(f"❌ Ошибка применения музыки")
+                        success = False
+            
+            # 2. Если выбрана нормализация - применяем её в конце
+            if "normalize" in selected_effects and success:
+                print(f"📐 Применяем нормализацию к 1080x1920")
+                if await VideoProcessor.normalize_video(current_file, output_path):
+                    print(f"✅ Нормализация завершена")
                 else:
-                    # Если речь не извлечена, используем простые субтитры
-                    subtitle_text = "Автоматически сгенерированные субтитры"
-                    success = await VideoProcessor.apply_subtitles(
-                        input_path, output_path, subtitle_text, data.get('font_path')
-                    )
+                    print(f"❌ Ошибка нормализации")
+                    success = False
+            elif success:
+                # Если нормализация не выбрана - копируем файл как есть
+                import shutil
+                shutil.copy2(current_file, output_path)
+                print(f"✅ Видео обработано без изменения размера")
             
             if success and os.path.exists(output_path):
-                # Отправляем результат
-                result_file = FSInputFile(output_path, filename="processed_video.mp4")
-                await message.answer_video(
-                    video=result_file,
-                    caption=f"✅ <b>Видео обработано!</b>\n\n"
-                           f"Эффект: {effect.replace('_', ' ').title()}\n"
-                           f"Размер: {os.path.getsize(output_path) // 1024} KB"
-                )
+                # Обновляем статус
+                try:
+                    await status_msg.edit_text("✅ <b>Видео готово!</b>")
+                except Exception:
+                    pass
+                
+                # Отправляем как документ для удобного скачивания (без отправки видео-превью)
+                try:
+                    doc_file = FSInputFile(output_path, filename="processed_video.mp4")
+                    await message.answer_document(
+                        document=doc_file, 
+                        caption="⬇️ Скачать видео",
+                        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                            [InlineKeyboardButton(text="🏠 Главное меню", callback_data="backstart")]
+                        ])
+                    )
+                except Exception:
+                    pass
                 
                 # Очищаем состояние
                 await state.clear()
             else:
-                await message.answer(
-                    "❌ <b>Ошибка обработки</b>\n\n"
-                    "Не удалось обработать видео. Попробуйте еще раз.",
-                    reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-                        [InlineKeyboardButton(text="🔄 Попробовать снова", callback_data="videoprocess")]
-                    ])
-                )
+                try:
+                    await status_msg.edit_text(
+                        "❌ <b>Ошибка обработки</b>\n\nНе удалось обработать видео. Попробуйте ещё раз.")
+                except Exception:
+                    await message.answer(
+                        "❌ <b>Ошибка обработки</b>\n\nНе удалось обработать видео. Попробуйте ещё раз.")
         
         finally:
             # Очищаем временные файлы
@@ -489,6 +1069,20 @@ async def process_video_handler(message: types.Message, state: FSMContext, bot: 
             ])
         )
 
+@router.message(VideoProcessingStates.waiting_for_video, F.audio)
+async def audio_file_handler(message: types.Message):
+    """Обработка аудиофайлов (музыка)"""
+    await message.answer(
+        "🎵 <b>Аудиофайл получен!</b>\n\n"
+        "⚠️ <b>Ограничения Telegram:</b>\n"
+        "• Максимальный размер файла: 50MB\n"
+        "• Поддерживаемые форматы: MP3, WAV, M4A\n\n"
+        "Если файл слишком большой, используйте музыку из библиотеки бота.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
+        ])
+    )
+
 @router.message(VideoProcessingStates.waiting_for_video)
 async def invalid_video_handler(message: types.Message):
     """Обработка неправильного формата"""
@@ -497,5 +1091,281 @@ async def invalid_video_handler(message: types.Message):
         "Пожалуйста, отправьте видео файл.",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")]
+        ])
+    )
+
+
+# ==================== ВЫБОР МУЗЫКИ ====================
+
+async def show_music_selection(callback: types.CallbackQuery, state: FSMContext):
+    """Показывает список доступной музыки для выбора"""
+    try:
+        # Получаем активную музыку
+        active_music = await db.get_active_music()
+        
+        if not active_music:
+            await callback.message.edit_text(
+                "🎵 <b>Выбор музыки</b>\n\n"
+                "❌ Активная музыка не найдена.\n"
+                "Обратитесь к администратору.",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text="⬅️ Назад", callback_data="videoprocess")]
+                ])
+            )
+            return
+        
+        # Создаем клавиатуру с музыкой
+        keyboard = []
+        for music in active_music[:10]:  # Показываем первые 10
+            keyboard.append([InlineKeyboardButton(
+                text=f"🎵 {music['file_name']}", 
+                callback_data=f"select_music_{music['id']}"
+            )])
+        
+        keyboard.append([InlineKeyboardButton(text="🎲 Случайная", callback_data="select_music_random")])
+        keyboard.append([InlineKeyboardButton(text="⬅️ Назад", callback_data="videoprocess")])
+        
+        await callback.message.edit_text(
+            "🎵 <b>Выберите музыку</b>\n\n"
+            f"Доступно {len(active_music)} треков:\n"
+            "Выберите конкретную музыку или случайную:",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard)
+        )
+        
+    except Exception as e:
+        await callback.message.edit_text(
+            f"❌ <b>Ошибка загрузки музыки</b>\n\n"
+            f"Ошибка: {str(e)}",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="⬅️ Назад", callback_data="videoprocess")]
+            ])
+        )
+
+@router.callback_query(F.data.startswith("select_music_"))
+async def select_music_cb(callback: types.CallbackQuery, state: FSMContext):
+    """Обработка выбора музыки"""
+    await callback.answer()
+    
+    try:
+        music_data = callback.data.replace("select_music_", "")
+        
+        if music_data == "random":
+            # Случайная музыка
+            await state.update_data(selected_music_id=None)
+            music_name = "Случайная музыка"
+        else:
+            # Конкретная музыка
+            music_id = int(music_data)
+            music_record = await db.get_music_by_id(music_id)
+            
+            if music_record and music_record.get('is_active', True):
+                await state.update_data(selected_music_id=music_id)
+                music_name = music_record['file_name']
+            else:
+                await callback.answer("❌ Музыка не найдена или неактивна", show_alert=True)
+                return
+        
+        # Возвращаемся к выбору эффектов
+        data = await state.get_data()
+        selected_effects = data.get('selected_effects', [])
+        
+        await callback.message.edit_text(
+            "🎬 <b>Обработка видео</b>\n\n"
+            "Выберите эффекты для применения:\n"
+            "📐 Нормализация - меняет размер к 1080×1920\n"
+            "Остальные эффекты - применяются к оригинальному размеру\n"
+            "🎣 Subscribe Bait - работает только с Trending Frame\n"
+            f"🎵 Музыка - накладывает фоновую музыку (-17dB)\n"
+            f"   Выбрано: {music_name}\n\n"
+            f"Выбрано: {len(selected_effects)} эффект(ов)",
+            reply_markup=update_effects_keyboard(selected_effects)
+        )
+        
+    except Exception as e:
+        await callback.answer(f"❌ Ошибка: {str(e)}", show_alert=True)
+
+
+# ==================== ГЕНЕРАЦИЯ УНИКАЛЬНЫХ ВИДЕО ====================
+
+@router.callback_query(F.data == "generate_unique_videos")
+async def generate_unique_videos_cb(callback: types.CallbackQuery, state: FSMContext):
+    """Генерация 5 уникальных видео"""
+    await callback.answer()
+    
+    await callback.message.edit_text(
+        "🎲 <b>Генерация 5 уникальных видео</b>\n\n"
+        "📹 Отправьте одно видео, и я создам 5 уникальных вариантов:\n"
+        "• Разные эффекты и настройки\n"
+        "• Уникальная музыка для каждого\n"
+        "• Различные параметры обработки\n"
+        "• Все в одном архиве для скачивания\n\n"
+        "⚠️ Обработка займет больше времени",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="videoprocess")]
+        ])
+    )
+    
+    # Устанавливаем состояние ожидания видео для уникальной генерации
+    await state.set_state(VideoProcessingStates.waiting_for_unique_video)
+
+@router.message(VideoProcessingStates.waiting_for_unique_video, F.video)
+async def process_unique_videos_handler(message: types.Message, state: FSMContext):
+    """Обработка видео для генерации уникальных вариантов"""
+    await message.answer("🎲 <b>Начинаю генерацию 5 уникальных видео...</b>")
+    
+    # Создаем временную папку
+    temp_dir = tempfile.mkdtemp()
+    
+    try:
+        # Скачиваем видео
+        input_path = os.path.join(temp_dir, "input.mp4")
+        try:
+            await bot.download(message.video, destination=input_path)
+        except Exception as e:
+            if "file is too big" in str(e).lower():
+                await message.answer(
+                    "❌ <b>Файл слишком большой</b>\n\n"
+                    "Telegram ограничивает размер файлов до 50MB.\n"
+                    "Пожалуйста, отправьте видео меньшего размера.",
+                    reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                        [InlineKeyboardButton(text="🔄 Попробовать снова", callback_data="generate_unique_videos")]
+                    ])
+                )
+                return
+            else:
+                raise e
+        
+        # Статус: начало обработки
+        status_msg = await message.answer(
+            "⏳ <b>Генерация уникальных видео...</b>\n\n"
+            "Создаю 5 вариантов с разными эффектами...")
+        
+        # Генерируем 5 уникальных видео
+        unique_videos = []
+        success_count = 0
+        
+        for i in range(5):
+            try:
+                # Создаем уникальные настройки для каждого видео
+                unique_config = await generate_unique_config(i)
+                
+                # Обрабатываем видео с уникальными настройками
+                output_path = os.path.join(temp_dir, f"unique_{i+1}.mp4")
+                
+                if await VideoProcessor.process_unique_video(input_path, output_path, unique_config):
+                    unique_videos.append(output_path)
+                    success_count += 1
+                    print(f"✅ Уникальное видео {i+1} создано")
+                else:
+                    print(f"❌ Ошибка создания видео {i+1}")
+                    
+            except Exception as e:
+                print(f"❌ Ошибка обработки видео {i+1}: {e}")
+        
+        if success_count == 0:
+            await status_msg.edit_text(
+                "❌ <b>Ошибка генерации</b>\n\n"
+                "Не удалось создать ни одного уникального видео.",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text="🔄 Попробовать снова", callback_data="generate_unique_videos")]
+                ])
+            )
+            return
+        
+        # Создаем архив с уникальными видео
+        archive_path = os.path.join(temp_dir, "unique_videos.zip")
+        await create_unique_videos_archive(unique_videos, archive_path)
+        
+        # Отправляем архив
+        await status_msg.edit_text("✅ <b>Готово!</b>\n\nАрхив с уникальными видео создан.")
+        
+        with open(archive_path, 'rb') as archive_file:
+            await message.answer_document(
+                document=types.FSInputFile(archive_file, filename="unique_videos.zip"),
+                caption="🎲 <b>5 уникальных видео готовы!</b>\n\n"
+                       f"✅ Создано: {success_count} видео\n"
+                       f"📦 Архив: unique_videos.zip\n\n"
+                       f"⬇️ Скачайте архив и распакуйте",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text="🏠 Главное меню", callback_data="backstart")]
+                ])
+            )
+        
+    except Exception as e:
+        print(f"❌ Ошибка генерации уникальных видео: {e}")
+        await message.answer(
+            f"❌ <b>Ошибка генерации</b>\n\n"
+            f"Произошла ошибка: {str(e)}",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="🔄 Попробовать снова", callback_data="generate_unique_videos")]
+            ])
+        )
+    
+    finally:
+        # Очищаем временные файлы
+        try:
+            shutil.rmtree(temp_dir)
+        except:
+            pass
+        
+        # Возвращаемся к обычному состоянию
+        await state.clear()
+
+async def generate_unique_config(video_index: int) -> dict:
+    """Генерирует уникальную конфигурацию для видео"""
+    import random
+    
+    # Базовые настройки
+    config = {
+        'brightness': random.uniform(-0.1, 0.1),  # -10% до +10%
+        'contrast': random.uniform(0.8, 1.2),     # 80% до 120%
+        'speed': random.uniform(0.9, 1.1),         # 90% до 110%
+        'zoom': random.uniform(1.0, 1.1),          # 100% до 110%
+        'effects': [],
+        'music_id': None,
+        'normalize': random.choice([True, False])
+    }
+    
+    # Добавляем случайные эффекты
+    available_effects = ['ultra_unique', 'trending_frame', 'subscribe_bait', 'subtitles']
+    num_effects = random.randint(1, 3)  # 1-3 эффекта
+    selected_effects = random.sample(available_effects, min(num_effects, len(available_effects)))
+    
+    # Subscribe Bait только с Trending Frame
+    if 'subscribe_bait' in selected_effects and 'trending_frame' not in selected_effects:
+        selected_effects.append('trending_frame')
+    
+    config['effects'] = selected_effects
+    
+    # Случайная музыка
+    try:
+        active_music = await db.get_active_music()
+        if active_music:
+            random_music = random.choice(active_music)
+            config['music_id'] = random_music['id']
+    except:
+        pass
+    
+    return config
+
+async def create_unique_videos_archive(video_paths: list, archive_path: str):
+    """Создает архив с уникальными видео"""
+    import zipfile
+    
+    with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for i, video_path in enumerate(video_paths, 1):
+            if os.path.exists(video_path):
+                zipf.write(video_path, f"unique_video_{i}.mp4")
+    
+    print(f"✅ Архив создан: {archive_path}")
+
+@router.message(VideoProcessingStates.waiting_for_unique_video)
+async def invalid_unique_video_handler(message: types.Message):
+    """Обработка неправильного формата для уникальных видео"""
+    await message.answer(
+        "❌ <b>Неверный формат</b>\n\n"
+        "Пожалуйста, отправьте видео файл для генерации уникальных вариантов.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="videoprocess")]
         ])
     )

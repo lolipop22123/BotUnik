@@ -1,0 +1,305 @@
+2025-10-23 14:06:52.595 | ERROR   | services.logger:handle_exception:84 - Uncaught exception
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1532, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1148, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1179, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/resolver.py", line 40, in resolve
+    infos = await self._loop.getaddrinfo(
+  File "uvloop/loop.pyx", line 1529, in getaddrinfo
+    return await self._getaddrinfo(
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/aiohttp.py", line 170, in make_request
+    async with session.post(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 1488, in __aenter__
+    self._resp: _RetType = await self._coro
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 770, in _request
+    resp = await handler(req)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 725, in _connect_and_send_request
+    conn = await self._connector.connect(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 642, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1209, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1538, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/Documents/botunik/run.py", line 93, in <module>
+    asyncio.run(main())
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+    return future.result()
+  File "/Users/mac/Documents/botunik/run.py", line 82, in main
+    await setup_bot_commands(bot)
+  File "/Users/mac/Documents/botunik/services/commands.py", line 11, in setup_bot_commands
+    await bot.set_my_commands(commands)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/bot.py", line 3505, in set_my_commands
+    return await self(call, request_timeout=request_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/bot.py", line 492, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/aiohttp.py", line 177, in make_request
+    raise TelegramNetworkError(method=method, message=f"{type(e).__name__}: {e}")
+aiogram.exceptions.TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-23 14:07:01.404 | ERROR   | services.logger:handle_exception:84 - Uncaught exception
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1532, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1148, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1179, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/resolver.py", line 40, in resolve
+    infos = await self._loop.getaddrinfo(
+  File "uvloop/loop.pyx", line 1529, in getaddrinfo
+    return await self._getaddrinfo(
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/aiohttp.py", line 170, in make_request
+    async with session.post(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 1488, in __aenter__
+    self._resp: _RetType = await self._coro
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 770, in _request
+    resp = await handler(req)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 725, in _connect_and_send_request
+    conn = await self._connector.connect(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 642, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1209, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1538, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/Documents/botunik/run.py", line 93, in <module>
+    asyncio.run(main())
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+    return future.result()
+  File "/Users/mac/Documents/botunik/run.py", line 82, in main
+    await setup_bot_commands(bot)
+  File "/Users/mac/Documents/botunik/services/commands.py", line 11, in setup_bot_commands
+    await bot.set_my_commands(commands)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/bot.py", line 3505, in set_my_commands
+    return await self(call, request_timeout=request_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/bot.py", line 492, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/aiohttp.py", line 177, in make_request
+    raise TelegramNetworkError(method=method, message=f"{type(e).__name__}: {e}")
+aiogram.exceptions.TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-23 14:07:22.661 | ERROR   | services.logger:handle_exception:84 - Uncaught exception
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1532, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1148, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1179, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/resolver.py", line 40, in resolve
+    infos = await self._loop.getaddrinfo(
+  File "uvloop/loop.pyx", line 1529, in getaddrinfo
+    return await self._getaddrinfo(
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/aiohttp.py", line 170, in make_request
+    async with session.post(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 1488, in __aenter__
+    self._resp: _RetType = await self._coro
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 770, in _request
+    resp = await handler(req)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/client.py", line 725, in _connect_and_send_request
+    conn = await self._connector.connect(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 642, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1209, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiohttp/connector.py", line 1538, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/Documents/botunik/run.py", line 93, in <module>
+    asyncio.run(main())
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+    return future.result()
+  File "/Users/mac/Documents/botunik/run.py", line 82, in main
+    await setup_bot_commands(bot)
+  File "/Users/mac/Documents/botunik/services/commands.py", line 11, in setup_bot_commands
+    await bot.set_my_commands(commands)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/bot.py", line 3505, in set_my_commands
+    return await self(call, request_timeout=request_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/bot.py", line 492, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/aiogram/client/session/aiohttp.py", line 177, in make_request
+    raise TelegramNetworkError(method=method, message=f"{type(e).__name__}: {e}")
+aiogram.exceptions.TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-23 14:08:08.339 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 14:08:08.418 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 14:08:08.505 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 14:08:08.505 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 14:08:08.559 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 14:08:08.560 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 14:08:09.001 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367114 is handled. Duration 494 ms by bot id=7920918630
+2025-10-23 14:08:09.002 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367113 is handled. Duration 498 ms by bot id=7920918630
+2025-10-23 14:08:11.647 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367115 is handled. Duration 456 ms by bot id=7920918630
+2025-10-23 14:08:25.340 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367116 is handled. Duration 1070 ms by bot id=7920918630
+2025-10-23 14:08:26.100 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367117 is handled. Duration 635 ms by bot id=7920918630
+2025-10-23 14:08:27.033 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367118 is handled. Duration 461 ms by bot id=7920918630
+2025-10-23 14:08:28.543 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367119 is handled. Duration 997 ms by bot id=7920918630
+2025-10-23 14:08:29.348 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367120 is handled. Duration 482 ms by bot id=7920918630
+2025-10-23 14:08:30.741 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367121 is handled. Duration 714 ms by bot id=7920918630
+2025-10-23 14:08:33.509 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367122 is handled. Duration 597 ms by bot id=7920918630
+2025-10-23 14:08:35.754 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367123 is handled. Duration 605 ms by bot id=7920918630
+2025-10-23 14:09:19.846 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 14:10:06.454 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367124 is handled. Duration 46612 ms by bot id=7920918630
+2025-10-23 14:10:43.701 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 14:10:43.730 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 14:10:43.943 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367125 is handled. Duration 241 ms by bot id=7920918630
+2025-10-23 14:10:45.726 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367126 is handled. Duration 431 ms by bot id=7920918630
+2025-10-23 14:10:55.022 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367127 is handled. Duration 660 ms by bot id=7920918630
+2025-10-23 14:10:56.178 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367128 is handled. Duration 423 ms by bot id=7920918630
+2025-10-23 14:10:57.312 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367129 is handled. Duration 404 ms by bot id=7920918630
+2025-10-23 14:11:37.651 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 14:12:55.311 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 14:12:55.312 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-23 14:13:06.892 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-23 14:13:07.861 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367130 is handled. Duration 90214 ms by bot id=7920918630
+2025-10-23 14:13:57.858 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/admin'
+2025-10-23 14:13:58.147 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367131 is handled. Duration 289 ms by bot id=7920918630
+2025-10-23 14:14:01.844 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367132 is handled. Duration 463 ms by bot id=7920918630
+2025-10-23 14:14:03.994 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367133 is handled. Duration 442 ms by bot id=7920918630
+2025-10-23 14:14:05.752 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367134 is handled. Duration 424 ms by bot id=7920918630
+2025-10-23 14:14:07.504 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367135 is handled. Duration 599 ms by bot id=7920918630
+2025-10-23 14:14:16.870 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367136 is handled. Duration 407 ms by bot id=7920918630
+2025-10-23 18:44:51.156 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 18:44:51.236 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 18:44:52.716 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 18:44:52.830 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 18:44:53.261 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367137 is handled. Duration 545 ms by bot id=7920918630
+2025-10-23 18:44:55.061 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367138 is handled. Duration 449 ms by bot id=7920918630
+2025-10-23 18:47:46.599 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 18:47:46.603 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 18:47:46.604 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-23 18:47:46.797 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 18:47:53.794 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 18:47:53.878 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 18:47:54.590 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 18:47:54.686 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 18:47:55.078 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367139 is handled. Duration 487 ms by bot id=7920918630
+2025-10-23 18:47:56.887 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367140 is handled. Duration 436 ms by bot id=7920918630
+2025-10-23 18:47:58.855 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367141 is handled. Duration 413 ms by bot id=7920918630
+2025-10-23 18:48:00.639 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367142 is handled. Duration 444 ms by bot id=7920918630
+2025-10-23 18:48:03.339 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367143 is handled. Duration 462 ms by bot id=7920918630
+2025-10-23 18:48:04.562 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367144 is handled. Duration 421 ms by bot id=7920918630
+2025-10-23 18:48:05.882 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367145 is handled. Duration 429 ms by bot id=7920918630
+2025-10-23 18:48:12.621 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367146 is handled. Duration 429 ms by bot id=7920918630
+2025-10-23 18:49:00.391 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 18:49:33.186 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367147 is handled. Duration 32800 ms by bot id=7920918630
+2025-10-23 18:51:55.087 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367148 is handled. Duration 434 ms by bot id=7920918630
+2025-10-23 18:51:57.047 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367149 is handled. Duration 411 ms by bot id=7920918630
+2025-10-23 18:57:52.527 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/admin'
+2025-10-23 18:57:53.168 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367150 is handled. Duration 645 ms by bot id=7920918630
+2025-10-23 18:57:56.062 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 18:57:56.063 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 18:57:56.064 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-23 18:57:56.214 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 18:58:01.174 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 18:58:01.255 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 18:58:44.747 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367151 is handled. Duration 676 ms by bot id=7920918630
+2025-10-23 18:58:46.437 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367152 is handled. Duration 548 ms by bot id=7920918630
+2025-10-23 19:02:09.633 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 19:02:09.975 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367153 is handled. Duration 345 ms by bot id=7920918630
+2025-10-23 19:04:32.490 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:04:32.493 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:04:32.494 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-23 19:04:32.644 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:04:45.686 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 19:04:45.765 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:04:49.540 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367154 is handled. Duration 602 ms by bot id=7920918630
+2025-10-23 19:04:50.977 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367155 is handled. Duration 408 ms by bot id=7920918630
+2025-10-23 19:05:03.266 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 19:05:03.589 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367156 is handled. Duration 324 ms by bot id=7920918630
+2025-10-23 19:06:34.281 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367157 is handled. Duration 552 ms by bot id=7920918630
+2025-10-23 19:16:01.830 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:16:01.834 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:16:01.835 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-23 19:16:02.003 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:16:05.775 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 19:16:05.889 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:16:07.991 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367158 is handled. Duration 741 ms by bot id=7920918630
+2025-10-23 19:16:09.431 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367159 is handled. Duration 423 ms by bot id=7920918630
+2025-10-23 19:16:11.885 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367160 is handled. Duration 608 ms by bot id=7920918630
+2025-10-23 19:16:16.904 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367161 is handled. Duration 458 ms by bot id=7920918630
+2025-10-23 19:16:20.114 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367162 is handled. Duration 408 ms by bot id=7920918630
+2025-10-23 19:16:22.164 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367163 is handled. Duration 403 ms by bot id=7920918630
+2025-10-23 19:16:23.486 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367164 is handled. Duration 423 ms by bot id=7920918630
+2025-10-23 19:16:25.155 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367165 is handled. Duration 415 ms by bot id=7920918630
+2025-10-23 19:16:27.342 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367166 is handled. Duration 448 ms by bot id=7920918630
+2025-10-23 19:16:28.802 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367167 is handled. Duration 390 ms by bot id=7920918630
+2025-10-23 19:17:27.314 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 19:17:36.125 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367168 is handled. Duration 8815 ms by bot id=7920918630
+2025-10-23 19:18:12.347 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367169 is handled. Duration 406 ms by bot id=7920918630
+2025-10-23 19:20:52.341 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:20:52.344 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:20:52.345 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-23 19:20:56.046 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 19:20:56.140 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:20:56.909 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367170 is handled. Duration 659 ms by bot id=7920918630
+2025-10-23 19:20:58.547 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367171 is handled. Duration 427 ms by bot id=7920918630
+2025-10-23 19:21:01.147 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367172 is handled. Duration 444 ms by bot id=7920918630
+2025-10-23 19:21:07.904 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367173 is handled. Duration 463 ms by bot id=7920918630
+2025-10-23 19:21:10.914 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367174 is handled. Duration 408 ms by bot id=7920918630
+2025-10-23 19:21:12.015 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367175 is handled. Duration 434 ms by bot id=7920918630
+2025-10-23 19:21:14.248 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367176 is handled. Duration 443 ms by bot id=7920918630
+2025-10-23 19:22:08.291 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 19:23:00.265 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367177 is handled. Duration 51980 ms by bot id=7920918630
+2025-10-23 19:23:26.987 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367178 is handled. Duration 513 ms by bot id=7920918630
+2025-10-23 19:26:12.631 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 19:26:12.637 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 19:26:12.847 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367179 is handled. Duration 217 ms by bot id=7920918630
+2025-10-23 19:26:13.371 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:26:13.372 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:26:13.372 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-23 19:26:13.565 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:26:16.970 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-23 19:26:17.048 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:26:17.586 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-23 19:26:17.595 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-23 19:26:17.976 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367180 is handled. Duration 391 ms by bot id=7920918630
+2025-10-23 19:26:19.799 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367181 is handled. Duration 430 ms by bot id=7920918630
+2025-10-23 19:26:21.329 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367182 is handled. Duration 403 ms by bot id=7920918630
+2025-10-23 19:27:30.538 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-23 19:27:31.105 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367183 is handled. Duration 572 ms by bot id=7920918630
+2025-10-23 19:28:26.337 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-23 19:28:26.340 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-23 19:28:26.341 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped

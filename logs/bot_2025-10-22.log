@@ -1,0 +1,402 @@
+2025-10-22 12:37:26.085 | ERROR   | services.logger:handle_exception:84 - Uncaught exception
+Traceback (most recent call last):
+  File "/Users/mac/Documents/botunik/run.py", line 93, in <module>
+    asyncio.run(main())
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+    return future.result()
+  File "/Users/mac/Documents/botunik/run.py", line 52, in main
+    await db.connect()
+  File "/Users/mac/Documents/botunik/database/user.py", line 16, in connect
+    self.pool = await asyncpg.create_pool(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/pool.py", line 403, in _async__init__
+    await self._initialize()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/pool.py", line 430, in _initialize
+    await first_ch.connect()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/pool.py", line 128, in connect
+    self._con = await self._pool._get_new_connection()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/pool.py", line 502, in _get_new_connection
+    con = await connection.connect(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/connection.py", line 2329, in connect
+    return await connect_utils._connect(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/connect_utils.py", line 991, in _connect
+    conn = await _connect_addr(
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/connect_utils.py", line 828, in _connect_addr
+    return await __connect_addr(params, True, *args)
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/asyncpg/connect_utils.py", line 876, in __connect_addr
+    await connected
+asyncpg.exceptions.InvalidCatalogNameError: database "botUnik" does not exist
+2025-10-22 12:42:14.427 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 12:42:14.487 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 12:42:25.313 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 12:42:25.465 | INFO    | handlers.start:cmd_start:20 - User 6956440009 - makker_o добавлен в базу данных
+2025-10-22 12:42:25.777 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367014 is handled. Duration 468 ms by bot id=7920918630
+2025-10-22 12:42:28.651 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367015 is handled. Duration 923 ms by bot id=7920918630
+2025-10-22 12:42:32.074 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367016 is handled. Duration 386 ms by bot id=7920918630
+2025-10-22 12:42:34.873 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367017 is handled. Duration 366 ms by bot id=7920918630
+2025-10-22 12:42:38.956 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 12:42:39.018 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 12:42:39.207 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367018 is handled. Duration 251 ms by bot id=7920918630
+2025-10-22 12:42:48.874 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/admin'
+2025-10-22 12:42:49.081 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367019 is handled. Duration 211 ms by bot id=7920918630
+2025-10-22 12:42:57.562 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367020 is handled. Duration 978 ms by bot id=7920918630
+2025-10-22 12:42:59.208 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367021 is handled. Duration 356 ms by bot id=7920918630
+2025-10-22 12:43:19.037 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 12:43:20.114 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367022 is handled. Duration 1079 ms by bot id=7920918630
+2025-10-22 12:43:22.023 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367023 is handled. Duration 350 ms by bot id=7920918630
+2025-10-22 12:43:27.096 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 12:43:28.051 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367024 is handled. Duration 958 ms by bot id=7920918630
+2025-10-22 12:43:30.301 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367025 is handled. Duration 532 ms by bot id=7920918630
+2025-10-22 12:43:31.220 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367026 is handled. Duration 349 ms by bot id=7920918630
+2025-10-22 12:43:32.690 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367027 is handled. Duration 362 ms by bot id=7920918630
+2025-10-22 12:43:36.089 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367028 is handled. Duration 348 ms by bot id=7920918630
+2025-10-22 12:43:46.878 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367029 is handled. Duration 356 ms by bot id=7920918630
+2025-10-22 12:43:48.711 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367030 is handled. Duration 359 ms by bot id=7920918630
+2025-10-22 12:44:27.919 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 12:44:58.176 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367031 is handled. Duration 30262 ms by bot id=7920918630
+2025-10-22 13:04:11.695 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 13:04:11.722 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 13:20:12.819 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 13:20:12.830 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.218171 seconds and try again... (tryings = 1, bot id = 7920918630)
+2025-10-22 13:20:14.061 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 13:20:14.062 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.566980 seconds and try again... (tryings = 2, bot id = 7920918630)
+2025-10-22 13:20:15.642 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 13:20:15.643 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 2.080162 seconds and try again... (tryings = 3, bot id = 7920918630)
+2025-10-22 13:20:17.733 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 13:20:17.734 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 2.778249 seconds and try again... (tryings = 4, bot id = 7920918630)
+2025-10-22 14:11:05.325 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 14:11:05.334 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 3.457548 seconds and try again... (tryings = 5, bot id = 7920918630)
+2025-10-22 14:11:19.011 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 6, bot id = 7920918630)
+2025-10-22 14:55:43.049 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 14:55:43.065 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 14:55:43.068 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 14:55:43.192 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 14:55:54.223 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 14:55:54.276 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 14:56:16.782 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 14:56:16.839 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 14:56:17.143 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367032 is handled. Duration 362 ms by bot id=7920918630
+2025-10-22 14:56:22.105 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367033 is handled. Duration 372 ms by bot id=7920918630
+2025-10-22 14:56:24.126 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367034 is handled. Duration 356 ms by bot id=7920918630
+2025-10-22 14:56:26.415 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367035 is handled. Duration 361 ms by bot id=7920918630
+2025-10-22 14:57:02.326 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 14:57:29.555 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367036 is handled. Duration 27233 ms by bot id=7920918630
+2025-10-22 15:21:27.612 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 15:21:27.668 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 15:21:28.565 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 15:21:28.727 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 15:21:29.023 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367037 is handled. Duration 459 ms by bot id=7920918630
+2025-10-22 15:21:30.610 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367038 is handled. Duration 372 ms by bot id=7920918630
+2025-10-22 15:21:32.776 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367039 is handled. Duration 538 ms by bot id=7920918630
+2025-10-22 15:21:34.213 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367040 is handled. Duration 347 ms by bot id=7920918630
+2025-10-22 15:22:14.577 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 15:23:03.621 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367041 is handled. Duration 49048 ms by bot id=7920918630
+2025-10-22 15:24:25.410 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 15:24:25.495 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 15:24:25.677 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367042 is handled. Duration 271 ms by bot id=7920918630
+2025-10-22 15:24:27.128 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367043 is handled. Duration 382 ms by bot id=7920918630
+2025-10-22 15:33:32.472 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 15:33:32.476 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 15:33:32.477 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 15:33:36.594 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 15:33:36.654 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 15:33:37.281 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 15:33:37.324 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 15:33:37.629 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367044 is handled. Duration 347 ms by bot id=7920918630
+2025-10-22 15:33:39.383 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367045 is handled. Duration 365 ms by bot id=7920918630
+2025-10-22 15:33:42.743 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367046 is handled. Duration 384 ms by bot id=7920918630
+2025-10-22 15:33:44.802 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367047 is handled. Duration 372 ms by bot id=7920918630
+2025-10-22 15:33:46.990 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367048 is handled. Duration 350 ms by bot id=7920918630
+2025-10-22 15:33:51.828 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367049 is handled. Duration 345 ms by bot id=7920918630
+2025-10-22 15:33:57.805 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367050 is handled. Duration 378 ms by bot id=7920918630
+2025-10-22 15:33:58.809 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367051 is handled. Duration 413 ms by bot id=7920918630
+2025-10-22 15:33:59.801 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367052 is handled. Duration 348 ms by bot id=7920918630
+2025-10-22 15:41:11.631 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 15:41:11.704 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 15:41:24.945 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367053 is handled. Duration 567 ms by bot id=7920918630
+2025-10-22 15:41:27.981 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367054 is handled. Duration 347 ms by bot id=7920918630
+2025-10-22 15:42:05.158 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 15:43:14.300 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367055 is handled. Duration 69148 ms by bot id=7920918630
+2025-10-22 15:43:53.243 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 15:43:53.323 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 15:43:53.505 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367056 is handled. Duration 262 ms by bot id=7920918630
+2025-10-22 15:43:55.304 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367057 is handled. Duration 348 ms by bot id=7920918630
+2025-10-22 15:43:58.315 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367058 is handled. Duration 342 ms by bot id=7920918630
+2025-10-22 15:43:59.348 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367059 is handled. Duration 344 ms by bot id=7920918630
+2025-10-22 15:44:33.734 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 15:44:59.128 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367060 is handled. Duration 25396 ms by bot id=7920918630
+2025-10-22 15:45:35.104 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 15:45:35.155 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 15:45:35.336 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367061 is handled. Duration 232 ms by bot id=7920918630
+2025-10-22 15:45:36.853 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367062 is handled. Duration 380 ms by bot id=7920918630
+2025-10-22 15:45:38.748 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367063 is handled. Duration 365 ms by bot id=7920918630
+2025-10-22 15:45:39.604 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367064 is handled. Duration 339 ms by bot id=7920918630
+2025-10-22 15:45:46.224 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367065 is handled. Duration 346 ms by bot id=7920918630
+2025-10-22 15:46:17.708 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 15:47:30.787 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367066 is handled. Duration 73082 ms by bot id=7920918630
+2025-10-22 15:56:00.407 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 15:56:00.415 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 15:56:00.415 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 16:04:43.404 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 16:04:43.467 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 16:04:52.950 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 16:04:52.969 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 16:04:53.298 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367067 is handled. Duration 348 ms by bot id=7920918630
+2025-10-22 16:04:55.795 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367068 is handled. Duration 368 ms by bot id=7920918630
+2025-10-22 16:04:58.646 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367069 is handled. Duration 363 ms by bot id=7920918630
+2025-10-22 16:04:59.946 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367070 is handled. Duration 348 ms by bot id=7920918630
+2025-10-22 16:05:34.223 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 16:06:05.341 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367071 is handled. Duration 31120 ms by bot id=7920918630
+2025-10-22 16:31:19.108 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 16:31:19.117 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 16:31:19.118 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 16:31:19.302 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 16:35:31.293 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 16:35:31.347 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 16:35:31.426 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 16:35:31.457 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 16:35:31.769 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367072 is handled. Duration 343 ms by bot id=7920918630
+2025-10-22 16:35:33.520 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367073 is handled. Duration 381 ms by bot id=7920918630
+2025-10-22 16:50:16.712 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 16:50:16.721 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 16:50:16.722 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 16:50:16.873 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 16:58:49.957 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 16:58:50.010 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 16:58:59.747 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 16:58:59.832 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 16:59:00.146 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367074 is handled. Duration 399 ms by bot id=7920918630
+2025-10-22 16:59:01.903 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367075 is handled. Duration 402 ms by bot id=7920918630
+2025-10-22 16:59:05.613 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367076 is handled. Duration 360 ms by bot id=7920918630
+2025-10-22 16:59:07.617 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367077 is handled. Duration 356 ms by bot id=7920918630
+2025-10-22 16:59:40.810 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 17:00:00.100 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367078 is handled. Duration 19295 ms by bot id=7920918630
+2025-10-22 17:12:07.054 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-10-22 17:12:07.059 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 17:12:18.233 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 17:15:03.917 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 17:15:03.920 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 17:15:03.921 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 17:15:10.404 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 17:15:10.466 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 17:15:16.011 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 17:15:16.132 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 17:15:16.426 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367079 is handled. Duration 414 ms by bot id=7920918630
+2025-10-22 17:15:18.040 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367080 is handled. Duration 380 ms by bot id=7920918630
+2025-10-22 17:15:22.760 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367081 is handled. Duration 338 ms by bot id=7920918630
+2025-10-22 17:15:25.888 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367082 is handled. Duration 337 ms by bot id=7920918630
+2025-10-22 17:15:27.419 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367083 is handled. Duration 346 ms by bot id=7920918630
+2025-10-22 17:15:30.197 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367084 is handled. Duration 347 ms by bot id=7920918630
+2025-10-22 17:15:31.279 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367085 is handled. Duration 347 ms by bot id=7920918630
+2025-10-22 17:15:33.159 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367086 is handled. Duration 349 ms by bot id=7920918630
+2025-10-22 17:15:34.438 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367087 is handled. Duration 345 ms by bot id=7920918630
+2025-10-22 17:15:36.106 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367088 is handled. Duration 362 ms by bot id=7920918630
+2025-10-22 17:15:41.293 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367089 is handled. Duration 356 ms by bot id=7920918630
+2025-10-22 17:15:42.288 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367090 is handled. Duration 359 ms by bot id=7920918630
+2025-10-22 17:15:43.354 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367091 is handled. Duration 369 ms by bot id=7920918630
+2025-10-22 17:16:22.373 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 17:16:34.463 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367092 is handled. Duration 12094 ms by bot id=7920918630
+2025-10-22 17:20:35.550 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+2025-10-22 17:20:35.552 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 17:20:46.812 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 17:22:34.386 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 17:22:34.390 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 17:22:34.391 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 17:22:34.578 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 17:22:38.147 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 17:22:38.198 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 17:22:40.906 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 17:22:40.948 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 17:22:41.260 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367093 is handled. Duration 354 ms by bot id=7920918630
+2025-10-22 17:22:42.980 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367094 is handled. Duration 380 ms by bot id=7920918630
+2025-10-22 17:22:44.582 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367095 is handled. Duration 376 ms by bot id=7920918630
+2025-10-22 17:22:45.681 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367096 is handled. Duration 345 ms by bot id=7920918630
+2025-10-22 17:22:51.826 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367097 is handled. Duration 371 ms by bot id=7920918630
+2025-10-22 17:23:24.723 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 17:23:35.570 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367098 is handled. Duration 10853 ms by bot id=7920918630
+2025-10-22 17:56:08.261 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 17:56:08.268 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 17:56:08.269 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 17:56:08.418 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 17:56:11.646 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 17:56:11.701 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 17:56:12.733 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 17:56:12.890 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 17:56:13.198 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367099 is handled. Duration 465 ms by bot id=7920918630
+2025-10-22 17:56:14.950 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367100 is handled. Duration 381 ms by bot id=7920918630
+2025-10-22 17:56:17.554 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367101 is handled. Duration 390 ms by bot id=7920918630
+2025-10-22 17:56:18.757 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367102 is handled. Duration 356 ms by bot id=7920918630
+2025-10-22 17:56:20.024 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367103 is handled. Duration 363 ms by bot id=7920918630
+2025-10-22 17:56:52.810 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 17:57:03.616 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367104 is handled. Duration 10810 ms by bot id=7920918630
+2025-10-22 18:22:46.317 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 18:22:46.321 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 18:23:04.858 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 18:31:34.925 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 18:31:34.932 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 18:31:46.128 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 18:34:56.190 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 18:34:56.191 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 18:35:09.396 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 18:46:04.089 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 18:46:04.095 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 18:46:15.356 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 19:03:03.453 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 19:03:03.459 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 19:03:14.659 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 19:24:04.078 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 19:24:04.081 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 19:24:15.382 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 19:35:52.002 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 19:35:52.116 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 19:36:03.412 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 21:48:48.633 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 21:48:48.645 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 21:48:48.646 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 21:48:48.807 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 21:48:53.489 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 21:48:53.543 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 21:49:02.221 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 21:49:02.383 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 21:49:02.726 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367105 is handled. Duration 505 ms by bot id=7920918630
+2025-10-22 21:49:04.468 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367106 is handled. Duration 439 ms by bot id=7920918630
+2025-10-22 21:49:07.610 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367107 is handled. Duration 774 ms by bot id=7920918630
+2025-10-22 21:49:08.964 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367108 is handled. Duration 425 ms by bot id=7920918630
+2025-10-22 21:49:11.701 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367109 is handled. Duration 1061 ms by bot id=7920918630
+2025-10-22 21:49:42.599 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text=None
+2025-10-22 21:50:10.858 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367110 is handled. Duration 28282 ms by bot id=7920918630
+2025-10-22 21:54:52.134 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 21:54:52.142 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 21:54:52.143 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-22 21:54:52.313 | WARNING | aiogram.dispatcher.dispatcher:_signal_stop_polling:455 - Received SIGINT signal
+2025-10-22 21:57:07.508 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-22 21:57:07.563 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-22 21:57:10.100 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-22 21:57:10.176 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-22 21:57:10.528 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367111 is handled. Duration 426 ms by bot id=7920918630
+2025-10-22 21:57:12.940 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367112 is handled. Duration 471 ms by bot id=7920918630
+2025-10-22 22:01:34.646 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 22:01:34.652 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 22:01:35.664 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:35.664 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.130385 seconds and try again... (tryings = 1, bot id = 7920918630)
+2025-10-22 22:01:36.799 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:36.800 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.574043 seconds and try again... (tryings = 2, bot id = 7920918630)
+2025-10-22 22:01:38.379 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:38.380 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.945939 seconds and try again... (tryings = 3, bot id = 7920918630)
+2025-10-22 22:01:40.329 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:40.329 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 2.487462 seconds and try again... (tryings = 4, bot id = 7920918630)
+2025-10-22 22:01:42.821 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:42.822 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 3.109872 seconds and try again... (tryings = 5, bot id = 7920918630)
+2025-10-22 22:01:45.937 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:45.938 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.363945 seconds and try again... (tryings = 6, bot id = 7920918630)
+2025-10-22 22:01:50.309 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:50.310 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.951908 seconds and try again... (tryings = 7, bot id = 7920918630)
+2025-10-22 22:01:55.267 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:01:55.268 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.928103 seconds and try again... (tryings = 8, bot id = 7920918630)
+2025-10-22 22:02:00.201 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:00.202 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.043241 seconds and try again... (tryings = 9, bot id = 7920918630)
+2025-10-22 22:02:05.256 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:05.258 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.012755 seconds and try again... (tryings = 10, bot id = 7920918630)
+2025-10-22 22:02:10.281 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:10.281 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.989450 seconds and try again... (tryings = 11, bot id = 7920918630)
+2025-10-22 22:02:15.276 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:15.276 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.921914 seconds and try again... (tryings = 12, bot id = 7920918630)
+2025-10-22 22:02:20.204 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:20.204 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.022320 seconds and try again... (tryings = 13, bot id = 7920918630)
+2025-10-22 22:02:25.233 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:25.234 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.097214 seconds and try again... (tryings = 14, bot id = 7920918630)
+2025-10-22 22:02:30.337 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:30.338 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.015098 seconds and try again... (tryings = 15, bot id = 7920918630)
+2025-10-22 22:02:35.359 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:35.360 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.960908 seconds and try again... (tryings = 16, bot id = 7920918630)
+2025-10-22 22:02:40.325 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:40.325 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.837121 seconds and try again... (tryings = 17, bot id = 7920918630)
+2025-10-22 22:02:45.168 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:45.169 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.865326 seconds and try again... (tryings = 18, bot id = 7920918630)
+2025-10-22 22:02:50.039 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:50.040 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.857713 seconds and try again... (tryings = 19, bot id = 7920918630)
+2025-10-22 22:02:54.904 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:54.905 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.870742 seconds and try again... (tryings = 20, bot id = 7920918630)
+2025-10-22 22:02:59.780 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:02:59.781 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.876881 seconds and try again... (tryings = 21, bot id = 7920918630)
+2025-10-22 22:03:04.663 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:04.664 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.951336 seconds and try again... (tryings = 22, bot id = 7920918630)
+2025-10-22 22:03:09.621 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:09.621 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.856297 seconds and try again... (tryings = 23, bot id = 7920918630)
+2025-10-22 22:03:14.484 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:14.485 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.998180 seconds and try again... (tryings = 24, bot id = 7920918630)
+2025-10-22 22:03:19.488 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:19.488 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.985790 seconds and try again... (tryings = 25, bot id = 7920918630)
+2025-10-22 22:03:24.479 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:24.480 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.999189 seconds and try again... (tryings = 26, bot id = 7920918630)
+2025-10-22 22:03:29.486 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:29.486 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.088841 seconds and try again... (tryings = 27, bot id = 7920918630)
+2025-10-22 22:03:34.581 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:34.581 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.890863 seconds and try again... (tryings = 28, bot id = 7920918630)
+2025-10-22 22:03:39.479 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:39.481 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.975280 seconds and try again... (tryings = 29, bot id = 7920918630)
+2025-10-22 22:03:44.461 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:44.461 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.968411 seconds and try again... (tryings = 30, bot id = 7920918630)
+2025-10-22 22:03:49.435 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:49.436 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.865198 seconds and try again... (tryings = 31, bot id = 7920918630)
+2025-10-22 22:03:54.306 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:54.307 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.976030 seconds and try again... (tryings = 32, bot id = 7920918630)
+2025-10-22 22:03:59.290 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:03:59.291 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.953282 seconds and try again... (tryings = 33, bot id = 7920918630)
+2025-10-22 22:04:04.255 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:04.256 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.100753 seconds and try again... (tryings = 34, bot id = 7920918630)
+2025-10-22 22:04:09.363 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:09.364 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.923311 seconds and try again... (tryings = 35, bot id = 7920918630)
+2025-10-22 22:04:14.293 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:14.293 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.079188 seconds and try again... (tryings = 36, bot id = 7920918630)
+2025-10-22 22:04:19.378 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:19.384 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.965992 seconds and try again... (tryings = 37, bot id = 7920918630)
+2025-10-22 22:04:24.357 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:24.358 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.870974 seconds and try again... (tryings = 38, bot id = 7920918630)
+2025-10-22 22:04:29.233 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:29.233 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.166754 seconds and try again... (tryings = 39, bot id = 7920918630)
+2025-10-22 22:04:34.407 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:34.408 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.995688 seconds and try again... (tryings = 40, bot id = 7920918630)
+2025-10-22 22:04:39.410 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:39.411 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.787856 seconds and try again... (tryings = 41, bot id = 7920918630)
+2025-10-22 22:04:44.206 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:44.207 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.018239 seconds and try again... (tryings = 42, bot id = 7920918630)
+2025-10-22 22:04:49.230 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:49.231 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.064385 seconds and try again... (tryings = 43, bot id = 7920918630)
+2025-10-22 22:04:54.302 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:54.307 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.001676 seconds and try again... (tryings = 44, bot id = 7920918630)
+2025-10-22 22:04:59.318 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorDNSError: Cannot connect to host api.telegram.org:443 ssl:default [nodename nor servname provided, or not known]
+2025-10-22 22:04:59.319 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 5.128863 seconds and try again... (tryings = 45, bot id = 7920918630)
+2025-10-22 22:05:14.962 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 46, bot id = 7920918630)
+2025-10-22 23:05:59.580 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 23:05:59.588 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 23:06:10.807 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-22 23:59:10.959 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-22 23:59:10.970 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-22 23:59:22.164 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 1, bot id = 7920918630)
+2025-10-23 00:15:18.189 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 00:15:18.191 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-23 01:07:18.874 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 01:07:18.881 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.230648 seconds and try again... (tryings = 1, bot id = 7920918630)
+2025-10-23 01:27:28.551 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 01:27:28.560 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.593214 seconds and try again... (tryings = 2, bot id = 7920918630)
+2025-10-23 02:00:05.139 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 02:00:05.142 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 2.180303 seconds and try again... (tryings = 3, bot id = 7920918630)
+2025-10-23 02:12:22.412 | INFO    | aiogram.dispatcher.dispatcher:_listen_updates:233 - Connection established (tryings = 4, bot id = 7920918630)
+2025-10-23 03:00:45.800 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 03:00:45.803 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7920918630)
+2025-10-23 03:34:37.490 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 03:34:37.492 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.189242 seconds and try again... (tryings = 1, bot id = 7920918630)
+2025-10-23 03:50:26.606 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 03:50:26.607 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 1.559427 seconds and try again... (tryings = 2, bot id = 7920918630)
+2025-10-23 04:07:57.815 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 04:07:57.825 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 2.086027 seconds and try again... (tryings = 3, bot id = 7920918630)
+2025-10-23 04:56:43.986 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 04:56:43.990 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 2.741732 seconds and try again... (tryings = 4, bot id = 7920918630)
+2025-10-23 05:14:12.811 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 05:14:12.811 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 3.541801 seconds and try again... (tryings = 5, bot id = 7920918630)
+2025-10-23 08:03:35.597 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 08:03:35.629 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.718079 seconds and try again... (tryings = 6, bot id = 7920918630)
+2025-10-23 10:55:49.329 | ERROR   | aiogram.dispatcher.dispatcher:_listen_updates:219 - Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error
+2025-10-23 10:55:49.337 | WARNING | aiogram.dispatcher.dispatcher:_listen_updates:221 - Sleep for 4.889614 seconds and try again... (tryings = 7, bot id = 7920918630)

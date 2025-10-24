@@ -432,3 +432,165 @@ async def invalid_media_format(message: types.Message):
         ])
     )
 
+
+# ==================== УПРАВЛЕНИЕ МУЗЫКОЙ ====================
+
+def music_management_kb():
+    """Клавиатура управления музыкой"""
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text="🔄 Синхронизировать папку", callback_data="sync_music_folder")
+        ],
+        [
+            InlineKeyboardButton(text="📋 Список музыки", callback_data="list_music")
+        ],
+        [
+            InlineKeyboardButton(text=" ⬅️ Назад", callback_data="admin_panel")
+        ]
+    ])
+    return kb
+
+@router.callback_query(F.data == "admin_music")
+async def admin_music_menu(callback: types.CallbackQuery):
+    """Меню управления музыкой"""
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Доступ запрещен", show_alert=True)
+        return
+    
+    await callback.message.edit_text(
+        "🎵 <b>Управление музыкой</b>\n\n"
+        "Здесь вы можете управлять музыкой для пользователей:\n"
+        "• Синхронизировать файлы из папки music/\n"
+        "• Включать/отключать музыку для пользователей\n"
+        "• Просматривать список доступной музыки",
+        reply_markup=music_management_kb()
+    )
+    await callback.answer()
+
+@router.callback_query(F.data == "sync_music_folder")
+async def sync_music_folder_cb(callback: types.CallbackQuery):
+    """Синхронизация папки music с базой данных"""
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Доступ запрещен", show_alert=True)
+        return
+    
+    await callback.message.edit_text("🔄 <b>Синхронизация музыки...</b>")
+    
+    try:
+        # Путь к папке music
+        project_root = Path(__file__).resolve().parent.parent.parent
+        music_folder = project_root / "music"
+        
+        if not music_folder.exists():
+            await callback.message.edit_text(
+                "❌ <b>Папка music не найдена</b>\n\n"
+                f"Создайте папку: {music_folder}",
+                reply_markup=music_management_kb()
+            )
+            return
+        
+        # Синхронизируем музыку
+        added_count = await db.sync_music_from_folder(str(music_folder))
+        
+        await callback.message.edit_text(
+            f"✅ <b>Синхронизация завершена</b>\n\n"
+            f"📁 Папка: {music_folder}\n"
+            f"➕ Добавлено файлов: {added_count}\n\n"
+            f"Все новые файлы помечены как активные.",
+            reply_markup=music_management_kb()
+        )
+        
+    except Exception as e:
+        await callback.message.edit_text(
+            f"❌ <b>Ошибка синхронизации</b>\n\n"
+            f"Ошибка: {str(e)}",
+            reply_markup=music_management_kb()
+        )
+    
+    await callback.answer()
+
+@router.callback_query(F.data == "list_music")
+async def list_music_cb(callback: types.CallbackQuery):
+    """Список всей музыки"""
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Доступ запрещен", show_alert=True)
+        return
+    
+    try:
+        all_music = await db.get_all_music()
+        
+        if not all_music:
+            await callback.message.edit_text(
+                "📋 <b>Список музыки</b>\n\n"
+                "Музыка не найдена. Сначала синхронизируйте папку music/",
+                reply_markup=music_management_kb()
+            )
+            return
+        
+        # Разделяем на активную и неактивную
+        active_music = [m for m in all_music if m.get('is_active', True)]
+        inactive_music = [m for m in all_music if not m.get('is_active', True)]
+        
+        text = f"📋 <b>Список музыки</b>\n\n"
+        text += f"✅ Активная: {len(active_music)}\n"
+        text += f"❌ Неактивная: {len(inactive_music)}\n\n"
+        
+        if active_music:
+            text += "<b>✅ Активная музыка:</b>\n"
+            for music in active_music[:10]:  # Показываем первые 10
+                text += f"• {music['file_name']}\n"
+            if len(active_music) > 10:
+                text += f"... и еще {len(active_music) - 10}\n"
+        
+        if inactive_music:
+            text += f"\n<b>❌ Неактивная музыка:</b>\n"
+            for music in inactive_music[:5]:  # Показываем первые 5
+                text += f"• {music['file_name']}\n"
+            if len(inactive_music) > 5:
+                text += f"... и еще {len(inactive_music) - 5}\n"
+        
+        # Создаем клавиатуру с музыкой
+        keyboard = []
+        for music in all_music[:15]:  # Показываем первые 15
+            status = "✅" if music.get('is_active', True) else "❌"
+            keyboard.append([InlineKeyboardButton(
+                text=f"{status} {music['file_name']}", 
+                callback_data=f"toggle_music_{music['id']}"
+            )])
+        
+        keyboard.append([InlineKeyboardButton(text=" ⬅️ Назад", callback_data="admin_music")])
+        
+        await callback.message.edit_text(
+            text,
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=keyboard)
+        )
+        
+    except Exception as e:
+        await callback.message.edit_text(
+            f"❌ <b>Ошибка получения списка</b>\n\n"
+            f"Ошибка: {str(e)}",
+            reply_markup=music_management_kb()
+        )
+    
+    await callback.answer()
+
+@router.callback_query(F.data.startswith("toggle_music_"))
+async def toggle_music_cb(callback: types.CallbackQuery):
+    """Переключение статуса музыки"""
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Доступ запрещен", show_alert=True)
+        return
+    
+    try:
+        music_id = int(callback.data.split("_")[-1])
+        new_status = await db.toggle_music_status(music_id)
+        
+        status_text = "активна" if new_status else "неактивна"
+        await callback.answer(f"🎵 Музыка теперь {status_text}", show_alert=True)
+        
+        # Обновляем список
+        await list_music_cb(callback)
+        
+    except Exception as e:
+        await callback.answer(f"❌ Ошибка: {str(e)}", show_alert=True)
+

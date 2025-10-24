@@ -15,13 +15,9 @@ from aiogram.types import (
 def main_reply_kb():
     """Главная клавиатура с кнопками"""
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [
-            InlineKeyboardButton(text="🚹Профиль", callback_data="profile"),
-            InlineKeyboardButton(text="⚙️Обработка видео", callback_data="videoprocess")
-        ],
-        [
-            InlineKeyboardButton(text="🌐Поддержка", url="https://t.me/makker_o"),
-        ]
+        [InlineKeyboardButton(text="🚹Профиль", callback_data="profile")],
+        [InlineKeyboardButton(text="⚙️Обработка видео", callback_data="videoprocess")],
+        [InlineKeyboardButton(text="🌐Поддержка", url="https://t.me/makker_o")]
     ])
     
     return kb
@@ -54,25 +50,34 @@ def user_videproccess_kb():
 
 
 def video_effects_kb():
-    """Клавиатура с выбором эффектов обработки видео"""
+    """Клавиатура с выбором эффектов обработки видео (мультивыбор)"""
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text="⚡ Ultra Unique", callback_data="ultra_unique")
+            InlineKeyboardButton(text="📐 Нормализация (1080×1920)", callback_data="toggle_normalize")
         ],
         [
-            InlineKeyboardButton(text="🎬 Trending Frame", callback_data="trending_frame")
+            InlineKeyboardButton(text="⚡ Ultra Unique", callback_data="toggle_ultra_unique")
         ],
         [
-            InlineKeyboardButton(text="🎣 Subscribe Bait", callback_data="subscribe_bait")
+            InlineKeyboardButton(text="🎬 Trending Frame", callback_data="toggle_trending_frame")
         ],
         [
-            InlineKeyboardButton(text="💬 Субтитры", callback_data="subtitles")
+            InlineKeyboardButton(text="🎣 Subscribe Bait", callback_data="toggle_subscribe_bait")
         ],
         [
-            InlineKeyboardButton(text="📐 Только нормализация (16:9 → 9:16)", callback_data="normalize")
+            InlineKeyboardButton(text="💬 Субтитры", callback_data="toggle_subtitles")
         ],
         [
-            InlineKeyboardButton(text="❌ Выход", callback_data="cancel_video")
+            InlineKeyboardButton(text="🎵 Музыка", callback_data="toggle_music")
+        ],
+        [
+            InlineKeyboardButton(text="🎲 5 Уникальных видео", callback_data="generate_unique_videos")
+        ],
+        [
+            InlineKeyboardButton(text="✅ Применить выбранные", callback_data="apply_selected_effects")
+        ],
+        [
+            InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_video")
         ]
     ])
     

@@ -40,11 +40,11 @@ def process_video_advanced(input_path, output_path, apply_ultra_unique=False,
         print(f"   📐 Шаг 0: Принудительное масштабирование к 1080x1920")
         temp_scaled_input = Path(temp_dir) / "scaled_input.mp4"
         
-        # Масштабируем любое видео к 1080x1920 с сохранением пропорций и обрезкой снизу
+        # Масштабируем любое видео к 1080x1920 с черными полосами (letterboxing)
         scale_cmd = [
             'ffmpeg', '-y',
             '-i', input_path,
-            '-vf', 'scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920:0:0',
+            '-vf', 'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black',
             '-c:a', 'copy',
             str(temp_scaled_input)
         ]
@@ -194,7 +194,7 @@ def process_video_advanced(input_path, output_path, apply_ultra_unique=False,
             final_scale_cmd = [
                 'ffmpeg', '-y',
                 '-i', str(normalized_path),
-                '-vf', 'scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920:0:0',
+                '-vf', 'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black',
                 '-c:a', 'copy',
                 output_path
             ]

@@ -391,14 +391,108 @@ class AsyncDB:
             await conn.execute(query, music_id)
     
     async def get_random_music(self):
-        """Получает случайную музыку"""
+        """Получает случайную активную музыку"""
         if self.pool is None:
             await self.connect()
         
-        query = "SELECT * FROM public.music ORDER BY RANDOM() LIMIT 1"
+        query = "SELECT * FROM public.music WHERE is_active = true ORDER BY RANDOM() LIMIT 1"
         async with self.pool.acquire() as conn:
             row = await conn.fetchrow(query)
             return dict(row) if row else None
+    
+    async def get_active_music(self):
+        """Получает всю активную музыку"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT * FROM public.music WHERE is_active = true ORDER BY file_name"
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
+    
+    async def get_all_music(self):
+        """Получает всю музыку (активную и неактивную)"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT * FROM public.music ORDER BY file_name"
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch(query)
+            return [dict(row) for row in rows]
+    
+    async def get_music_by_id(self, music_id: int):
+        """Получает музыку по ID"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT * FROM public.music WHERE id = $1"
+        async with self.pool.acquire() as conn:
+            row = await conn.fetchrow(query, music_id)
+            return dict(row) if row else None
+    
+    async def toggle_music_status(self, music_id: int) -> bool:
+        """Переключает статус музыки (активна/неактивна)"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            UPDATE public.music 
+            SET is_active = NOT is_active, updated_at = CURRENT_TIMESTAMP
+            WHERE id = $1
+            RETURNING is_active
+        """
+        async with self.pool.acquire() as conn:
+            result = await conn.fetchval(query, music_id)
+            return bool(result) if result is not None else False
+    
+    async def sync_music_from_folder(self, music_folder_path: str) -> int:
+        """Синхронизирует музыку из папки с базой данных"""
+        if self.pool is None:
+            await self.connect()
+        
+        import os
+        from pathlib import Path
+        
+        music_folder = Path(music_folder_path)
+        if not music_folder.exists():
+            return 0
+        
+        added_count = 0
+        
+        # Поддерживаемые форматы
+        supported_formats = ['.mp3', '.wav', '.m4a', '.aac', '.ogg']
+        
+        for file_path in music_folder.iterdir():
+            if file_path.is_file() and file_path.suffix.lower() in supported_formats:
+                file_name = file_path.name
+                file_path_str = str(file_path)
+                
+                # Проверяем, есть ли уже такой файл
+                check_query = "SELECT id FROM public.music WHERE file_path = $1"
+                async with self.pool.acquire() as conn:
+                    existing = await conn.fetchval(check_query, file_path_str)
+                
+                if not existing:
+                    # Добавляем новую музыку
+                    add_query = """
+                        INSERT INTO public.music (file_id, file_name, file_path, duration, added_by, is_active)
+                        VALUES ($1, $2, $3, $4, $5, $6)
+                        RETURNING id
+                    """
+                    async with self.pool.acquire() as conn:
+                        music_id = await conn.fetchval(
+                            add_query, 
+                            f"local_{file_name}",  # Локальный ID
+                            file_name, 
+                            file_path_str, 
+                            0,  # Длительность пока 0
+                            0,  # Добавлено системой
+                            True  # По умолчанию активна
+                        )
+                        if music_id:
+                            added_count += 1
+        
+        return added_count
     
     # --- Методы для статистики ---
     

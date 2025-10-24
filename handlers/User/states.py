@@ -9,4 +9,5 @@ class VideoProcessingStates(StatesGroup):
     choosing_font = State()  # Выбор шрифта
     choosing_music = State()  # Выбор музыки
     waiting_for_video = State()  # Ожидание загрузки видео
+    waiting_for_unique_video = State()  # Ожидание видео для уникальной генерации
 
