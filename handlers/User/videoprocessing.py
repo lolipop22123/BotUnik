@@ -13,6 +13,7 @@ from aiogram.fsm.context import FSMContext
 from database.user import db
 from keyboards.kb_user import main_reply_kb, video_effects_kb
 from handlers.User.states import VideoProcessingStates
+from services.subscription_checker import subscription_checker
 import sys
 
 router = Router()
@@ -311,29 +312,51 @@ class VideoProcessor:
     
     @staticmethod
     async def apply_subtitles(input_path: str, output_path: str, text: str, font_path: str = None) -> bool:
-        """Применение субтитров на основе мак-кода"""
+        """Применение субтитров (интеграция рабочего кода)"""
         try:
-            from simple_subtitles import apply_simple_subtitles
+            from apply_subtitles import (
+                check_ffmpeg,
+                extract_audio_from_video,
+                transcribe_with_words,
+                chunk_segments_into_word_groups,
+                write_srt,
+                burn_srt_into_video,
+            )
             
             print(f"🎬 Применяем субтитры с точной синхронизацией")
             print(f"📝 Текст: {text[:100]}...")
             
-            # Применяем субтитры используя новую реализацию
-            success = apply_simple_subtitles(
-                input_path, 
-                output_path, 
-                text,
-                timed_segments=None,  # Пока без временных меток
-                theme="default",
-                video_speed=1.0
-            )
+            # Создаем временную папку
+            import tempfile
+            temp_dir = tempfile.mkdtemp()
             
-            if success:
-                print("✅ Субтитры применены успешно")
-                return True
-            else:
-                print("❌ Ошибка применения субтитров")
-                return False
+            try:
+                temp_wav = os.path.join(temp_dir, "audio.wav")
+                temp_srt = os.path.join(temp_dir, "subtitles.srt")
+                
+                check_ffmpeg()
+                if extract_audio_from_video(input_path, temp_wav):
+                    result = transcribe_with_words(temp_wav, language='ru')
+                    segments = result.get("segments", [])
+                    chunks = chunk_segments_into_word_groups(segments, max_words=3)
+                    
+                    write_srt(chunks, temp_srt, width=30, lines=2)
+                    burn_srt_into_video(input_path, temp_srt, output_path, fontsize=16, margin_v=50)
+                    
+                    if os.path.exists(output_path):
+                        print("✅ Субтитры применены успешно")
+                        return True
+                    else:
+                        print("❌ Ошибка применения субтитров")
+                        return False
+                else:
+                    print("❌ Ошибка извлечения аудио")
+                    return False
+                    
+            finally:
+                # Очищаем временные файлы
+                import shutil
+                shutil.rmtree(temp_dir, ignore_errors=True)
                 
         except Exception as e:
             print(f"❌ Ошибка обработки субтитров: {e}")
@@ -342,30 +365,14 @@ class VideoProcessor:
     @staticmethod
     async def apply_subtitles_with_timing(input_path: str, output_path: str, text: str, 
                                         timed_segments: list, font_path: str = None) -> bool:
-        """Применение субтитров с временными метками"""
+        """Применение субтитров с временными метками (интеграция рабочего кода)"""
         try:
-            from simple_subtitles import apply_simple_subtitles
-            
             print(f"🎬 Применяем субтитры с точной синхронизацией")
             print(f"📝 Текст: {text[:100]}...")
             print(f"🎯 Сегментов: {len(timed_segments)}")
             
-            # Применяем субтитры с временными метками
-            success = apply_simple_subtitles(
-                input_path, 
-                output_path, 
-                text,
-                timed_segments=timed_segments,
-                theme="default",
-                video_speed=1.0
-            )
-            
-            if success:
-                print("✅ Субтитры применены успешно")
-                return True
-            else:
-                print("❌ Ошибка применения субтитров")
-                return False
+            # Используем ту же логику что и в apply_subtitles
+            return await VideoProcessor.apply_subtitles(input_path, output_path, text, font_path)
                 
         except Exception as e:
             print(f"❌ Ошибка обработки субтитров: {e}")
@@ -481,7 +488,7 @@ class VideoProcessor:
                 filters.append(f"eq=contrast={contrast}")
             
             if zoom != 1.0:
-                filters.append(f"scale=iw*{zoom}:ih*{zoom}")
+                filters.append(f"scale=iw*{zoom}:ih*{zoom}:force_original_aspect_ratio=increase,crop=trunc(iw/2)*2:trunc(ih/2)*2")
             
             if speed != 1.0:
                 filters.append(f"setpts=PTS/{speed}")
@@ -690,12 +697,77 @@ class VideoProcessor:
             return []
 
 
+    @staticmethod
+    async def apply_subtitles_new(input_path: str, output_path: str) -> bool:
+        """Применение субтитров (новая версия для уникальных видео)"""
+        try:
+            print(f"🎬 Применяем субтитры (новая версия)")
+            
+            # Извлекаем речь из видео
+            timed_segments = VideoProcessor.extract_speech_with_timing(input_path, 'ru')
+            
+            if timed_segments:
+                # Объединяем текст
+                subtitle_text = ' '.join([seg['text'] for seg in timed_segments])
+                print(f"📝 Текст: {subtitle_text[:100]}...")
+                print(f"🎯 Сегментов: {len(timed_segments)}")
+                
+                # Применяем субтитры с временными метками
+                success = await VideoProcessor.apply_subtitles_with_timing(
+                    input_path, output_path, subtitle_text, timed_segments
+                )
+            else:
+                # Если речь не извлечена, используем простые субтитры
+                subtitle_text = "Автоматически сгенерированные субтитры"
+                success = await VideoProcessor.apply_subtitles(
+                    input_path, output_path, subtitle_text
+                )
+            
+            if success:
+                print("✅ Субтитры применены успешно")
+                return True
+            else:
+                print("❌ Ошибка применения субтитров")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Ошибка обработки субтитров: {e}")
+            return False
+
+
 # ===== ОБРАБОТЧИКИ TELEGRAM =====
 
 @router.callback_query(F.data == "videoprocess")
 async def videoprocess_cb(callback: types.CallbackQuery, state: FSMContext):
     """Обработка кнопки обработки видео"""
     await callback.answer()
+    
+    user_id = callback.from_user.id
+    
+    # Проверяем, может ли пользователь использовать бесплатное видео
+    can_use_free = await db.can_use_free_video(user_id)
+    free_used = await db.get_free_videos_used(user_id)
+    
+    # Проверяем активную подписку
+    has_active_subscription = await db.is_subscription_active(user_id)
+    
+    # Дополнительная проверка через сервис проверки подписок
+    if has_active_subscription:
+        has_active_subscription = await subscription_checker.check_subscription_status(user_id)
+    
+    if not can_use_free and not has_active_subscription:
+        await callback.message.edit_text(
+            "💰 <b>Лимит бесплатных видео исчерпан</b>\n\n"
+            f"Вы уже использовали {free_used} бесплатное видео.\n"
+            "Для дальнейшей обработки видео:\n"
+            "• Пополните баланс в профиле\n"
+            "• Или получите подписку от администратора",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="💰 Пополнить баланс", callback_data="balanceadd")],
+                [InlineKeyboardButton(text="🏠 Главное меню", callback_data="backstart")]
+            ])
+        )
+        return
     
     # Инициализируем пустой список выбранных эффектов
     await state.update_data(selected_effects=[])
@@ -706,7 +778,9 @@ async def videoprocess_cb(callback: types.CallbackQuery, state: FSMContext):
         "📐 Нормализация - меняет размер к 1080×1920\n"
         "Остальные эффекты - применяются к оригинальному размеру\n"
         "🎣 Subscribe Bait - работает только с Trending Frame\n"
-        "🎵 Музыка - накладывает фоновую музыку (-17dB)",
+        "🎵 Музыка - накладывает фоновую музыку (-17dB)\n\n"
+        f"🆓 Бесплатных видео использовано: {free_used}/1\n"
+        f"{'✅ Подписка активна' if has_active_subscription else '❌ Подписка неактивна'}",
         reply_markup=video_effects_kb()
     )
 
@@ -868,10 +942,12 @@ async def cancel_video_cb(callback: types.CallbackQuery, state: FSMContext):
 @router.callback_query(F.data == "backstart")
 async def back_to_start_cb(callback: types.CallbackQuery, state: FSMContext):
     """Возврат в главное меню"""
-    await callback.answer()
+    print(f"🏠 Возвращаемся в главное меню")
+    await callback.answer("🏠 Возвращаемся в главное меню")
     await state.clear()
     
-    await callback.message.edit_text(
+    # Отправляем главное меню как новое сообщение
+    await callback.message.answer(
         f"<b>Привет! Я бот</b> 🚀\n"
         "Используй кнопки ниже или /help для списка команд.",
         reply_markup=main_reply_kb()
@@ -1040,6 +1116,10 @@ async def process_video_handler(message: types.Message, state: FSMContext, bot: 
                 except Exception:
                     pass
                 
+                # Увеличиваем счетчик бесплатных видео только если нет активной подписки
+                if not await db.is_subscription_active(message.from_user.id):
+                    await db.increment_free_videos_used(message.from_user.id)
+                
                 # Очищаем состояние
                 await state.clear()
             else:
@@ -1189,12 +1269,12 @@ async def select_music_cb(callback: types.CallbackQuery, state: FSMContext):
 
 @router.callback_query(F.data == "generate_unique_videos")
 async def generate_unique_videos_cb(callback: types.CallbackQuery, state: FSMContext):
-    """Генерация 5 уникальных видео"""
+    """Генерация 4 уникальных видео"""
     await callback.answer()
     
     await callback.message.edit_text(
-        "🎲 <b>Генерация 5 уникальных видео</b>\n\n"
-        "📹 Отправьте одно видео, и я создам 5 уникальных вариантов:\n"
+        "🎲 <b>Генерация 4 уникальных видео</b>\n\n"
+        "📹 Отправьте одно видео, и я создам 4 уникальных варианта:\n"
         "• Разные эффекты и настройки\n"
         "• Уникальная музыка для каждого\n"
         "• Различные параметры обработки\n"
@@ -1209,9 +1289,9 @@ async def generate_unique_videos_cb(callback: types.CallbackQuery, state: FSMCon
     await state.set_state(VideoProcessingStates.waiting_for_unique_video)
 
 @router.message(VideoProcessingStates.waiting_for_unique_video, F.video)
-async def process_unique_videos_handler(message: types.Message, state: FSMContext):
+async def process_unique_videos_handler(message: types.Message, state: FSMContext, bot: Bot):
     """Обработка видео для генерации уникальных вариантов"""
-    await message.answer("🎲 <b>Начинаю генерацию 5 уникальных видео...</b>")
+    await message.answer("🎲 <b>Начинаю генерацию 4 уникальных видео...</b>")
     
     # Создаем временную папку
     temp_dir = tempfile.mkdtemp()
@@ -1238,13 +1318,13 @@ async def process_unique_videos_handler(message: types.Message, state: FSMContex
         # Статус: начало обработки
         status_msg = await message.answer(
             "⏳ <b>Генерация уникальных видео...</b>\n\n"
-            "Создаю 5 вариантов с разными эффектами...")
+            "Создаю 4 варианта с разными эффектами...")
         
-        # Генерируем 5 уникальных видео
+        # Генерируем 4 уникальных видео
         unique_videos = []
         success_count = 0
         
-        for i in range(5):
+        for i in range(4):
             try:
                 # Создаем уникальные настройки для каждого видео
                 unique_config = await generate_unique_config(i)
@@ -1281,8 +1361,8 @@ async def process_unique_videos_handler(message: types.Message, state: FSMContex
         
         with open(archive_path, 'rb') as archive_file:
             await message.answer_document(
-                document=types.FSInputFile(archive_file, filename="unique_videos.zip"),
-                caption="🎲 <b>5 уникальных видео готовы!</b>\n\n"
+                document=types.FSInputFile(archive_path, filename="unique_videos.zip"),
+                caption="🎲 <b>4 уникальных видео готовы!</b>\n\n"
                        f"✅ Создано: {success_count} видео\n"
                        f"📦 Архив: unique_videos.zip\n\n"
                        f"⬇️ Скачайте архив и распакуйте",
@@ -1348,14 +1428,50 @@ async def generate_unique_config(video_index: int) -> dict:
     
     return config
 
+async def compress_video_for_archive(input_path: str, output_path: str) -> bool:
+    """Сжимает видео для архива"""
+    try:
+        cmd = [
+            'ffmpeg', '-y',
+            '-i', input_path,
+            '-c:v', 'libx264',
+            '-crf', '28',  # Высокое сжатие
+            '-preset', 'fast',
+            '-c:a', 'aac',
+            '-b:a', '64k',  # Низкий битрейт аудио
+            '-movflags', '+faststart',
+            output_path
+        ]
+        
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        return result.returncode == 0
+    except Exception as e:
+        print(f"❌ Ошибка сжатия видео: {e}")
+        return False
+
 async def create_unique_videos_archive(video_paths: list, archive_path: str):
     """Создает архив с уникальными видео"""
     import zipfile
+    import tempfile
     
-    with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+    compressed_videos = []
+    
+    # Сжимаем каждое видео
+    with tempfile.TemporaryDirectory() as temp_compress_dir:
         for i, video_path in enumerate(video_paths, 1):
             if os.path.exists(video_path):
-                zipf.write(video_path, f"unique_video_{i}.mp4")
+                compressed_path = os.path.join(temp_compress_dir, f"compressed_{i}.mp4")
+                if await compress_video_for_archive(video_path, compressed_path):
+                    compressed_videos.append(compressed_path)
+                else:
+                    # Если сжатие не удалось, используем оригинал
+                    compressed_videos.append(video_path)
+        
+        # Создаем архив
+        with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for i, video_path in enumerate(compressed_videos, 1):
+                if os.path.exists(video_path):
+                    zipf.write(video_path, f"unique_video_{i}.mp4")
     
     print(f"✅ Архив создан: {archive_path}")
 

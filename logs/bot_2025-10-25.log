@@ -1,0 +1,28 @@
+2025-10-25 00:03:50.568 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-25 00:03:50.568 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-25 00:03:50.617 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-25 00:03:51.270 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-25 00:03:51.270 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-25 00:03:51.648 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367711 is handled. Duration 375 ms by bot id=7920918630
+2025-10-25 00:11:00.080 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-25 00:11:00.080 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-25 00:11:03.017 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-25 00:11:03.018 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-25 00:11:03.069 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-25 00:12:23.865 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-25 00:12:23.865 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-25 00:12:26.809 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-25 00:12:26.810 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-25 00:12:26.858 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-25 00:12:29.077 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-25 00:12:29.078 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-25 00:12:29.351 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367712 is handled. Duration 266 ms by bot id=7920918630
+2025-10-25 00:49:04.537 | INFO    | middlewares.logging:__call__:19 - msg from=507935629 (@i_have_1_TON) name=Олег text='/start'
+2025-10-25 00:49:04.545 | INFO    | handlers.start:cmd_start:20 - User 507935629 - i_have_1_TON добавлен в базу данных
+2025-10-25 00:49:04.862 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367713 is handled. Duration 328 ms by bot id=7920918630
+2025-10-25 00:49:06.502 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367714 is handled. Duration 375 ms by bot id=7920918630
+2025-10-25 00:49:07.855 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367715 is handled. Duration 344 ms by bot id=7920918630
+2025-10-25 00:49:09.219 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367716 is handled. Duration 359 ms by bot id=7920918630
+2025-10-25 00:49:10.854 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=863367717 is handled. Duration 328 ms by bot id=7920918630
+2025-10-25 01:42:46.051 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @lashfkjasfjk_bot id=7920918630 - 'Test bot 2'
+2025-10-25 01:42:46.052 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped

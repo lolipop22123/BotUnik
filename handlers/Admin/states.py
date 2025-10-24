@@ -23,3 +23,12 @@ class SubscriptionManagementStates(StatesGroup):
     choosing_days = State()  # Выбор количества дней
     waiting_for_custom_days = State()  # Ожидание ввода своего количества дней
 
+
+class BalanceManagementStates(StatesGroup):
+    """Состояния для управления балансом"""
+    waiting_for_user_id_give = State()  # Ожидание User ID для выдачи баланса
+    waiting_for_user_id_remove = State()  # Ожидание User ID для снятия баланса
+    waiting_for_user_id_check = State()  # Ожидание User ID для проверки баланса
+    waiting_for_amount_give = State()  # Ожидание суммы для выдачи
+    waiting_for_amount_remove = State()  # Ожидание суммы для снятия
+

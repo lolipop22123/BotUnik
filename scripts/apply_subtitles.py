@@ -152,8 +152,12 @@ def burn_srt_into_video(input_video: str, srt_path: str, output_video: str,
     iv = str(Path(input_video).resolve())
     sp = str(Path(srt_path).resolve())
     ov = str(Path(output_video).resolve())
+    
+    # Используем фильтр subtitles с правильным экранированием для Windows
+    sp_fixed = sp.replace('\\', '/').replace(':', '\\:')
+    
     vf = (
-        f"subtitles={sp}:"
+        f"subtitles='{sp_fixed}':"
         "charenc=UTF-8:"
         f"force_style='FontName=Arial,Fontsize={fontsize},"
         f"Alignment=2,MarginV={margin_v},Outline=3,Shadow=1,BorderStyle=1'"

@@ -24,6 +24,9 @@ def admin_main_kb():
             InlineKeyboardButton(text="📝 Управление подписками", callback_data="admin_subscriptions")
         ],
         [
+            InlineKeyboardButton(text="💰 Управление балансом", callback_data="admin_balance")
+        ],
+        [
             InlineKeyboardButton(text="🔤 Управление шрифтами", callback_data="admin_fonts")
         ],
         [

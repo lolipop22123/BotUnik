@@ -22,8 +22,22 @@ class AsyncDB:
         if self.pool:
             await self.pool.close()
 
-    async def _ensure_pool(self):
+    async def ensure_pool(self):
+        """
+        Гарантирует, что у нас есть живой рабочий пул.
+        Если пула нет, создаёт.
+        Если пул битый (коннект упал), пересоздаёт.
+        """
         if self.pool is None:
+            await self.connect()
+            return
+
+        # health-check
+        try:
+            async with self.pool.acquire() as conn:
+                await conn.execute("SELECT 1;")
+        except Exception:
+            # пул или соединение внутри него мёртвые → пересоздаём
             await self.connect()
             
     # --- методы ---
@@ -205,27 +219,27 @@ class AsyncDB:
             result = await conn.fetchval(query, user_id)
             return result
     
-    async def is_subscription_active(self, user_id: int) -> bool:
-        """
-        Проверяет, активна ли подписка пользователя
+    # async def is_subscription_active(self, user_id: int) -> bool:
+    #     """
+    #     Проверяет, активна ли подписка пользователя
         
-        Args:
-            user_id: ID пользователя
+    #     Args:
+    #         user_id: ID пользователя
             
-        Returns:
-            True если подписка активна (не истекла)
-        """
-        if self.pool is None:
-            await self.connect()
+    #     Returns:
+    #         True если подписка активна (не истекла)
+    #     """
+    #     if self.pool is None:
+    #         await self.connect()
         
-        query = """
-            SELECT subscription_end_date > CURRENT_TIMESTAMP 
-            FROM public.subscriptions 
-            WHERE user_id = $1
-        """
-        async with self.pool.acquire() as conn:
-            result = await conn.fetchval(query, user_id)
-            return bool(result) if result is not None else False
+    #     query = """
+    #         SELECT subscription_end_date > CURRENT_TIMESTAMP 
+    #         FROM public.subscriptions 
+    #         WHERE user_id = $1
+    #     """
+    #     async with self.pool.acquire() as conn:
+    #         result = await conn.fetchval(query, user_id)
+    #         return bool(result) if result is not None else False
     
     async def extend_subscription(self, user_id: int, days: int) -> None:
         """
@@ -285,8 +299,9 @@ class AsyncDB:
         Returns:
             True если подписка активна, иначе False
         """
-        if self.pool is None:
-            await self.connect()
+        
+        await self.ensure_pool()
+            
         query = """
             SELECT 1 FROM public.subscriptions
             WHERE user_id = $1 AND subscription_end_date > CURRENT_TIMESTAMP
@@ -360,16 +375,6 @@ class AsyncDB:
         async with self.pool.acquire() as conn:
             music_id = await conn.fetchval(query, file_id, file_name, file_path, duration, added_by)
             return music_id
-    
-    async def get_all_music(self) -> list:
-        """Получает список всей музыки"""
-        if self.pool is None:
-            await self.connect()
-        
-        query = "SELECT id, file_id, file_name, file_path, duration, created_at FROM public.music ORDER BY created_at DESC"
-        async with self.pool.acquire() as conn:
-            rows = await conn.fetch(query)
-            return [dict(row) for row in rows]
     
     async def get_music_by_id(self, music_id: int):
         """Получает музыку по ID"""
@@ -490,6 +495,53 @@ class AsyncDB:
                             True  # По умолчанию активна
                         )
                         if music_id:
+                            added_count += 1
+        
+        return added_count
+    
+    async def sync_fonts_from_folder(self, fonts_folder_path: str) -> int:
+        """Синхронизирует шрифты из папки с базой данных"""
+        if self.pool is None:
+            await self.connect()
+        
+        import os
+        from pathlib import Path
+        
+        fonts_folder = Path(fonts_folder_path)
+        if not fonts_folder.exists():
+            return 0
+        
+        added_count = 0
+        
+        # Поддерживаемые форматы шрифтов
+        supported_formats = ['.ttf', '.otf', '.woff', '.woff2']
+        
+        for file_path in fonts_folder.iterdir():
+            if file_path.is_file() and file_path.suffix.lower() in supported_formats:
+                file_name = file_path.name
+                file_path_str = str(file_path)
+                
+                # Проверяем, есть ли уже такой файл
+                check_query = "SELECT id FROM public.fonts WHERE file_path = $1"
+                async with self.pool.acquire() as conn:
+                    existing = await conn.fetchval(check_query, file_path_str)
+                
+                if not existing:
+                    # Добавляем новый шрифт
+                    add_query = """
+                        INSERT INTO public.fonts (file_id, file_name, file_path, added_by)
+                        VALUES ($1, $2, $3, $4)
+                        RETURNING id
+                    """
+                    async with self.pool.acquire() as conn:
+                        font_id = await conn.fetchval(
+                            add_query, 
+                            f"local_{file_name}",  # Локальный ID
+                            file_name, 
+                            file_path_str, 
+                            0  # Добавлено системой
+                        )
+                        if font_id:
                             added_count += 1
         
         return added_count
@@ -659,6 +711,36 @@ class AsyncDB:
         async with self.pool.acquire() as conn:
             avg = await conn.fetchval(query)
             return int(avg) if avg else 0
+    
+    async def get_free_videos_used(self, user_id: int) -> int:
+        """Получить количество использованных бесплатных видео"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT free_videos_used FROM public.users WHERE user_id = $1"
+        
+        async with self.pool.acquire() as conn:
+            result = await conn.fetchval(query, user_id)
+            return result if result is not None else 0
+    
+    async def increment_free_videos_used(self, user_id: int) -> None:
+        """Увеличить счетчик использованных бесплатных видео"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            UPDATE public.users 
+            SET free_videos_used = free_videos_used + 1 
+            WHERE user_id = $1
+        """
+        
+        async with self.pool.acquire() as conn:
+            await conn.execute(query, user_id)
+    
+    async def can_use_free_video(self, user_id: int) -> bool:
+        """Проверить, может ли пользователь использовать бесплатное видео"""
+        free_used = await self.get_free_videos_used(user_id)
+        return free_used < 1  # Максимум 1 бесплатное видео
 
 # ↓↓↓ создаём один общий экземпляр и берём параметры из ENV
 DBNAME = os.getenv("POSTGRES_DB", "botUnik")

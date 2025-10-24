@@ -32,7 +32,8 @@ class DB:
                     user_id BIGINT UNIQUE,
                     username VARCHAR,
                     balance DOUBLE PRECISION DEFAULT 0,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    free_videos_used INTEGER DEFAULT 0
                 );
             """)
             cur.execute("""

@@ -11,3 +11,10 @@ class VideoProcessingStates(StatesGroup):
     waiting_for_video = State()  # Ожидание загрузки видео
     waiting_for_unique_video = State()  # Ожидание видео для уникальной генерации
 
+
+class BatchVideoProcessingStates(StatesGroup):
+    """Состояния для пакетной обработки видео"""
+    waiting_for_videos = State()  # Ожидание загрузки видео (до 3)
+    choosing_effects_for_video = State()  # Выбор эффектов для конкретного видео
+    processing_batch = State()  # Обработка пакета видео
+

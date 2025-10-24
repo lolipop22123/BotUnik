@@ -9,7 +9,7 @@ from aiogram.fsm.context import FSMContext
 from datetime import datetime, timedelta
 
 from database.user import db
-from keyboards.kb_user import profile_reply_kb, main_reply_kb
+from keyboards.kb_user import profile_reply_kb, main_reply_kb, subscription_buy_kb
 from handlers.User.states import PaymentStates
 from config import CRYPTO_BOT_TOKEN
 
@@ -215,17 +215,58 @@ async def profile_cb(callback: types.CallbackQuery):
         username = callback.from_user.username
         balance = await db.get_balance(user_id)
         
+        # Проверяем подписку
+        subscription_active = await db.is_subscription_active(user_id)
+        subscription_end = await db.get_subscription_end_date(user_id)
+        
+        # Проверяем бесплатные видео
+        free_used = await db.get_free_videos_used(user_id)
+        can_use_free = await db.can_use_free_video(user_id)
+        
+        profile_text = f"🚹 <b>Профиль</b>\n\n"
+        profile_text += f"👤 <b>ID:</b> {user_id}\n"
+        profile_text += f"👤 <b>Имя:</b> {username}\n"
+        profile_text += f"💰 <b>Баланс:</b> {balance} $\n\n"
+        
+        if subscription_active:
+            profile_text += f"✅ <b>Подписка активна до:</b> {subscription_end.strftime('%d.%m.%Y %H:%M')}\n"
+        else:
+            profile_text += f"❌ <b>Подписка неактивна</b>\n"
+        
+        profile_text += f"\n🆓 <b>Бесплатных видео:</b> {free_used}/1"
+        
+        if not can_use_free and not subscription_active:
+            profile_text += f"\n\n💡 <b>Для обработки видео:</b>\n"
+            profile_text += f"• Пополните баланс\n"
+            profile_text += f"• Или получите подписку от администратора"
+        
         await callback.message.answer(
-            f"🚹 <b>Профиль</b>\n\n"
-            f"👤 <b>ID:</b> {user_id}\n"
-            f"👤 <b>Имя:</b> {username}\n"
-            f"💰 <b>Баланс:</b> {balance} $",
+            profile_text,
             reply_markup=profile_reply_kb()
         )
     except Exception as e:
         print(f"❌ Ошибка при отправке сообщения: {e}")
         pass
 
+
+@router.callback_query(F.data == "buy_subscription")
+async def buy_subscription_cb(callback: types.CallbackQuery):
+    """Обработка кнопки покупки подписки"""
+    try:
+        await callback.message.delete()
+        
+        await callback.message.answer(
+            "📅 <b>Купить подписку</b>\n\n"
+            "Выберите период подписки:\n\n"
+            "💡 <b>Подписка дает:</b>\n"
+            "• Неограниченную обработку видео\n"
+            "• Доступ ко всем эффектам\n"
+            "• Приоритетную поддержку",
+            reply_markup=subscription_buy_kb()
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
 
 @router.callback_query(F.data == "balanceadd")
 async def balanceadd_cb(callback: types.CallbackQuery):
@@ -234,10 +275,10 @@ async def balanceadd_cb(callback: types.CallbackQuery):
     
         kb = InlineKeyboardMarkup(inline_keyboard=[
             [
-                InlineKeyboardButton(text="CryptoBot", callback_data="cryptobotadd")
+                InlineKeyboardButton(text="🟣CryptoBot", callback_data="cryptobotadd")
             ],
             [
-                InlineKeyboardButton(text="Cryptomus", callback_data="tetheradd")
+                InlineKeyboardButton(text="🟠Cryptomus", callback_data="cryptomusadd")
             ],
             [
                 InlineKeyboardButton(text=" ⬅️", callback_data="backprofile")
@@ -378,6 +419,99 @@ async def cancel_payment(callback: types.CallbackQuery, state: FSMContext):
         pass
 
 
+
+@router.callback_query(F.data == "cryptomusadd")
+async def cryptomusadd_cb(callback: types.CallbackQuery):
+    try:
+        await callback.answer("❗️Скоро будет доступно")
+        # await callback.message.delete()
+        
+        # await callback.message.answer(
+        #     "💰 <b>Пополнение баланса через Cryptomus</b>\n\n"
+        #     "Введите сумму пополнения в USD (например: 10):\n"
+        #     "Минимальная сумма: 1 USD",
+        #     reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+        #         [InlineKeyboardButton(text="❌ Отмена", callback_data="cancel_payment")]
+        #     ])
+        # )
+        # await state.set_state(PaymentStates.waiting_for_amount)
+        # await callback.answer()
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
+
+# Обработчики покупки подписок
+@router.callback_query(F.data == "buy_sub_1")
+async def buy_sub_1_cb(callback: types.CallbackQuery):
+    """Покупка подписки на 1 день"""
+    await process_subscription_purchase(callback, 1, 2.0)
+
+@router.callback_query(F.data == "buy_sub_7")
+async def buy_sub_7_cb(callback: types.CallbackQuery):
+    """Покупка подписки на 7 дней"""
+    await process_subscription_purchase(callback, 7, 10.0)
+
+@router.callback_query(F.data == "buy_sub_14")
+async def buy_sub_14_cb(callback: types.CallbackQuery):
+    """Покупка подписки на 14 дней"""
+    await process_subscription_purchase(callback, 14, 18.0)
+
+@router.callback_query(F.data == "buy_sub_30")
+async def buy_sub_30_cb(callback: types.CallbackQuery):
+    """Покупка подписки на 30 дней"""
+    await process_subscription_purchase(callback, 30, 30.0)
+
+async def process_subscription_purchase(callback: types.CallbackQuery, days: int, price: float):
+    """Обработка покупки подписки"""
+    try:
+        user_id = callback.from_user.id
+        balance = await db.get_balance(user_id)
+        
+        if balance < price:
+            await callback.message.edit_text(
+                f"💰 <b>Недостаточно средств</b>\n\n"
+                f"Стоимость подписки на {days} дней: ${price}\n"
+                f"Ваш баланс: ${balance}\n\n"
+                f"Пополните баланс для покупки подписки.",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text="💰 Пополнить баланс", callback_data="balanceadd")],
+                    [InlineKeyboardButton(text=" ⬅️ Назад", callback_data="buy_subscription")]
+                ])
+            )
+            return
+        
+        # Списываем с баланса и активируем подписку
+        await db.add_balance(user_id, -price)
+        
+        # Добавляем подписку от сегодняшнего дня
+        end_date = datetime.now() + timedelta(days=days)
+        await db.add_subscription(user_id, end_date)
+        
+        new_balance = await db.get_balance(user_id)
+        
+        await callback.message.edit_text(
+            f"✅ <b>Подписка активирована!</b>\n\n"
+            f"📅 Период: {days} дней\n"
+            f"📅 Действует до: {end_date.strftime('%d.%m.%Y %H:%M')}\n"
+            f"💰 Списано с баланса: ${price}\n"
+            f"💰 Остаток на балансе: ${new_balance}\n\n"
+            f"🎉 Теперь у вас неограниченный доступ к обработке видео!",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text=" ⬅️ Назад в профиль", callback_data="profile")]
+            ])
+        )
+            
+    except Exception as e:
+        print(f"❌ Ошибка при покупке подписки: {e}")
+        await callback.message.edit_text(
+            "❌ <b>Произошла ошибка</b>\n\n"
+            "Попробуйте позже или обратитесь в поддержку.",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text=" ⬅️ Назад", callback_data="buy_subscription")]
+            ])
+        )
+
+
 @router.callback_query(F.data == "backprofile")
 async def backprofile_cb(callback: types.CallbackQuery):
     try:
@@ -400,6 +534,19 @@ async def backprofile_cb(callback: types.CallbackQuery):
 
 @router.callback_query(F.data == "backstart")
 async def backstart_cb(callback: types.CallbackQuery):
+    try:
+        await callback.message.answer(
+            f"<b>Привет! Я бот</b> 🚀\n"
+            "Используй кнопки ниже или /help для списка команд.",
+            reply_markup=main_reply_kb()
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке сообщения: {e}")
+        pass
+
+
+@router.callback_query(F.data == "backstartprofilemain")
+async def backstartprofilemain_kb(callback: types.CallbackQuery):
     try:
         await callback.message.delete()
         await callback.message.answer(
