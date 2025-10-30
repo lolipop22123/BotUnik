@@ -74,6 +74,20 @@ class DB:
                 ON public.subscriptions(subscription_end_date);
             """)
             cur.execute("""
+                CREATE TABLE IF NOT EXISTS public.subscription_slots (
+                    id SERIAL PRIMARY KEY,
+                    available_slots INTEGER NOT NULL DEFAULT 0,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    CONSTRAINT single_row CHECK (id = 1)
+                );
+            """)
+            # Вставляем начальную запись, если её нет
+            cur.execute("""
+                INSERT INTO public.subscription_slots (id, available_slots)
+                VALUES (1, 0)
+                ON CONFLICT (id) DO NOTHING;
+            """)
+            cur.execute("""
                 CREATE TABLE IF NOT EXISTS public.fonts (
                     id SERIAL PRIMARY KEY,
                     file_id VARCHAR(255) UNIQUE NOT NULL,

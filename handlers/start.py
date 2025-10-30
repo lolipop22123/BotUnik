@@ -20,12 +20,26 @@ async def cmd_start(message: types.Message):
         logger.info(f"User {message.from_user.id} - {message.from_user.username} добавлен в базу данных")
     else:
         logger.info(f"{message.from_user.id} - {message.from_user.username} уже есть в базе данных")
-        
-    await message.answer(
-        f"<b>Привет! Я бот</b> 🚀\n"
-        "Используй кнопки ниже или /help для списка команд.",
-        reply_markup=main_reply_kb()
-    )
+    
+    # Отправляем изображение с текстом
+    try:
+        photo = types.FSInputFile("images/start.png")
+        await message.answer_photo(
+            photo=photo,
+            caption="<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+                    "Уникализируй видео без потери качества 🎥\n\n"
+                    "Выбери нужный раздел ниже, чтобы начать ⬇️",
+            reply_markup=main_reply_kb()
+        )
+    except Exception as e:
+        logger.error(f"Ошибка при отправке изображения: {e}")
+        # Если не получилось отправить фото, отправляем текстовое сообщение
+        await message.answer(
+            "<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+            "Уникализируй видео без потери качества 🎥\n\n"
+            "Выбери нужный раздел ниже, чтобы начать ⬇️",
+            reply_markup=main_reply_kb()
+        )
 
 
 @router.message(Command("admin"))

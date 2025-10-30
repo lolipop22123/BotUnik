@@ -741,6 +741,64 @@ class AsyncDB:
         """Проверить, может ли пользователь использовать бесплатное видео"""
         free_used = await self.get_free_videos_used(user_id)
         return free_used < 1  # Максимум 1 бесплатное видео
+    
+    # --- Методы для работы с доступными подписками ---
+    
+    async def get_available_subscription_slots(self) -> int:
+        """Получить количество доступных подписок"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = "SELECT available_slots FROM public.subscription_slots WHERE id = 1"
+        async with self.pool.acquire() as conn:
+            result = await conn.fetchval(query)
+            return result if result is not None else 0
+    
+    async def set_available_subscription_slots(self, slots: int) -> None:
+        """Установить количество доступных подписок"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            INSERT INTO public.subscription_slots (id, available_slots, updated_at)
+            VALUES (1, $1, CURRENT_TIMESTAMP)
+            ON CONFLICT (id) 
+            DO UPDATE SET 
+                available_slots = $1,
+                updated_at = CURRENT_TIMESTAMP
+        """
+        async with self.pool.acquire() as conn:
+            await conn.execute(query, slots)
+    
+    async def decrement_subscription_slots(self) -> bool:
+        """Уменьшить количество доступных подписок на 1. Возвращает True если успешно"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            UPDATE public.subscription_slots 
+            SET available_slots = available_slots - 1,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = 1 AND available_slots > 0
+            RETURNING available_slots
+        """
+        async with self.pool.acquire() as conn:
+            result = await conn.fetchval(query)
+            return result is not None
+    
+    async def increment_subscription_slots(self) -> None:
+        """Увеличить количество доступных подписок на 1"""
+        if self.pool is None:
+            await self.connect()
+        
+        query = """
+            UPDATE public.subscription_slots 
+            SET available_slots = available_slots + 1,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = 1
+        """
+        async with self.pool.acquire() as conn:
+            await conn.execute(query)
 
 # ↓↓↓ создаём один общий экземпляр и берём параметры из ENV
 DBNAME = os.getenv("POSTGRES_DB", "botUnik")

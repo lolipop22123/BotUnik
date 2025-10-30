@@ -22,6 +22,7 @@ class SubscriptionManagementStates(StatesGroup):
     waiting_for_user_id_check = State()  # Ожидание User ID для проверки
     choosing_days = State()  # Выбор количества дней
     waiting_for_custom_days = State()  # Ожидание ввода своего количества дней
+    waiting_for_slots_amount = State()  # Ожидание ввода количества доступных подписок
 
 
 class BalanceManagementStates(StatesGroup):

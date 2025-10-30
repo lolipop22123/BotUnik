@@ -1,0 +1,48 @@
+2025-10-29 02:29:40.220 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-29 02:29:40.220 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-29 02:29:40.220 | INFO    | services.subscription_checker:check_expired_subscriptions:50 - 🔍 Найдено 1 истекших подписок
+2025-10-29 02:29:40.272 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:29:40.708 | ERROR   | services.subscription_checker:send_expiration_notification:109 - ❌ Ошибка при отправке уведомления пользователю 8373954799: Telegram server says - Bad Request: chat not found
+2025-10-29 02:29:40.710 | INFO    | services.subscription_checker:check_expired_subscriptions:60 - ✅ Подписка пользователя 8373954799 истекла и удалена
+2025-10-29 02:29:43.270 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-29 02:29:43.272 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-29 02:29:44.482 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633736 is handled. Duration 1219 ms by bot id=8059868631
+2025-10-29 02:29:56.320 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633737 is handled. Duration 968 ms by bot id=8059868631
+2025-10-29 02:29:58.953 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633738 is handled. Duration 358 ms by bot id=8059868631
+2025-10-29 02:31:44.653 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:31:44.653 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-29 02:31:47.654 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-29 02:31:47.654 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-29 02:31:47.701 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:31:48.292 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-29 02:31:48.293 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-29 02:31:48.753 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633739 is handled. Duration 453 ms by bot id=8059868631
+2025-10-29 02:31:50.242 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633740 is handled. Duration 532 ms by bot id=8059868631
+2025-10-29 02:31:51.706 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633741 is handled. Duration 467 ms by bot id=8059868631
+2025-10-29 02:35:46.869 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-29 02:35:46.869 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:35:49.647 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-29 02:35:49.656 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-29 02:35:49.715 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:35:54.975 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-29 02:35:54.976 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-29 02:35:55.479 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633742 is handled. Duration 500 ms by bot id=8059868631
+2025-10-29 02:38:48.163 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-29 02:38:48.163 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:38:50.912 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-29 02:38:50.913 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-29 02:38:50.962 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:38:52.481 | INFO    | middlewares.logging:__call__:19 - msg from=6956440009 (@makker_o) name=МайкВазовский text='/start'
+2025-10-29 02:38:52.483 | INFO    | handlers.start:cmd_start:22 - 6956440009 - makker_o уже есть в базе данных
+2025-10-29 02:38:52.955 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633743 is handled. Duration 467 ms by bot id=8059868631
+2025-10-29 02:39:04.136 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633744 is handled. Duration 390 ms by bot id=8059868631
+2025-10-29 02:39:09.478 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633745 is handled. Duration 344 ms by bot id=8059868631
+2025-10-29 02:39:11.216 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633746 is handled. Duration 172 ms by bot id=8059868631
+2025-10-29 02:39:12.577 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633747 is handled. Duration 358 ms by bot id=8059868631
+2025-10-29 02:39:13.882 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633748 is handled. Duration 453 ms by bot id=8059868631
+2025-10-29 02:39:28.460 | INFO    | aiogram.dispatcher.dispatcher:start_polling:554 - Polling stopped
+2025-10-29 02:39:28.460 | INFO    | aiogram.dispatcher.dispatcher:_polling:359 - Polling stopped for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:39:50.826 | INFO    | aiogram.dispatcher.dispatcher:start_polling:527 - Start polling
+2025-10-29 02:39:50.826 | INFO    | services.subscription_checker:start_checking:24 - 🔄 Запуск фоновой проверки подписок
+2025-10-29 02:39:50.878 | INFO    | aiogram.dispatcher.dispatcher:_polling:341 - Run polling for bot @unikRemake_bot id=8059868631 - 'REMAKE BOT'
+2025-10-29 02:39:57.137 | INFO    | aiogram.dispatcher.dispatcher:feed_update:172 - Update id=565633749 is handled. Duration 703 ms by bot id=8059868631

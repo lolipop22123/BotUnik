@@ -946,12 +946,25 @@ async def back_to_start_cb(callback: types.CallbackQuery, state: FSMContext):
     await callback.answer("🏠 Возвращаемся в главное меню")
     await state.clear()
     
-    # Отправляем главное меню как новое сообщение
-    await callback.message.answer(
-        f"<b>Привет! Я бот</b> 🚀\n"
-        "Используй кнопки ниже или /help для списка команд.",
-        reply_markup=main_reply_kb()
-    )
+    # Отправляем изображение с текстом
+    try:
+        photo = types.FSInputFile("images/start.png")
+        await callback.message.answer_photo(
+            photo=photo,
+            caption="<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+                    "Уникализируй видео без потери качества 🎥\n\n"
+                    "Выбери нужный раздел ниже, чтобы начать ⬇️",
+            reply_markup=main_reply_kb()
+        )
+    except Exception as e:
+        print(f"❌ Ошибка при отправке изображения: {e}")
+        # Если не получилось отправить фото, отправляем текстовое сообщение
+        await callback.message.answer(
+            "<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+            "Уникализируй видео без потери качества 🎥\n\n"
+            "Выбери нужный раздел ниже, чтобы начать ⬇️",
+            reply_markup=main_reply_kb()
+        )
 
 @router.message(VideoProcessingStates.waiting_for_video, F.video)
 async def process_video_handler(message: types.Message, state: FSMContext, bot: Bot):

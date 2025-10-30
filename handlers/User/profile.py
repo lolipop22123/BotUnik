@@ -240,10 +240,21 @@ async def profile_cb(callback: types.CallbackQuery):
             profile_text += f"• Пополните баланс\n"
             profile_text += f"• Или получите подписку от администратора"
         
-        await callback.message.answer(
-            profile_text,
-            reply_markup=profile_reply_kb()
-        )
+        # Отправляем изображение с текстом профиля
+        try:
+            photo = types.FSInputFile("images/menu.png")
+            await callback.message.answer_photo(
+                photo=photo,
+                caption=profile_text,
+                reply_markup=profile_reply_kb()
+            )
+        except Exception as e:
+            print(f"❌ Ошибка при отправке изображения профиля: {e}")
+            # Если не получилось отправить фото, отправляем текстовое сообщение
+            await callback.message.answer(
+                profile_text,
+                reply_markup=profile_reply_kb()
+            )
     except Exception as e:
         print(f"❌ Ошибка при отправке сообщения: {e}")
         pass
@@ -255,8 +266,14 @@ async def buy_subscription_cb(callback: types.CallbackQuery):
     try:
         await callback.message.delete()
         
+        # Получаем количество доступных подписок
+        available_slots = await db.get_available_subscription_slots()
+        
+        slots_text = f"🎫 <b>Доступно подписок: {available_slots}</b>\n\n" if available_slots > 0 else "⚠️ <b>В данный момент подписки недоступны</b>\n\n"
+        
         await callback.message.answer(
-            "📅 <b>Купить подписку</b>\n\n"
+            f"📅 <b>Купить подписку</b>\n\n"
+            f"{slots_text}"
             "Выберите период подписки:\n\n"
             "💡 <b>Подписка дает:</b>\n"
             "• Неограниченную обработку видео\n"
@@ -281,17 +298,22 @@ async def balanceadd_cb(callback: types.CallbackQuery):
                 InlineKeyboardButton(text="🟠Cryptomus", callback_data="cryptomusadd")
             ],
             [
+                InlineKeyboardButton(text="👻 АДМИН", url="https://t.me/makker_o")  
+            ],
+            [
                 InlineKeyboardButton(text=" ⬅️", callback_data="backprofile")
             ]
         ])
 
         await callback.message.answer(
-            f"🚹 <b>Выберите способ пополнения баланса:</b>\n\n",
+            f"🚹 <b>Выберите способ пополнения баланса:</b>\n\n"
+            f"👻 Если у вас возникли вопросы или вы хотите пополнить баланс другим способом, обратитесь к администратору",
             reply_markup=kb
         )
     except Exception as e:
         print(f"❌ Ошибка при отправке сообщения: {e}")
         pass
+    
     
 @router.callback_query(F.data == "cryptobotadd")
 async def cryptobotadd_cb(callback: types.CallbackQuery, state: FSMContext):
@@ -467,6 +489,19 @@ async def process_subscription_purchase(callback: types.CallbackQuery, days: int
         user_id = callback.from_user.id
         balance = await db.get_balance(user_id)
         
+        # Проверяем доступность подписок
+        available_slots = await db.get_available_subscription_slots()
+        if available_slots <= 0:
+            await callback.message.edit_text(
+                f"❌ <b>Подписки недоступны</b>\n\n"
+                f"К сожалению, в данный момент нет доступных подписок.\n"
+                f"Попробуйте позже или обратитесь в поддержку.",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text=" ⬅️ Назад", callback_data="buy_subscription")]
+                ])
+            )
+            return
+        
         if balance < price:
             await callback.message.edit_text(
                 f"💰 <b>Недостаточно средств</b>\n\n"
@@ -475,6 +510,20 @@ async def process_subscription_purchase(callback: types.CallbackQuery, days: int
                 f"Пополните баланс для покупки подписки.",
                 reply_markup=InlineKeyboardMarkup(inline_keyboard=[
                     [InlineKeyboardButton(text="💰 Пополнить баланс", callback_data="balanceadd")],
+                    [InlineKeyboardButton(text=" ⬅️ Назад", callback_data="buy_subscription")]
+                ])
+            )
+            return
+        
+        # Уменьшаем количество доступных подписок (транзакционно)
+        slot_decremented = await db.decrement_subscription_slots()
+        if not slot_decremented:
+            # Если не удалось уменьшить (например, в это время другой пользователь купил последнюю)
+            await callback.message.edit_text(
+                f"❌ <b>Подписка уже продана</b>\n\n"
+                f"К сожалению, последняя доступная подписка была продана.\n"
+                f"Попробуйте позже.",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=[
                     [InlineKeyboardButton(text=" ⬅️ Назад", callback_data="buy_subscription")]
                 ])
             )
@@ -535,11 +584,25 @@ async def backprofile_cb(callback: types.CallbackQuery):
 @router.callback_query(F.data == "backstart")
 async def backstart_cb(callback: types.CallbackQuery):
     try:
-        await callback.message.answer(
-            f"<b>Привет! Я бот</b> 🚀\n"
-            "Используй кнопки ниже или /help для списка команд.",
-            reply_markup=main_reply_kb()
-        )
+        # Отправляем изображение с текстом
+        try:
+            photo = types.FSInputFile("images/start.png")
+            await callback.message.answer_photo(
+                photo=photo,
+            caption="<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+                    "Уникализируй видео без потери качества 🎥\n\n"
+                    "Выбери нужный раздел ниже, чтобы начать ⬇️",
+                reply_markup=main_reply_kb()
+            )
+        except Exception as e:
+            print(f"❌ Ошибка при отправке изображения: {e}")
+            # Если не получилось отправить фото, отправляем текстовое сообщение
+            await callback.message.answer(
+                "<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+                "Уникализируй видео без потери качества 🎥\n\n"
+                "Выбери нужный раздел ниже, чтобы начать ⬇️",
+                reply_markup=main_reply_kb()
+            )
     except Exception as e:
         print(f"❌ Ошибка при отправке сообщения: {e}")
         pass
@@ -549,11 +612,26 @@ async def backstart_cb(callback: types.CallbackQuery):
 async def backstartprofilemain_kb(callback: types.CallbackQuery):
     try:
         await callback.message.delete()
-        await callback.message.answer(
-            f"<b>Привет! Я бот</b> 🚀\n"
-            "Используй кнопки ниже или /help для списка команд.",
-            reply_markup=main_reply_kb()
-        )
+        
+        # Отправляем изображение с текстом
+        try:
+            photo = types.FSInputFile("images/start.png")
+            await callback.message.answer_photo(
+                photo=photo,
+            caption="<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+                    "Уникализируй видео без потери качества 🎥\n\n"
+                    "Выбери нужный раздел ниже, чтобы начать ⬇️",
+                reply_markup=main_reply_kb()
+            )
+        except Exception as e:
+            print(f"❌ Ошибка при отправке изображения: {e}")
+            # Если не получилось отправить фото, отправляем текстовое сообщение
+            await callback.message.answer(
+                "<b>Добро пожаловать в Remake Bot</b> ⚙️\n\n"
+                "Уникализируй видео без потери качества 🎥\n\n"
+                "Выбери нужный раздел ниже, чтобы начать ⬇️",
+                reply_markup=main_reply_kb()
+            )
     except Exception as e:
         print(f"❌ Ошибка при отправке сообщения: {e}")
         pass

@@ -23,6 +23,9 @@ def subscription_management_kb():
             InlineKeyboardButton(text="🔍 Проверить подписку", callback_data="check_subscription")
         ],
         [
+            InlineKeyboardButton(text="🎫 Управление доступными подписками", callback_data="manage_subscription_slots")
+        ],
+        [
             InlineKeyboardButton(text=" ⬅️ Назад", callback_data="admin_panel")
         ]
     ])
@@ -60,13 +63,15 @@ async def admin_subscriptions_menu(callback: types.CallbackQuery):
     
     # Статистика подписок
     sub_stats = await db.get_subscription_statistics()
+    available_slots = await db.get_available_subscription_slots()
     
     await callback.message.edit_text(
         f"📝 <b>Управление подписками</b>\n\n"
         f"📊 Статистика:\n"
         f"├ Всего: {sub_stats['total']}\n"
         f"├ Активных: {sub_stats['active']}\n"
-        f"└ Истекших: {sub_stats['expired']}\n\n"
+        f"├ Истекших: {sub_stats['expired']}\n"
+        f"└ 🎫 Доступно для покупки: {available_slots}\n\n"
         "Выберите действие:",
         reply_markup=subscription_management_kb()
     )
@@ -448,6 +453,63 @@ async def process_user_id_for_check(message: types.Message, state: FSMContext):
         await message.answer(
             "❌ <b>Неверный формат!</b>\n\n"
             "User ID должен быть числом.\n"
+            "Попробуйте снова:"
+        )
+
+
+# ==================== УПРАВЛЕНИЕ ДОСТУПНЫМИ ПОДПИСКАМИ ====================
+
+@router.callback_query(F.data == "manage_subscription_slots")
+async def manage_subscription_slots_cb(callback: types.CallbackQuery, state: FSMContext):
+    """Управление количеством доступных подписок"""
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Доступ запрещен", show_alert=True)
+        return
+    
+    available_slots = await db.get_available_subscription_slots()
+    
+    await callback.message.edit_text(
+        f"🎫 <b>Управление доступными подписками</b>\n\n"
+        f"📊 Текущее количество: <b>{available_slots}</b>\n\n"
+        f"Введите количество доступных подписок:\n\n"
+        f"<i>Например: 10 (это означает, что 10 человек смогут купить подписку)</i>",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_subscriptions")]
+        ])
+    )
+    await state.set_state(SubscriptionManagementStates.waiting_for_slots_amount)
+    await callback.answer()
+
+
+@router.message(SubscriptionManagementStates.waiting_for_slots_amount)
+async def process_slots_amount(message: types.Message, state: FSMContext):
+    """Обработка ввода количества доступных подписок"""
+    try:
+        slots = int(message.text)
+        
+        if slots < 0:
+            await message.answer("❌ Количество не может быть отрицательным!")
+            return
+        
+        # Устанавливаем количество доступных подписок
+        await db.set_available_subscription_slots(slots)
+        
+        await message.answer(
+            f"✅ <b>Количество обновлено!</b>\n\n"
+            f"🎫 Доступно подписок: <b>{slots}</b>\n\n"
+            f"Теперь {slots} человек сможет купить подписку.",
+ طبی            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="🎫 Изменить снова", callback_data="manage_subscription_slots")],
+                [InlineKeyboardButton(text=" ⬅️ Назад", callback_data="admin_subscriptions")]
+            ])
+        )
+        
+        await state.clear()
+        
+    except ValueError:
+        await message.answer(
+            "❌ <b>Неверный формат!</b>\n\n"
+            "Введите число.\n"
             "Попробуйте снова:"
         )
 
